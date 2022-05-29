@@ -14,11 +14,7 @@
   "author": "Vincent Bollaert <vincentbollaert@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "echo \"Error: no test specified\" --passWithNoTests",
-    "develop": "cross-env NODE_ENV='development' webpack serve --config webpack.dev.js --env mode='development'",
-    "build": "cross-env NODE_ENV='production' && webpack --config webpack.prod.js",
-    "start": "node ./server.js",
-    "build:preview": "http-server build",
+    "develop:next": "next start",
     "lint": "eslint 'src/**/*.{tsx,ts}' --fix",
     "pretty": "npx prettier --write .",
     "commit": "cz",
