@@ -14,7 +14,10 @@
   "author": "Vincent Bollaert <vincentbollaert@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "develop:next": "next start",
+    "develop": "next",
+    "build": "next build",
+    "start": "next start",
+    "type-check": "tsc",
     "lint": "eslint 'src/**/*.{tsx,ts}' --fix",
     "pretty": "npx prettier --write .",
     "commit": "cz",
@@ -49,7 +52,6 @@
     "react-hook-form": "^7.30.0",
     "react-hot-loader": "^4.13.0",
     "react-redux": "^7.2.4",
-    "react-router-dom": "^5.3.1",
     "styled-components": "^5.3.5",
     "ts-node": "^10.7.0",
     "webpack-merge": "^5.8.0"
@@ -59,7 +61,6 @@
     "@types/mini-css-extract-plugin": "^2.5.1",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
-    "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.25",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",

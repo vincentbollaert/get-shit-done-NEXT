@@ -1,0 +1,13 @@
+import { Provider } from 'react-redux';
+import type { AppProps } from 'next/app';
+import Application from './';
+import { store } from '~/Application/Root/store';
+
+// eslint-disable-next-line import/no-default-export
+export default function ApplicationRoot({ Component, pageProps }: AppProps) {
+  return (
+    <Provider store={store}>
+      <Component {...pageProps} />
+    </Provider>
+  );
+}

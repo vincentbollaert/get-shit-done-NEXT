@@ -16,7 +16,7 @@ import { Calendar } from './Calendar/Calendar';
 import { Sidebar } from './Sidebar/Sidebar';
 import { SignInForm } from './SignInForm/SignInForm';
 
-export const Home = () => {
+const Home = () => {
   const dispatch = useAppDispatch();
   const isSidebarOpen = useAppSelector((state) => state.app).isSidebarOpen;
   const calendarRef = useRef(null);
@@ -56,6 +56,9 @@ export const Home = () => {
 
   return null;
 };
+
+// eslint-disable-next-line import/no-default-export
+export default Home;
 
 export const PageWrap = styled.div`
   display: flex;

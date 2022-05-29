@@ -1,14 +1,12 @@
-import { Redirect, Route, Switch } from 'react-router-dom';
+import type { NextPage } from 'next';
+import Head from 'next/head';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { useGetSettingsQuery } from '~/api/requests';
 import { Settings } from '~/api/types';
-// import { SWUpdate } from '~/shared/components';
-// import { useServiceWorker } from '~/shared/hooks/useServiceWorker';
 import { themes } from '~/shared/themes';
-import { Home } from '../pages/Home/Home';
+import Home from './Home/Home';
 import { reset } from '../styles';
 import '../styles/utility-classes.scss';
-import { homePath } from './paths';
 
 const GlobalStyle = createGlobalStyle<{ activeSizeTheme: Settings['size'] }>`
   html {
@@ -24,24 +22,26 @@ const PageWrap = styled.div`
   height: 100vh;
 `;
 
-export const Application = () => {
-  // const isUpdateAvailable = useServiceWorker(false);
+const IndexPage: NextPage = () => {
   const { data } = useGetSettingsQuery();
   const activeColorThemeValues = themes[data?.theme || 'light'];
   const activeSizeTheme = data?.size || 'normal';
 
   return (
     <div>
+      <Head>
+        <title>Test homepage</title>
+        {/* <link rel="icon" href="/favicon.ico" /> */}
+      </Head>
       <GlobalStyle activeSizeTheme={activeSizeTheme} />
       <ThemeProvider theme={activeColorThemeValues}>
         <PageWrap>
-          <Switch>
-            <Route exact path={homePath()} component={Home} />
-            <Redirect to={homePath()} />
-          </Switch>
-          {/* <SWUpdate isUpdateAvailable={isUpdateAvailable} /> */}
+          <Home />
         </PageWrap>
       </ThemeProvider>
     </div>
   );
 };
+
+// eslint-disable-next-line import/no-default-export
+export default IndexPage;
