@@ -30,15 +30,15 @@ const Home = () => {
     [isSidebarOpen]
   );
 
-  if (!currentUser) {
-    return (
-      <Modal isVisible title="Sign in" width={17} onOverlayToggle={() => null}>
-        <SignInForm />
-      </Modal>
-    );
-  }
+  // if (!currentUser) {
+  //   return (
+  //     <Modal isVisible title="Sign in" width={17} onOverlayToggle={() => null}>
+  //       <SignInForm />
+  //     </Modal>
+  //   );
+  // }
 
-  if (currentUser) {
+  // if (currentUser) {
     return (
       <PageWrap>
         <Wrap isSidebarOpen={isSidebarOpen}>
@@ -52,7 +52,7 @@ const Home = () => {
         <Sidebar isOpen={isSidebarOpen} setIsOpen={onSidebarToggle} />
       </PageWrap>
     );
-  }
+  // }
 
   return null;
 };

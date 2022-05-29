@@ -1,5 +1,5 @@
 import { createApi, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ValueOf } from '../pages/Home/Calendar/EditCalendarTask/EditCalendarTask';
+import { ValueOf } from '../Home/Calendar/EditCalendarTask/EditCalendarTask';
 import { actions } from '../reducers/calendar';
 import { actions as toastActions } from '../reducers/toast';
 import { taskSort } from '../shared/utils';

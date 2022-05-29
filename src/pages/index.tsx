@@ -4,9 +4,8 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { useGetSettingsQuery } from '~/api/requests';
 import { Settings } from '~/api/types';
 import { themes } from '~/shared/themes';
-import Home from './Home/Home';
+import Home from '../Home/Home';
 import { reset } from '../styles';
-import '../styles/utility-classes.scss';
 
 const GlobalStyle = createGlobalStyle<{ activeSizeTheme: Settings['size'] }>`
   html {

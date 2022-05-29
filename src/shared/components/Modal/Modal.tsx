@@ -12,23 +12,23 @@ type Props = {
 
 // TODO: Use createPortal correctly
 export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Props) =>
-  !isVisible
-    ? null
-    : ReactDOM.createPortal(
-        <Wrap>
-          <Overlay onClick={onOverlayToggle} />
-          <ModalWrap width={width} tabIndex={0}>
-            <InnerWrap>
-              <Header>
-                {title}
-                <IconStyled variant="close" onClick={onOverlayToggle} />
-              </Header>
-              <Content>{children}</Content>
-            </InnerWrap>
-          </ModalWrap>
-        </Wrap>,
-        document.querySelector('#app')!
-      );
+  !isVisible ? null : (
+    // : ReactDOM.createPortal(
+    <Wrap>
+      <Overlay onClick={onOverlayToggle} />
+      <ModalWrap width={width} tabIndex={0}>
+        <InnerWrap>
+          <Header>
+            {title}
+            <IconStyled variant="close" onClick={onOverlayToggle} />
+          </Header>
+          <Content>{children}</Content>
+        </InnerWrap>
+      </ModalWrap>
+    </Wrap>
+  );
+// document?.querySelector('#app')
+// );
 
 const Wrap = styled.div`
   z-index: 1;

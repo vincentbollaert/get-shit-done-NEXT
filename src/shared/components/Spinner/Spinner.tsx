@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import styled from 'styled-components';
-import loaderSvg from '~/assets/svg/loader.svg';
+import loaderSvg from '~/public/svg/loader.svg';
 import { Svg } from '../Svg/Svg';
 
 export const CN_LOADER = 'loader';
