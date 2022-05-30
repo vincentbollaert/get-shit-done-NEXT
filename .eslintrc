@@ -29,7 +29,6 @@
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
     "react/display-name": "off",
-    // "@typescript-eslint/no-use-before-define": ["error", { "functions": false }], // hoisting
     "@typescript-eslint/no-var-requires": "off", // should allow require
     "@typescript-eslint/explicit-module-boundary-types": "off", // disables explicit fn return type
     "import/no-named-default": "off",

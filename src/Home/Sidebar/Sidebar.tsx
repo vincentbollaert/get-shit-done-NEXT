@@ -1,14 +1,15 @@
 import sub from 'date-fns/sub';
-import { lazy, Suspense, useState } from 'react';
+import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useSignoutMutation } from '~/api/requests';
 import { Icon, IconVariant } from '~/shared/components';
 import { useFullscreenToggle } from '~/shared/hooks/useFullscreenToggle';
 import { STYLE_SIDEBAR_WIDTH_UNIT } from '~/styles';
+import Settings from './Settings/Settings';
 import { TabHOC } from './TabHOC/TabHOC';
-
-const Todos = lazy(() => import('./Todos/Todos'));
-const Settings = lazy(() => import('./Settings/Settings'));
+// const Todos = lazy(() => import('./Todos/Todos'));
+// const Settings = lazy(() => import('./Settings/Settings'));
+import Todos from './Todos/Todos';
 
 type Props = {
   isOpen: boolean;
@@ -43,7 +44,7 @@ export const Sidebar = ({ isOpen, setIsOpen }: Props) => {
 
   return (
     <Wrap>
-      <Suspense fallback={<div />}>
+      {/* <Suspense fallback={<div />}> */}
         <InnerWrap>
           <Toggles>
             <Toggle isActive={isFullscreen} variant="fullscreen" onClick={setIsFullscreen} />
@@ -72,7 +73,7 @@ export const Sidebar = ({ isOpen, setIsOpen }: Props) => {
             <Component key={id} isActive={id === activeTabId} title={id} />
           ))}
         </Content>
-      </Suspense>
+      {/* </Suspense> */}
     </Wrap>
   );
 };

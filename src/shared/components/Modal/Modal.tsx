@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { Icon } from '~/shared/components';
@@ -11,24 +12,31 @@ type Props = {
 };
 
 // TODO: Use createPortal correctly
-export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Props) =>
-  !isVisible ? null : (
-    // : ReactDOM.createPortal(
-    <Wrap>
-      <Overlay onClick={onOverlayToggle} />
-      <ModalWrap width={width} tabIndex={0}>
-        <InnerWrap>
-          <Header>
-            {title}
-            <IconStyled variant="close" onClick={onOverlayToggle} />
-          </Header>
-          <Content>{children}</Content>
-        </InnerWrap>
-      </ModalWrap>
-    </Wrap>
-  );
-// document?.querySelector('#app')
-// );
+export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Props) => {
+  const [isClientSide, setIsClientSide] = useState(false);
+
+  useEffect(() => {
+    setIsClientSide(true);
+  }, []);
+
+  return !isClientSide || !isVisible
+    ? null
+    : ReactDOM.createPortal(
+        <Wrap>
+          <Overlay onClick={onOverlayToggle} />
+          <ModalWrap width={width} tabIndex={0}>
+            <InnerWrap>
+              <Header>
+                {title}
+                <IconStyled variant="close" onClick={onOverlayToggle} />
+              </Header>
+              <Content>{children}</Content>
+            </InnerWrap>
+          </ModalWrap>
+        </Wrap>,
+        document.querySelector('body')!
+      );
+};
 
 const Wrap = styled.div`
   z-index: 1;
