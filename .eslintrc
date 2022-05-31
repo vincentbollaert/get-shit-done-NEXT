@@ -1,0 +1,41 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["~", "./src"]],
+        "extensions": [".ts", ".tsx"]
+      }
+    }
+  },
+  "plugins": ["html", "react", "@typescript-eslint", "import"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "rules": {
+    "react/prop-types": "off",
+    "react/jsx-uses-react": "off", // React import not needed in v17+
+    "react/react-in-jsx-scope": "off", // React import not needed in v17+
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "react/display-name": "off",
+    "@typescript-eslint/no-var-requires": "off", // should allow require
+    "@typescript-eslint/explicit-module-boundary-types": "off", // disables explicit fn return type
+    "import/no-named-default": "off",
+    "import/no-default-export": "error",
+    "import/prefer-default-export": "off",
+    "no-nested-ternary": "off",
+    "no-use-before-define": "off", // hoisting
+    "semi": "error"
+  }
+}
