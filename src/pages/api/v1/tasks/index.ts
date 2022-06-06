@@ -33,6 +33,7 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   } else if (req.method === 'POST') {
     try {
       const task = await new Task(req.body);
+      task.save();
       res.status(200).json({ data: task });
     } catch (error) {
       res.status(500).json({ errorMessage: 'could not add task' });

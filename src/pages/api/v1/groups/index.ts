@@ -17,6 +17,7 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   } else if (req.method === 'POST') {
     try {
       const group = await new Group(req.body);
+      group.save();
       res.status(200).json({ data: group });
     } catch (error) {
       res.status(500).json({ errorMessage: 'could not add group' });

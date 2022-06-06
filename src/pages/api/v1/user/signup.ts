@@ -18,7 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
       const userAttributes: UserAttributes = { email, password };
       const newUser = new User(userAttributes);
-      await newUser.save();
+      newUser.save();
 
       const jwt = generateJWT({ userId: foundUser._id, email: foundUser.email });
       res.setHeader('Set-Cookie', `authCookie=${jwt}`);
