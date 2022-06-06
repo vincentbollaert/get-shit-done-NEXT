@@ -17,6 +17,7 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   } else if (req.method === 'POST') {
     try {
       const todo = await new Todo(req.body);
+      todo.save();
       res.status(200).json({ data: todo });
     } catch (error) {
       res.status(500).json({ errorMessage: 'could not add todo' });
