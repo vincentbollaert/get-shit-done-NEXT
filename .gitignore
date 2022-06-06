@@ -2,6 +2,7 @@
 
 certificates/
 .next
+.env.local
 
 # build
 public
