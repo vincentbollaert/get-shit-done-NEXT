@@ -5,7 +5,6 @@ certificates/
 .env.local
 
 # build
-public
 build
 
 # Logs
