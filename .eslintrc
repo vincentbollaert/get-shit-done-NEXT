@@ -32,8 +32,8 @@
     "@typescript-eslint/no-var-requires": "off", // should allow require
     "@typescript-eslint/explicit-module-boundary-types": "off", // disables explicit fn return type
     "import/no-named-default": "off",
-    "import/no-default-export": "error",
-    "import/prefer-default-export": "off",
+    // "import/no-default-export": "error", // will re-enable once next is all set up
+    // "import/prefer-default-export": "off", // will re-enable once next is all set up
     "no-nested-ternary": "off",
     "no-use-before-define": "off", // hoisting
     "semi": "error"
