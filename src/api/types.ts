@@ -1,5 +1,6 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import type { NextApiRequest } from 'next';
 
 // models
 // TODO: update these responses
@@ -61,6 +62,9 @@ export type RTKQueryStatus = {
   error?: FetchBaseQueryError | SerializedError;
   originalArgs?: any;
 };
+
+// next api
+export type NextApiRequestWithUser = NextApiRequest & { loggedInUser?: User };
 
 // requests - tasks
 export type GetTasksRequest = string; // monthOfTasks
