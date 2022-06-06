@@ -39,7 +39,7 @@ import {
 } from './types';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
-const URL = IS_DEV ? '/api/v1' : 'https://get-shit-done-api.herokuapp.com/api/v1';
+const URL = IS_DEV ? '/api/v1' : '/api/v1';
 
 export const TASKS_PATH = '/tasks';
 export const getTaskPath = (id: string) => `${TASKS_PATH}/${id}`;
