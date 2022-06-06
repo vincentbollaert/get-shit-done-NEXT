@@ -39,18 +39,18 @@ import {
 } from './types';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
-const URL = IS_DEV ? 'https://localhost:3005/api/v1' : 'https://get-shit-done-api.herokuapp.com/api/v1';
+const URL = IS_DEV ? '/api/v1' : 'https://get-shit-done-api.herokuapp.com/api/v1';
 
-export const TASKS_PATH = `${URL}/tasks`;
+export const TASKS_PATH = '/tasks';
 export const getTaskPath = (id: string) => `${TASKS_PATH}/${id}`;
 
-export const GROUPS_PATH = `${URL}/groups`;
+export const GROUPS_PATH = '/groups';
 export const getGroupPath = (id: string) => `${GROUPS_PATH}/${id}`;
 
-export const TODOS_PATH = `${URL}/todos`;
+export const TODOS_PATH = '/todos';
 export const getTodoPath = (id: string) => `${TODOS_PATH}/${id}`;
 
-export const SETTINGS_PATH = `${URL}/settings`;
+export const SETTINGS_PATH = '/settings';
 
 const queryFn = ({ url, method, body }: FetchArgs): FetchArgs => ({
   url,
@@ -93,7 +93,7 @@ export const tasksApi = createApi({
     // TODO: save current month and year and pass as params to getTasks
     // TODO: add proper error handling for all
     getTasks: builder.query<GetTasksResponse['data'], void>({
-      query: (monthOfTasks) => queryFn({ url: `${TASKS_PATH}?month=May` }),
+      query: (monthOfTasks) => queryFn({ url: `${TASKS_PATH}?month=Jun` }),
       transformResponse: (payload: GetTasksResponse) => payload.data,
       providesTags: ['Task'],
     }),
