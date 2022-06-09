@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 import { useUpdateSettingsMutation } from '~/api/requests';
-import type { Settings } from '~/api/types';
+import type { ClientModel } from '~/api/types';
 import { Tag, TagsWrap } from '~/shared/components';
 import { Section, SectionHeader } from '../../shared.styled';
 
-export const SectionSize = ({ sizeTheme }: { sizeTheme: Settings['size'] }) => {
+export const SectionSize = ({ sizeTheme }: { sizeTheme: ClientModel['Settings']['size'] }) => {
   const [onUpdateSettings] = useUpdateSettingsMutation();
-  const sizeThemeOptions: Settings['size'][] = ['compact', 'normal', 'breath'];
+  const sizeThemeOptions: ClientModel['Settings']['size'][] = ['compact', 'normal', 'breath'];
 
   return (
     <Section>

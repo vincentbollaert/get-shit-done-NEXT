@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useUpdateSettingsMutation } from '~/api/requests';
-import { Settings } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { Switch } from '~/shared/components';
 import { Section, SectionHeader } from '../../shared.styled';
 
-export const SectionMisc = ({ settingsData }: { settingsData: Settings }) => {
+export const SectionMisc = ({ settingsData }: { settingsData: ClientModel['Settings'] }) => {
   const [onUpdateSettings] = useUpdateSettingsMutation();
 
   const {

@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import dbConnect from '~/lib/dbConnect';
-import User, { UserAttributes } from '~/models/userModel';
+import dbConnect from '~/api/utils/dbConnect';
+import User from '~/api/models/userModel';
 import { generateJWT } from '~/api/auth';
+import type { Models } from '~/api/types';
 
 // TODO: add the form validation middleware too
 async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -16,13 +17,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         res.status(500).send({ errorMessage: 'email already in use' });
       }
 
-      const userAttributes: UserAttributes = { email, password };
+      const userAttributes: Models['User'] = { email, password };
       const newUser = new User(userAttributes);
       newUser.save();
 
       const jwt = generateJWT({ userId: foundUser._id, email: foundUser.email });
       res.setHeader('Set-Cookie', `authCookie=${jwt}`);
-      res.status(200).json({ data: foundUser });
+      res.status(200).json(foundUser);
     } catch (err) {
       res.status(500).send({ errorMessage: 'Error idk something went wrong', err });
     }

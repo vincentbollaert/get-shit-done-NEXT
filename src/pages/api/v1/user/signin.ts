@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import dbConnect from '~/lib/dbConnect';
-import { Password } from '~/lib/password';
-import User from '~/models/userModel';
+import dbConnect from '~/api/utils/dbConnect';
+import { Password } from '~/api/utils/password';
+import User from '~/api/models/userModel';
 import { generateJWT } from '~/api/auth';
 
 // TODO: add the form validation middleware too
@@ -21,7 +21,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       if (isPasswordCorrect) {
         const jwt = generateJWT({ userId: foundUser._id, email: foundUser.email });
         res.setHeader('Set-Cookie', `authCookie=${jwt}; path=/`);
-        res.status(200).json({ data: foundUser });
+        res.status(200).json(foundUser);
       } else {
         res.status(500).send({ errorMessage: 'passwords do not match' });
       }

@@ -2,11 +2,11 @@ import Head from 'next/head';
 import { ReactNode } from 'react';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { useGetSettingsQuery } from '~/api/requests';
-import { Settings } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { themes } from '~/shared/themes';
 import { reset } from '../styles';
 
-const GlobalStyle = createGlobalStyle<{ activeSizeTheme: Settings['size'] }>`
+const GlobalStyle = createGlobalStyle<{ activeSizeTheme: ClientModel['Settings']['size'] }>`
   html {
     font-size: ${(p) => (p.activeSizeTheme === 'normal' ? '62.5%' : p.activeSizeTheme === 'breath' ? '50%' : '75%')};
   }

@@ -3,7 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { tasksApi, useGetGroupsQuery, useRemoveTaskMutation, useSaveTaskMutation } from '~/api/requests';
-import { Task } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { AsyncButton, AsyncSvgButton, Dropdown, Icon, ModalFooter, TextField } from '~/shared/components';
@@ -46,7 +46,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
   useEffect(() => {
     if (Object.values(watchedFields).every((x) => !x)) return;
 
-    const formfieldsMapped: Task = {
+    const formfieldsMapped: ClientModel['Task'] = {
       userId,
       taskId,
       timestamp,
@@ -58,11 +58,11 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
     dispatch(
       tasksApi.util.updateQueryResult('getTasks', undefined, (draft) => {
         const taskToUpdate = draft[timestamp].tasks.find((task) => task.taskId === taskId) as Record<
-          keyof Task,
-          ValueOf<Task>
+          keyof ClientModel['Task'],
+          ValueOf<ClientModel['Task']>
         >;
         for (const x in taskToUpdate) {
-          const key = x as keyof Task;
+          const key = x as keyof ClientModel['Task'];
           taskToUpdate[key] = formfieldsMapped[key];
         }
       })

@@ -5,7 +5,7 @@ import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import getDaysInMonth from 'date-fns/getDaysInMonth';
 import lastDayOfMonth from 'date-fns/lastDayOfMonth';
 import sub from 'date-fns/sub';
-import { RTKQueryStatus, Task, TasksByDay } from '~/api/types';
+import { RTKQueryStatus, ClientModel, TasksByDay } from '~/api/types';
 import { AsyncStatus } from '~/shared/types';
 
 export const generateMonthDays = (date: Date = new Date()) =>
@@ -17,7 +17,7 @@ export const generateMonthDays = (date: Date = new Date()) =>
 export const generateMonthDayStrings = (date: Date = new Date()) =>
   generateMonthDays(date).map((date) => date.toString());
 
-export const taskSort = (a: Task, b: Task) => a.time[0] - b.time[0];
+export const taskSort = (a: ClientModel['Task'], b: ClientModel['Task']) => a.time[0] - b.time[0];
 
 export const determinePlaceholderHeight = ({ wrapRef, hoursAxis }: any) =>
   wrapRef.current ? wrapRef.current.getBoundingClientRect().height / (hoursAxis.length * 2) : 0;

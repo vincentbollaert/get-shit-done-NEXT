@@ -1,6 +1,6 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useUpdateSettingsMutation } from '~/api/requests';
-import { Settings } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { TextField } from '~/shared/components';
 import { Section, SectionHeader } from '../../shared.styled';
 
@@ -9,7 +9,7 @@ type FormValues = {
   defaultHoursTo: number;
 };
 
-export const SectionHours = ({ hoursToShow }: { hoursToShow: Settings['hoursToShow'] }) => {
+export const SectionHours = ({ hoursToShow }: { hoursToShow: ClientModel['Settings']['hoursToShow'] }) => {
   const [onUpdateSettings] = useUpdateSettingsMutation();
   const { register, handleSubmit, formState } = useForm<FormValues>();
 

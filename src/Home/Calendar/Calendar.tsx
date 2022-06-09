@@ -3,7 +3,7 @@ import { useCallback, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { tasksApi, useGetTasksQuery } from '~/api/requests';
-import { Task } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { CN_LOADER, Modal, SpinnerLoader } from '~/shared/components';
@@ -52,9 +52,9 @@ export const Calendar = () => {
       tasksApi.util.updateQueryResult('getTasks', undefined, (draft) => {
         const taskToUpdate = draft[taskBeingEditedClone!.timestamp].tasks.find(
           (task) => task.taskId === taskBeingEditedClone!.taskId
-        ) as Record<keyof Task, ValueOf<Task>>;
+        ) as Record<keyof ClientModel['Task'], ValueOf<ClientModel['Task']>>;
         for (const task in taskToUpdate) {
-          const key = task as keyof Task;
+          const key = task as keyof ClientModel['Task'];
           taskToUpdate[key] = taskBeingEditedClone![key];
         }
       })
