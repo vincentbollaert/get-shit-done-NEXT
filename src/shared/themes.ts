@@ -1,4 +1,4 @@
-import type { Settings } from '~/api/types';
+import type { ClientModel } from '~/api/types';
 
 type ThemeValues = {
   bg: string;
@@ -12,7 +12,7 @@ type ThemeValues = {
   currentTimeColor: string;
 };
 
-export const themes: Record<Settings['theme'], ThemeValues> = {
+export const themes: Record<ClientModel['Settings']['theme'], ThemeValues> = {
   light: {
     bg: '#fff',
     columnBorder: 'var(--isabelline)',

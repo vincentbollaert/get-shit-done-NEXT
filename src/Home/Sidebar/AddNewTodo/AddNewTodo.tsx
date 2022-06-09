@@ -1,11 +1,11 @@
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { useGetCurrentUserQuery } from '~/api/requests';
-import { Todo } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { TextField } from '~/shared/components';
 
 type Props = {
-  addNewTodo(data: Omit<Todo, 'todoId'>): void;
+  addNewTodo(data: Omit<ClientModel['Todo'], 'todoId'>): void;
 };
 
 export const AddNewTodo = ({ addNewTodo }: Props) => {
@@ -15,7 +15,8 @@ export const AddNewTodo = ({ addNewTodo }: Props) => {
     formState: { errors },
   } = useForm();
   const { data: currentUser } = useGetCurrentUserQuery();
-  const onSubmit = (data: Omit<Todo, 'todoId' | 'userId'>) => addNewTodo({ ...data, userId: currentUser!.userId });
+  const onSubmit = (data: Omit<ClientModel['Todo'], 'todoId' | 'userId'>) =>
+    addNewTodo({ ...data, userId: currentUser!.userId });
   const errorMessage = (errors.todo || {}).type;
 
   return (

@@ -1,5 +1,5 @@
 import type { NextApiResponse } from 'next';
-import dbConnect from '~/lib/dbConnect';
+import dbConnect from '~/api/utils/dbConnect';
 import { verifyIfLoggedIn } from '~/api/auth';
 import { NextApiRequestWithUser } from '~/api/types';
 
@@ -7,7 +7,7 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   await dbConnect();
   if (req.method === 'GET') {
     try {
-      res.status(200).json({ data: req.loggedInUser });
+      res.status(200).json(req.loggedInUser);
     } catch (err) {
       res.status(500).send({ errorMessage: 'no current user' });
     }

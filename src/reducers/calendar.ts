@@ -1,18 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import format from 'date-fns/format';
-import { Task, TaskUnsaved } from '~/api/types';
+import { ClientModel, Models } from '~/api/types';
 import { HOURS_IN_DAY } from '~/shared/constants';
 import { generateMonthDays, generateMonthDayStrings } from '~/shared/utils';
 
+type UnsavedTask = Models['Task'];
+
 // TODO: Add object for meta values
-export type TaskWithMeta = Task & {
+export type TaskWithMeta = ClientModel['Task'] & {
   heightInFlex?: number;
   gapBefore?: number;
   gapAfter?: number;
 };
 type InitialState = {
   focusedTimestamp?: string;
-  taskBeingPrepared?: TaskUnsaved;
+  taskBeingPrepared?: UnsavedTask;
   taskBeingEdited?: TaskWithMeta;
   taskBeingEditedClone?: TaskWithMeta;
   hoursAxis: number[];
@@ -42,7 +44,7 @@ export const { reducer, actions } = createSlice({
     saveFocusedTimestamp(state, { payload }: PayloadAction<{ timestamp: string }>) {
       state.focusedTimestamp = payload.timestamp;
     },
-    prepareTask(state, { payload }: PayloadAction<TaskUnsaved>) {
+    prepareTask(state, { payload }: PayloadAction<UnsavedTask>) {
       state.taskBeingPrepared = payload;
     },
     removePreparedTask(state) {
@@ -51,11 +53,11 @@ export const { reducer, actions } = createSlice({
     removeEditedTask(state) {
       state.taskBeingEdited = undefined;
     },
-    editTaskPrepare(state, { payload: task }: PayloadAction<Task>) {
+    editTaskPrepare(state, { payload: task }: PayloadAction<ClientModel['Task']>) {
       state.taskBeingEdited = task;
       state.taskBeingEditedClone = task;
     },
-    updateEditedTask(state, { payload }: PayloadAction<Task>) {
+    updateEditedTask(state, { payload }: PayloadAction<ClientModel['Task']>) {
       state.taskBeingEdited = payload;
     },
     editTaskCancel(state) {

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useGetCurrentUserQuery } from '~/api/requests';
-import { Group } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { colors } from '~/shared/themes';
@@ -16,7 +16,7 @@ type Props = {
   y: number;
   timeFromY: number;
   placeholderHeight: number;
-  groups: Group[];
+  groups: ClientModel['Group'][];
 };
 
 export const PlaceholderTask = ({

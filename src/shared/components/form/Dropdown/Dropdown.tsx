@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { Group } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { colors } from '~/shared/themes';
 import { Placeholder } from '../Placeholder/Placeholder.styled';
 import { IconStyled, Input, Wrap } from '../shared.styled';
@@ -8,10 +8,10 @@ import { IconStyled, Input, Wrap } from '../shared.styled';
 type Props = {
   theme: string;
   isInForm?: boolean;
-  activeGroup?: Group;
+  activeGroup?: ClientModel['Group'];
   label: string;
-  groups: Group[];
-  onSelect(item: Group): void;
+  groups: ClientModel['Group'][];
+  onSelect(item: ClientModel['Group']): void;
 };
 
 // TODO: rename this into group dd
@@ -19,7 +19,7 @@ export const Dropdown = ({ theme, isInForm = false, activeGroup, label, groups, 
   const [isOpen, setIsOpen] = useState(false);
   const accentColor = activeGroup?.colorId ? colors[activeGroup.colorId] : '000';
 
-  function onItemSelect(selectItem: Group) {
+  function onItemSelect(selectItem: ClientModel['Group']) {
     onSelect(selectItem);
     setIsOpen(false);
   }

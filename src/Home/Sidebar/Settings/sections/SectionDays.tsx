@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 import { useUpdateSettingsMutation } from '~/api/requests';
-import { Settings } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { Tag, TagsWrap } from '~/shared/components';
 import { Section, SectionHeader } from '../../shared.styled';
 
-export const SectionDays = ({ daysToShow }: { daysToShow: Settings['daysToShow'] }) => {
+export const SectionDays = ({ daysToShow }: { daysToShow: ClientModel['Settings']['daysToShow'] }) => {
   const [onUpdateSettings] = useUpdateSettingsMutation();
-  const daysToShowOptions: Settings['daysToShow'][] = ['1week', '3weeks', '1month'];
+  const daysToShowOptions: ClientModel['Settings']['daysToShow'][] = ['1week', '3weeks', '1month'];
 
   return (
     <Section>

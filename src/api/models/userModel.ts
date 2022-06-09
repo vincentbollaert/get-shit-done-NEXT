@@ -1,10 +1,5 @@
 import mongoose from 'mongoose';
-import { Password } from '../lib/password';
-
-export type UserAttributes = {
-  email: string;
-  password: string;
-};
+import { Password } from '../utils/password';
 
 const UserSchema = new mongoose.Schema(
   {

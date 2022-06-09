@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useAddTodoMutation, useGetTodosQuery, useRemoveTodoMutation, useUpdateTodoMutation } from '~/api/requests';
-import { Todo as TodoType } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { AsyncSvgButton, AsyncTextButton, Icon, SpinnerLoader, TextError } from '~/shared/components';
 import { useUndoable } from '~/shared/hooks/useUndoable';
 import { getAsyncStatus } from '~/shared/utils';
@@ -24,7 +24,7 @@ const Todos = () => {
       <TodosSpinner size={4} isLoading={getTodosState.isLoading} />
       <TextError errorMessage={getAsyncStatus(getTodosState)?.errorMessage} />
 
-      {getTodosState.data?.map(({ todoId, todoName, isDone }: TodoType) => {
+      {getTodosState.data?.map(({ todoId, todoName, isDone }: ClientModel['Todo']) => {
         const asyncStatusRemove = getAsyncStatus(removeTodoStatus, todoId);
         const asyncStatusUpdate = getAsyncStatus(updateTodoStatus, todoId);
         return (

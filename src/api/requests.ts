@@ -3,40 +3,7 @@ import { ValueOf } from '../Home/Calendar/EditCalendarTask/EditCalendarTask';
 import { actions } from '../reducers/calendar';
 import { actions as toastActions } from '../reducers/toast';
 import { taskSort } from '../shared/utils';
-import {
-  AddGroupRequest,
-  AddGroupResponse,
-  AddTaskRequest,
-  AddTaskResponse,
-  AddTodoRequest,
-  AddTodoResponse,
-  GetCurrentUserResponse,
-  GetGroupsResponse,
-  GetSettingsResponse,
-  GetTasksResponse,
-  GetTodosResponse,
-  RemoveGroupRequest,
-  RemoveGroupResponse,
-  RemoveTaskRequest,
-  RemoveTaskResponse,
-  RemoveTodoRequest,
-  RemoveTodoResponse,
-  SaveTaskRequest,
-  SaveTaskResponse,
-  SignInRequest,
-  SignInResponse,
-  SignOutRequest,
-  SignOutResponse,
-  SignUpRequest,
-  SignUpResponse,
-  Task,
-  UpdateGroupRequest,
-  UpdateGroupResponse,
-  UpdateSettingsRequest,
-  UpdateSettingsResponse,
-  UpdateTodoRequest,
-  UpdateTodoResponse,
-} from './types';
+import { ClientModel, Requests, TasksByDay } from './types';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 const URL = IS_DEV ? '/api/v1' : '/api/v1';
@@ -60,7 +27,7 @@ const queryFn = ({ url, method, body }: FetchArgs): FetchArgs => ({
   credentials: 'include',
 });
 
-const findTask = (tasks: Task[], taskId: string) => tasks.find((task) => task.taskId === taskId);
+const findTask = (tasks: ClientModel['Task'][], taskId: string) => tasks.find((task) => task.taskId === taskId);
 
 export const tasksApi = createApi({
   reducerPath: 'tasksApi',
@@ -68,23 +35,19 @@ export const tasksApi = createApi({
   tagTypes: ['Task', 'Todo', 'Group', 'Settings', 'CurrentUser'],
   endpoints: (builder) => ({
     // user
-    getCurrentUser: builder.query<GetCurrentUserResponse['data'], void>({
+    getCurrentUser: builder.query<ClientModel['User'], void>({
       query: () => queryFn({ url: '/user/current-user' }),
-      transformResponse: (payload: GetCurrentUserResponse) => payload.data,
       providesTags: ['CurrentUser'],
     }),
-    signin: builder.mutation<SignInResponse['data'], SignInRequest>({
+    signin: builder.mutation<ClientModel['User'], Requests['SignIn']>({
       query: (requestParams) => queryFn({ url: '/user/signin', method: 'POST', body: requestParams }),
-      transformResponse: (payload: SignInResponse) => payload.data,
       invalidatesTags: ['Task', 'Todo', 'Group', 'CurrentUser'],
     }),
-    signup: builder.mutation<SignUpResponse['data'], SignUpRequest>({
+    signup: builder.mutation<ClientModel['User'], Requests['SignUp']>({
       query: (requestParams) => queryFn({ url: '/user/signup', method: 'POST', body: requestParams }),
-      transformResponse: (payload: SignUpResponse) => payload.data,
     }),
-    signout: builder.mutation<SignOutResponse['data'], SignOutRequest>({
+    signout: builder.mutation<ClientModel['User'], Requests['SignOut']>({
       query: (requestParams) => queryFn({ url: '/user/signout', method: 'POST', body: requestParams }),
-      transformResponse: (payload: SignOutResponse) => payload.data,
       invalidatesTags: ['CurrentUser'],
     }),
 
@@ -92,12 +55,11 @@ export const tasksApi = createApi({
     // TODO: update query params to be object or union or something
     // TODO: save current month and year and pass as params to getTasks
     // TODO: add proper error handling for all
-    getTasks: builder.query<GetTasksResponse['data'], void>({
+    getTasks: builder.query<TasksByDay, void>({
       query: (monthOfTasks) => queryFn({ url: `${TASKS_PATH}?month=Jun` }),
-      transformResponse: (payload: GetTasksResponse) => payload.data,
       providesTags: ['Task'],
     }),
-    addTask: builder.mutation<AddTaskResponse, AddTaskRequest>({
+    addTask: builder.mutation<ClientModel['Task'], Requests['AddTask']>({
       query: (payload) => queryFn({ url: TASKS_PATH, body: payload, method: 'POST' }),
       async onQueryStarted(payload, { dispatch, queryFulfilled }) {
         const postResult = dispatch(
@@ -114,7 +76,7 @@ export const tasksApi = createApi({
           const response = await queryFulfilled;
           dispatch(
             tasksApi.util.updateQueryData('getTasks', undefined, (draft) => {
-              findTask(draft[payload.timestamp].tasks, 'unsaved task')!.taskId = response.data.data.taskId;
+              findTask(draft[payload.timestamp].tasks, 'unsaved task')!.taskId = response.data.taskId;
             })
           );
         } catch {
@@ -122,7 +84,7 @@ export const tasksApi = createApi({
         }
       },
     }),
-    saveTask: builder.mutation<SaveTaskResponse, SaveTaskRequest>({
+    saveTask: builder.mutation<ClientModel['Task'], Requests['SaveTask']>({
       query: (requestParams) =>
         queryFn({ url: getTaskPath(requestParams.taskId), method: 'PATCH', body: requestParams }),
       onQueryStarted: (requestParams, { dispatch }) => {
@@ -130,11 +92,11 @@ export const tasksApi = createApi({
           tasksApi.util.updateQueryData('getTasks', undefined, (draft) => {
             const { taskId, timestamp } = requestParams;
             const task = findTask(draft[timestamp].tasks, taskId) as Record<
-              keyof SaveTaskRequest,
-              ValueOf<SaveTaskRequest>
+              keyof Requests['SaveTask'],
+              ValueOf<Requests['SaveTask']>
             >;
             for (const x in task) {
-              const key = x as keyof Task;
+              const key = x as keyof ClientModel['Task'];
               task[key] = requestParams[key];
             }
           })
@@ -142,7 +104,7 @@ export const tasksApi = createApi({
         dispatch({ type: actions.removeEditedTask.toString() });
       },
     }),
-    removeTask: builder.mutation<RemoveTaskResponse, RemoveTaskRequest>({
+    removeTask: builder.mutation<ClientModel['Task'], Requests['RemoveTask']>({
       query: (requestParams) => queryFn({ url: getTaskPath(requestParams.taskId), method: 'DELETE' }),
       onQueryStarted: (requestParams, { dispatch }) => {
         dispatch(
@@ -156,12 +118,11 @@ export const tasksApi = createApi({
     }),
 
     // groups
-    getGroups: builder.query<GetGroupsResponse['data'], void>({
+    getGroups: builder.query<ClientModel['Group'][], void>({
       query: () => queryFn({ url: GROUPS_PATH }),
-      transformResponse: (payload: GetGroupsResponse) => payload.data,
       providesTags: ['Group'],
     }),
-    updateGroup: builder.mutation<UpdateGroupResponse, UpdateGroupRequest>({
+    updateGroup: builder.mutation<ClientModel['Group'], Requests['UpdateGroup']>({
       query: ({ groupId, colorId }) =>
         queryFn({
           url: getGroupPath(groupId),
@@ -177,7 +138,7 @@ export const tasksApi = createApi({
         );
       },
     }),
-    addGroup: builder.mutation<AddGroupResponse, AddGroupRequest>({
+    addGroup: builder.mutation<ClientModel['Group'], Requests['AddGroup']>({
       query: (requestParams) => queryFn({ url: GROUPS_PATH, body: requestParams, method: 'POST' }),
       onQueryStarted: (requestParams, { dispatch }) => {
         // dispatch(
@@ -188,7 +149,7 @@ export const tasksApi = createApi({
         dispatch(toastActions.addToast({ prefix: 'group added', message: 'sdsds' }));
       },
     }),
-    removeGroup: builder.mutation<RemoveGroupResponse, RemoveGroupRequest>({
+    removeGroup: builder.mutation<ClientModel['Group'], Requests['RemoveGroup']>({
       query: (groupId) => queryFn({ url: getGroupPath(groupId), method: 'DELETE' }),
       onQueryStarted: (requestParams, { dispatch }) => {
         dispatch(
@@ -200,20 +161,19 @@ export const tasksApi = createApi({
     }),
 
     // settings
-    getSettings: builder.query<GetSettingsResponse['data'], void>({
+    getSettings: builder.query<ClientModel['Settings'], void>({
       query: () => queryFn({ url: SETTINGS_PATH }),
-      transformResponse: (payload: GetSettingsResponse) => payload.data,
       providesTags: ['Settings'],
     }),
-    updateSettings: builder.mutation<UpdateSettingsResponse, UpdateSettingsRequest>({
+    updateSettings: builder.mutation<ClientModel['Settings'], Requests['UpdateSettings']>({
       query: (body) => queryFn({ url: SETTINGS_PATH, body, method: 'PATCH' }),
       onQueryStarted: (requestParams, { dispatch }) => {
         dispatch(
           tasksApi.util.updateQueryData('getSettings', undefined, (draft) => {
             console.log('update settings');
             Object.entries(requestParams).forEach(([key, value]) => {
-              const draftRecord: Record<keyof UpdateSettingsRequest, ValueOf<UpdateSettingsRequest>> = draft;
-              draftRecord[key as keyof UpdateSettingsRequest] = value;
+              const draftRecord: Record<keyof Requests['UpdateSettings'], ValueOf<Requests['UpdateSettings']>> = draft;
+              draftRecord[key as keyof Requests['UpdateSettings']] = value;
             });
           })
         );
@@ -221,12 +181,11 @@ export const tasksApi = createApi({
     }),
 
     // todos
-    getTodos: builder.query<GetTodosResponse['data'], void>({
+    getTodos: builder.query<ClientModel['Todo'][], void>({
       query: () => queryFn({ url: TODOS_PATH }),
-      transformResponse: (payload: GetTodosResponse) => payload.data,
       providesTags: ['Todo'],
     }),
-    updateTodo: builder.mutation<UpdateTodoResponse, UpdateTodoRequest>({
+    updateTodo: builder.mutation<ClientModel['Todo'], Requests['UpdateTodo']>({
       query: ({ todoId, isDone }) =>
         queryFn({
           url: getTodoPath(todoId),
@@ -242,7 +201,7 @@ export const tasksApi = createApi({
         );
       },
     }),
-    removeTodo: builder.mutation<RemoveTodoResponse, RemoveTodoRequest>({
+    removeTodo: builder.mutation<ClientModel['Todo'], Requests['RemoveTodo']>({
       async queryFn(todoId, queryApi, extraOptions, baseQuery) {
         const response = await new Promise((resolve) => {
           setTimeout(() => {
@@ -251,7 +210,7 @@ export const tasksApi = createApi({
         });
         // TODO: Add error handling
         // TODO: remove this data nesting
-        return response as { data: RemoveTodoResponse };
+        return response as { data: ClientModel['Todo'] };
       },
       onQueryStarted: (requestParams, { dispatch }) => {
         dispatch(
@@ -262,7 +221,7 @@ export const tasksApi = createApi({
         dispatch(toastActions.addToast({ prefix: 'todo removed', message: 'remove this todo' }));
       },
     }),
-    addTodo: builder.mutation<AddTodoResponse, AddTodoRequest>({
+    addTodo: builder.mutation<ClientModel['Todo'], Requests['AddTodo']>({
       query: (requestParams) => queryFn({ url: TODOS_PATH, body: requestParams, method: 'POST' }),
       onQueryStarted: (requestParams, { dispatch }) => {
         dispatch(

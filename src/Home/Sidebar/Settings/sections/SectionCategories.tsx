@@ -7,7 +7,7 @@ import {
   useRemoveGroupMutation,
   useUpdateGroupMutation,
 } from '~/api/requests';
-import { Group as GroupType } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { Colorpicker, Icon } from '~/shared/components';
 import { colors } from '~/shared/themes';
 import { Color } from '~/shared/types';
@@ -30,7 +30,7 @@ export const SectionCategories = () => {
     addGroup({ ...data, userId: currentUser!.userId });
   };
 
-  const onColorSelect = (selectedColor: Color, groupId: GroupType['groupId']) => {
+  const onColorSelect = (selectedColor: Color, groupId: ClientModel['Group']['groupId']) => {
     updateGroup({ groupId, colorId: selectedColor.colorId });
   };
 

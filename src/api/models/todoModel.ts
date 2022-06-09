@@ -1,11 +1,5 @@
 import mongoose from 'mongoose';
 
-export type TodoAttributes = {
-  todoName: string;
-  isDone?: boolean;
-  userId: string;
-};
-
 const TodoSchema = new mongoose.Schema(
   {
     todoName: {

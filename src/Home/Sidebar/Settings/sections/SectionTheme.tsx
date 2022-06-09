@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 import { Tag, TagsWrap } from '~/shared/components';
-import type { Settings } from '~/api/types';
+import type { ClientModel } from '~/api/types';
 import { useUpdateSettingsMutation } from '~/api/requests';
 import { Section, SectionHeader } from '../../shared.styled';
 
-export const SectionTheme = ({ colorTheme }: { colorTheme: Settings['theme'] }) => {
+export const SectionTheme = ({ colorTheme }: { colorTheme: ClientModel['Settings']['theme'] }) => {
   const [onUpdateSettings] = useUpdateSettingsMutation();
-  const colorThemeOptions: Settings['theme'][] = ['light', 'dark', 'high contrast'];
+  const colorThemeOptions: ClientModel['Settings']['theme'][] = ['light', 'dark', 'high contrast'];
 
   return (
     <Section>

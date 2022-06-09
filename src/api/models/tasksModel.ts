@@ -1,22 +1,20 @@
 import mongoose from 'mongoose';
 
-export type GroupAttributes = {
-  name: string;
-  colorId: string;
-  userId: string;
-};
-
-const GroupSchema = new mongoose.Schema(
+const TaskSchema = new mongoose.Schema(
   {
+    timestamp: {
+      type: String,
+      required: [true, 'must have timestamp'],
+    },
     name: {
       type: String,
       required: [true, 'must have name'],
-      unique: [true, 'must be unique'],
     },
-    colorId: {
+    group: {
       type: String,
-      required: [true, 'must have colorId'],
+      required: [true, 'must be grouped'],
     },
+    time: [Number],
     userId: {
       type: String,
       required: [true, 'must belong to a user'],
@@ -26,12 +24,12 @@ const GroupSchema = new mongoose.Schema(
     toJSON: {
       versionKey: false,
       transform(doc, ret) {
-        ret.groupId = ret._id;
+        ret.taskId = ret._id;
         delete ret._id;
       },
     },
   }
 );
 
-const Group = mongoose.models.Group || mongoose.model('Group', GroupSchema);
-export default Group;
+const Task = mongoose.models.Task || mongoose.model('Task', TaskSchema);
+export default Task;

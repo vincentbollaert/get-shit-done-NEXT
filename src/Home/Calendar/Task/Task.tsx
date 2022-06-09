@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { useRemoveTaskMutation } from '~/api/requests';
-import { Group } from '~/api/types';
+import { ClientModel } from '~/api/types';
 import { useAppDispatch } from '~/Application/Root';
 import { actions, TaskWithMeta } from '~/reducers/calendar';
 import { useUndoable } from '~/shared/hooks/useUndoable';
@@ -14,7 +14,7 @@ import { CN_COLUMN, CN_TASK_GAP, taskShadow, taskShadowBeingEdited } from '../sh
 type Props = {
   task: TaskWithMeta;
   isBeingEdited: boolean;
-  groups: Group[];
+  groups: ClientModel['Group'][];
 };
 export const Task = memo(function Task({ task, groups = [], isBeingEdited }: Props) {
   const undoable = useUndoable();

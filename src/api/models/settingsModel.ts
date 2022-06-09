@@ -1,20 +1,5 @@
 import mongoose from 'mongoose';
 
-export type SettingsAttributes = {
-  theme: 'light' | 'dark' | 'high contrast';
-  size: 'compact' | 'normal' | 'breath';
-  daysToShow: '1week' | '3weeks' | '1month';
-  hoursToShow: number[];
-  isHomepage: boolean;
-  showGridLines: boolean;
-  showHourMarkers: boolean;
-  shouldScrollColumns: boolean;
-  hideCalendarInactive: boolean;
-  hideCalendarStartup: boolean;
-  shouldAutoLogout: boolean;
-  userId: string;
-};
-
 const SettingsSchema = new mongoose.Schema(
   {
     theme: {
