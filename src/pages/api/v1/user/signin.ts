@@ -11,8 +11,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
       const { email, password } = req.body;
-
       const foundUser = await User.findOne({ email });
+
       if (!foundUser) {
         res.status(500).send({ errorMessage: 'invalid credentials' });
       }

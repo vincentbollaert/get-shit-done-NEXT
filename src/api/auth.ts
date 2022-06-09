@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import type { NextApiHandler, NextApiResponse } from 'next';
-import type { NextApiRequestWithUser, User } from '~/api/types';
+import type { NextApiRequestWithUser, ClientModel } from '~/api/types';
 
-export const generateJWT = ({ userId, email }: User) => jwt.sign({ userId, email }, process.env.JWT_KEY!);
+export const generateJWT = ({ userId, email }: ClientModel['User']) =>
+  jwt.sign({ userId, email }, process.env.JWT_KEY!);
 
 export const verifyIfLoggedIn =
   (handler: NextApiHandler) => async (req: NextApiRequestWithUser, res: NextApiResponse) => {
@@ -17,5 +18,5 @@ export const verifyIfLoggedIn =
 
 export const getLoggedInUser = async (req: NextApiRequestWithUser) => {
   const jwtToken = req.cookies.authCookie;
-  return jwt.verify(jwtToken, process.env.JWT_KEY!) as User;
+  return jwt.verify(jwtToken, process.env.JWT_KEY!) as ClientModel['User'];
 };

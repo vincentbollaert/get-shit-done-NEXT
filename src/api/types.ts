@@ -54,7 +54,7 @@ export type ClientModel = {
   Task: Models['Task'] & { taskId: string };
   Group: Models['Group'] & { groupId: string };
   Todo: Models['Todo'] & { todoId: string };
-  User: Models['User'];
+  User: Omit<Models['User'], 'password'> & { userId: string };
   Settings: Models['Settings'];
 };
 
