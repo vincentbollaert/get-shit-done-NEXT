@@ -1,8 +1,10 @@
 import Head from 'next/head';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import { useGetSettingsQuery } from '~/api/requests';
 import { ClientModel } from '~/api/types';
+import { useAppDispatch } from '~/Application/Root';
+import { actions } from '~/reducers/calendar';
 import { themes } from '~/shared/themes';
 import { reset } from '../styles';
 
@@ -28,7 +30,13 @@ type Props = {
 };
 // eslint-disable-next-line import/no-default-export
 export default function Layout({ children, title = 'This is the default title' }: Props) {
+  const dispatch = useAppDispatch();
   const { data } = useGetSettingsQuery();
+  useEffect(() => {
+    if (!data?.daysToShow) return;
+    dispatch(actions.setDays({ period: data.daysToShow }));
+  }, [data?.daysToShow]);
+
   const activeColorThemeValues = themes[data?.theme || 'light'];
   const activeSizeTheme = data?.size || 'normal';
 

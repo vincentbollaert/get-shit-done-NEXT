@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import format from 'date-fns/format';
+import eachWeekOfInterval from 'date-fns/eachWeekOfInterval';
+import subDays from 'date-fns/subDays';
+import addDays from 'date-fns/addDays';
+import eachDayOfInterval from 'date-fns/eachDayOfInterval';
 import { ClientModel, Models } from '~/api/types';
 import { HOURS_IN_DAY } from '~/shared/constants';
 import { generateMonthDays, generateMonthDayStrings } from '~/shared/utils';
@@ -40,6 +44,22 @@ export const { reducer, actions } = createSlice({
       state.daysAxis = generateMonthDays()
         .filter((day) => format(day, 'd') >= String(from) && format(day, 'd') <= String(to))
         .map((day) => day.toString());
+    },
+    setDays(state, { payload: { period } }: PayloadAction<{ period: ClientModel['Settings']['daysToShow'] }>) {
+      const today = new Date();
+      if (period === '1month') {
+        state.daysAxis = generateMonthDayStrings();
+      } else if (period === '3weeks') {
+        const weeks = eachWeekOfInterval({ start: subDays(today, 7), end: addDays(today, 7) });
+        state.daysAxis = eachDayOfInterval({ start: weeks[0], end: weeks[weeks.length - 1] }).map((date) =>
+          date.toString()
+        );
+      } else if (period === '1week') {
+        const weeks = eachWeekOfInterval({ start: subDays(today, 7), end: today });
+        state.daysAxis = eachDayOfInterval({ start: weeks[0], end: weeks[weeks.length - 1] }).map((date) =>
+          date.toString()
+        );
+      }
     },
     saveFocusedTimestamp(state, { payload }: PayloadAction<{ timestamp: string }>) {
       state.focusedTimestamp = payload.timestamp;
