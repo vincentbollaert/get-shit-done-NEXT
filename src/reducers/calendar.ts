@@ -41,9 +41,10 @@ export const { reducer, actions } = createSlice({
       state.hoursAxis = HOURS_IN_DAY.filter((hour) => hour >= from && hour <= to);
     },
     filterDays(state, { payload: { from, to } }: PayloadAction<{ from: number; to: number }>) {
-      state.daysAxis = generateMonthDays()
-        .filter((day) => format(day, 'd') >= String(from) && format(day, 'd') <= String(to))
+      const days = generateMonthDays()
+        .filter((day) => Number(format(day, 'd')) >= from && Number(format(day, 'd')) <= to)
         .map((day) => day.toString());
+      state.daysAxis = days;
     },
     setDays(state, { payload: { period } }: PayloadAction<{ period: ClientModel['Settings']['daysToShow'] }>) {
       const today = new Date();
