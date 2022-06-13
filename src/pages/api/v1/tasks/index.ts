@@ -1,20 +1,20 @@
 import type { NextApiResponse } from 'next';
+import format from 'date-fns/format';
 import dbConnect from '~/api/utils/dbConnect';
 import Task from '~/api/models/tasksModel';
 import type { Models } from '~/api/types';
 import { verifyIfLoggedIn } from '~/api/auth';
 import type { NextApiRequestWithUser } from '~/api/types';
 
-const tasksResponseMapping = (tasks: Models['Task'][]) => {
-  const obj: any = {};
-
-  tasks.forEach(({ timestamp }) => {
-    obj[timestamp] = {
-      tasks: tasks.filter((t) => t.timestamp === timestamp).sort((a, b) => a.time[0] - b.time[0]),
+const tasksResponseMapping = (tasks: Models['Task'][]) =>
+  tasks.reduce<Record<string, { tasks: Models['Task'][] }>>((acc, cur) => {
+    return {
+      ...acc,
+      [cur.timestamp]: {
+        tasks: tasks.filter((t) => t.timestamp === cur.timestamp).sort((a, b) => a.time[0] - b.time[0]),
+      },
     };
-  });
-  return obj;
-};
+  }, {});
 
 async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   await dbConnect();
@@ -22,8 +22,8 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   if (req.method === 'GET') {
     try {
       const { month } = req.query;
-      const monthAsString = month as string;
-      const monthRegex = new RegExp(`${monthAsString}.+2022`, 'g');
+      const year = format(new Date(), 'y');
+      const monthRegex = new RegExp(`${month}.+${year}`, 'g');
       const tasks = await Task.find({ userId: req.loggedInUser?.userId, timestamp: monthRegex });
       const mappedTasks = tasksResponseMapping(tasks);
 
