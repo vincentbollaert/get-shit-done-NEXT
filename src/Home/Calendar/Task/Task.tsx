@@ -14,16 +14,16 @@ import { CN_COLUMN, CN_TASK_GAP, taskShadow, taskShadowBeingEdited } from '../sh
 type Props = {
   task: TaskWithMeta;
   isBeingEdited: boolean;
-  groups: ClientModel['Group'][];
+  categories: ClientModel['Category'][];
 };
-export const Task = memo(function Task({ task, groups = [], isBeingEdited }: Props) {
+export const Task = memo(function Task({ task, categories = [], isBeingEdited }: Props) {
   const undoable = useUndoable();
   const [removeTask] = useRemoveTaskMutation();
   const dispatch = useAppDispatch();
 
-  const { group, name, gapBefore, gapAfter, heightInFlex } = task;
+  const { category, name, gapBefore, gapAfter, heightInFlex } = task;
   const hoursAxis = useSelector(makeHoursAxis);
-  const { colorId } = groups.find((x) => x.name === group) || {};
+  const { colorId } = categories.find((x) => x.name === category) || {};
   const accentColor = colorId ? colors[colorId] : '000';
 
   const onRemoveTask = (task: TaskWithMeta) => {

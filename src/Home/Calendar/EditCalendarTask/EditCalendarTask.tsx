@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { tasksApi, useGetGroupsQuery, useRemoveTaskMutation, useSaveTaskMutation } from '~/api/requests';
+import { tasksApi, useGetCategoriesQuery, useRemoveTaskMutation, useSaveTaskMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
@@ -14,14 +14,14 @@ export type ValueOf<T> = T[keyof T];
 
 // TODO: timestamp should come from taskBeingEdited
 export const EditCalendarTask = memo(function EditCalendarTask() {
-  const { data: groups = [] } = useGetGroupsQuery();
+  const { data: categories = [] } = useGetCategoriesQuery();
   const [updateTask, asyncStatusUpdate] = useSaveTaskMutation();
   const [removeTask, removeTaskStatus] = useRemoveTaskMutation();
   const taskBeingEdited = useSelector((state: AppState) => state.calendar.taskBeingEdited)!;
   const dispatch = useAppDispatch();
-  const [selectedGroup, setSelectedGroup] = useState(groups.find((x) => x.name === taskBeingEdited.group)!);
+  const [selectedCategory, setSelectedCategory] = useState(categories.find((x) => x.name === taskBeingEdited.category)!);
   const { userId, taskId, time, name } = taskBeingEdited!;
-  const accentColor = selectedGroup ? colors[selectedGroup.colorId] : undefined;
+  const accentColor = selectedCategory ? colors[selectedCategory.colorId] : undefined;
   const timestamp = taskBeingEdited.timestamp;
 
   const onSubmit: SubmitHandler<TaskFormValues> = (data) => {
@@ -29,7 +29,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
     return updateTask({
       taskId,
       name,
-      group: selectedGroup.name,
+      category: selectedCategory.name,
       time: [Number(from), Number(to)],
       timestamp,
     });
@@ -51,7 +51,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
       taskId,
       timestamp,
       name: watchedFields.name,
-      group: selectedGroup.name,
+      category: selectedCategory.name,
       time: [Number(watchedFields.from), Number(watchedFields.to)],
     };
 
@@ -68,7 +68,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
       })
     );
     dispatch(actions.updateEditedTask(formfieldsMapped));
-  }, [watchedFields.name, watchedFields.from, selectedGroup.name, watchedFields.to]);
+  }, [watchedFields.name, watchedFields.from, selectedCategory.name, watchedFields.to]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,10 +85,10 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
       <Dropdown
         isInForm
         theme="light"
-        label="select group"
-        activeGroup={selectedGroup}
-        groups={groups}
-        onSelect={(group) => setSelectedGroup(group)}
+        label="select category"
+        activeCategory={selectedCategory}
+        categories={categories}
+        onSelect={(category) => setSelectedCategory(category)}
       />
       <TextField
         isInForm

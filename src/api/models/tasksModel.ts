@@ -10,9 +10,9 @@ const TaskSchema = new mongoose.Schema(
       type: String,
       required: [true, 'must have name'],
     },
-    group: {
+    category: {
       type: String,
-      required: [true, 'must be grouped'],
+      required: [true, 'must be categoryed'],
     },
     time: [Number],
     userId: {

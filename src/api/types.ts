@@ -3,7 +3,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import type { NextApiRequest } from 'next';
 
 export type Models = {
-  Group: {
+  Category: {
     name: string;
     colorId: string;
     userId: string;
@@ -25,7 +25,7 @@ export type Models = {
   Task: {
     timestamp: string;
     name: string;
-    group: string;
+    category: string;
     time: number[];
     userId: string;
   };
@@ -52,7 +52,7 @@ export type TasksByDay = {
 
 export type ClientModel = {
   Task: Models['Task'] & { taskId: string };
-  Group: Models['Group'] & { groupId: string };
+  Category: Models['Category'] & { categoryId: string };
   Todo: Models['Todo'] & { todoId: string };
   User: Omit<Models['User'], 'password'> & { userId: string };
   Settings: Models['Settings'];
@@ -63,9 +63,9 @@ export type Requests = {
   AddTask: Models['Task'];
   SaveTask: Partial<ClientModel['Task']> & Pick<ClientModel['Task'], 'taskId' | 'timestamp'>;
   RemoveTask: Partial<ClientModel['Task']> & Pick<ClientModel['Task'], 'taskId' | 'timestamp'>;
-  AddGroup: Models['Group'];
-  UpdateGroup: Partial<ClientModel['Group']> & Pick<ClientModel['Group'], 'groupId' | 'colorId'>;
-  RemoveGroup: string; // groupId
+  AddCategory: Models['Category'];
+  UpdateCategory: Partial<ClientModel['Category']> & Pick<ClientModel['Category'], 'categoryId' | 'colorId'>;
+  RemoveCategory: string; // categoryId
   UpdateSettings: Partial<ClientModel['Settings']>;
   AddTodo: Models['Todo'];
   UpdateTodo: Partial<ClientModel['Todo']> & Pick<ClientModel['Todo'], 'todoId'>;

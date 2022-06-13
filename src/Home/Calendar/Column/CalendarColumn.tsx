@@ -1,7 +1,7 @@
 import { memo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { useGetGroupsQuery } from '~/api/requests';
+import { useGetCategoriesQuery } from '~/api/requests';
 import { AppState } from '~/Application/Root';
 import { TaskWithMeta } from '~/reducers/calendar';
 import { makeHoursAxis } from '~/shared/selectors';
@@ -20,7 +20,7 @@ type Props = {
 };
 
 export const CalendarColumn = memo(function CalendarColumn({ timestamp, isCurrentDay, tasksFiltered = [] }: Props) {
-  const { data: groups = [] } = useGetGroupsQuery();
+  const { data: categories = [] } = useGetCategoriesQuery();
   const hoursAxis = useSelector(makeHoursAxis);
   const taskBeingEdited = useSelector((state: AppState) => state.calendar.taskBeingEdited);
   const taskBeingPrepared = useSelector((state: AppState) => state.calendar.taskBeingPrepared);
@@ -72,7 +72,7 @@ export const CalendarColumn = memo(function CalendarColumn({ timestamp, isCurren
               key={task.taskId || 'new-task'}
               task={task}
               isBeingEdited={taskBeingEdited?.taskId === task.taskId}
-              groups={groups}
+              categories={categories}
             />
           ))}
           {(showPlaceholder || isPlaceholderBeingEdited) && (
@@ -83,7 +83,7 @@ export const CalendarColumn = memo(function CalendarColumn({ timestamp, isCurren
               y={y}
               timeFromY={timeFromY}
               placeholderHeight={placeholderHeight}
-              groups={groups}
+              categories={categories}
             />
           )}
         </HourSlots>
