@@ -1,7 +1,8 @@
 import { memo, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { useAddTaskMutation, useGetCurrentUserQuery, useGetGroupsQuery } from '~/api/requests';
+import { useAddTaskMutation, useGetCurrentUserQuery, useGetCategoriesQuery } from '~/api/requests';
+import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { AsyncButton, Dropdown, ModalFooter, TextField } from '~/shared/components';
@@ -9,13 +10,13 @@ import { colors } from '~/shared/themes';
 import { TaskFormValues } from '../shared';
 
 export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
-  const { data: groups = [] } = useGetGroupsQuery();
+  const { data: categories = [] } = useGetCategoriesQuery();
   const { data: currentUser } = useGetCurrentUserQuery();
   const [addNewTask, asyncStatusAdd] = useAddTaskMutation();
   const dispatch = useAppDispatch();
   const { taskBeingPrepared } = useSelector((state: AppState) => state.calendar);
   const { timestamp, time } = taskBeingPrepared!;
-  const [selectedGroup, setSelectedGroup] = useState(groups.find((x) => x.name === 'improvement')!);
+  const [selectedCategory, setSelectedCategory] = useState<null | ClientModel['Category']>(null);
   const {
     register,
     handleSubmit,
@@ -28,25 +29,25 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
       name,
       time: [Number(from), Number(to)],
       timestamp,
-      group: selectedGroup.name,
+      category: selectedCategory!.name,
       userId: currentUser!.userId,
     });
   };
   const [name, from = time[0], to = time[1]] = watch(['name', 'from', 'to']);
-  const accentColor = selectedGroup ? colors[selectedGroup.colorId] : undefined;
+  const accentColor = selectedCategory ? colors[selectedCategory.colorId] : undefined;
 
   useEffect(() => {
-    if ([name, from, to].some((x) => x === undefined)) return;
+    if ([name, from, to, selectedCategory].some((x) => x === undefined || x === null)) return;
     dispatch(
       actions.prepareTask({
         timestamp,
         name,
         time: [Number(from), Number(to)],
-        group: selectedGroup?.name,
+        category: selectedCategory!.name,
         userId: currentUser!.userId,
       })
     );
-  }, [name, from, to, selectedGroup.name]);
+  }, [name, from, to, selectedCategory?.name]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -62,10 +63,10 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
       <Dropdown
         isInForm
         theme="light"
-        label="select group"
-        activeGroup={selectedGroup}
-        groups={groups}
-        onSelect={(group) => setSelectedGroup(group)}
+        label="select category"
+        activeCategory={selectedCategory}
+        categories={categories}
+        onSelect={(category) => setSelectedCategory(category)}
       />
       <TextField
         isInForm

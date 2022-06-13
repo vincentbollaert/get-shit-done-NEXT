@@ -16,7 +16,7 @@ type Props = {
   y: number;
   timeFromY: number;
   placeholderHeight: number;
-  groups: ClientModel['Group'][];
+  categories: ClientModel['Category'][];
 };
 
 export const PlaceholderTask = ({
@@ -26,7 +26,7 @@ export const PlaceholderTask = ({
   y,
   timeFromY,
   placeholderHeight,
-  groups,
+  categories,
 }: Props) => {
   const dispatch = useAppDispatch();
   const hoursAxis = useSelector((state: AppState) => state.calendar.hoursAxis);
@@ -34,7 +34,7 @@ export const PlaceholderTask = ({
   const { data: currentUser } = useGetCurrentUserQuery(undefined);
   const [{ yFromTime, heightFromTime }, setYAndHeight] = useState({ yFromTime: y, heightFromTime: placeholderHeight });
 
-  const colorId = groups.find((x) => x.name === taskBeingPrepared?.group)?.colorId;
+  const colorId = categories.find((x) => x.name === taskBeingPrepared?.category)?.colorId;
   const accentColor = colorId ? colors[colorId] : undefined;
 
   function onPrepareNewTask() {
@@ -42,7 +42,7 @@ export const PlaceholderTask = ({
     dispatch(
       actions.prepareTask({
         name: '',
-        group: 'improvement',
+        category: '',
         timestamp,
         time: [rounded, rounded + 0.5],
         userId: currentUser!.userId,

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const GroupSchema = new mongoose.Schema(
+const CategorySchema = new mongoose.Schema(
   {
     name: {
       type: String,
@@ -20,12 +20,12 @@ const GroupSchema = new mongoose.Schema(
     toJSON: {
       versionKey: false,
       transform(doc, ret) {
-        ret.groupId = ret._id;
+        ret.categoryId = ret._id;
         delete ret._id;
       },
     },
   }
 );
 
-const Group = mongoose.models.Group || mongoose.model('Group', GroupSchema);
-export default Group;
+const Category = mongoose.models.Category || mongoose.model('Category', CategorySchema);
+export default Category;

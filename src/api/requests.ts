@@ -11,8 +11,8 @@ const URL = IS_DEV ? '/api/v1' : '/api/v1';
 export const TASKS_PATH = '/tasks';
 export const getTaskPath = (id: string) => `${TASKS_PATH}/${id}`;
 
-export const GROUPS_PATH = '/groups';
-export const getGroupPath = (id: string) => `${GROUPS_PATH}/${id}`;
+export const CATEGORIES_PATH = '/categories';
+export const getCategoryPath = (id: string) => `${CATEGORIES_PATH}/${id}`;
 
 export const TODOS_PATH = '/todos';
 export const getTodoPath = (id: string) => `${TODOS_PATH}/${id}`;
@@ -32,7 +32,7 @@ const findTask = (tasks: ClientModel['Task'][], taskId: string) => tasks.find((t
 export const tasksApi = createApi({
   reducerPath: 'tasksApi',
   baseQuery: fetchBaseQuery({ baseUrl: URL }),
-  tagTypes: ['Task', 'Todo', 'Group', 'Settings', 'CurrentUser'],
+  tagTypes: ['Task', 'Todo', 'Category', 'Settings', 'CurrentUser'],
   endpoints: (builder) => ({
     // user
     getCurrentUser: builder.query<ClientModel['User'], void>({
@@ -41,7 +41,7 @@ export const tasksApi = createApi({
     }),
     signin: builder.mutation<ClientModel['User'], Requests['SignIn']>({
       query: (requestParams) => queryFn({ url: '/user/signin', method: 'POST', body: requestParams }),
-      invalidatesTags: ['Task', 'Todo', 'Group', 'CurrentUser'],
+      invalidatesTags: ['Task', 'Todo', 'Category', 'CurrentUser'],
     }),
     signup: builder.mutation<ClientModel['User'], Requests['SignUp']>({
       query: (requestParams) => queryFn({ url: '/user/signup', method: 'POST', body: requestParams }),
@@ -117,44 +117,44 @@ export const tasksApi = createApi({
       },
     }),
 
-    // groups
-    getGroups: builder.query<ClientModel['Group'][], void>({
-      query: () => queryFn({ url: GROUPS_PATH }),
-      providesTags: ['Group'],
+    // categories
+    getCategories: builder.query<ClientModel['Category'][], void>({
+      query: () => queryFn({ url: CATEGORIES_PATH }),
+      providesTags: ['Category'],
     }),
-    updateGroup: builder.mutation<ClientModel['Group'], Requests['UpdateGroup']>({
-      query: ({ groupId, colorId }) =>
+    updateCategory: builder.mutation<ClientModel['Category'], Requests['UpdateCategory']>({
+      query: ({ categoryId, colorId }) =>
         queryFn({
-          url: getGroupPath(groupId),
+          url: getCategoryPath(categoryId),
           body: { colorId },
           method: 'PATCH',
         }),
       onQueryStarted: (requestParams, { dispatch }) => {
         dispatch(
-          tasksApi.util.updateQueryData('getGroups', undefined, (draft) => {
-            const groupToUpdate = draft.find((group) => group.groupId === requestParams.groupId)!;
-            groupToUpdate.colorId = requestParams.colorId;
+          tasksApi.util.updateQueryData('getCategories', undefined, (draft) => {
+            const categoryToUpdate = draft.find((category) => category.categoryId === requestParams.categoryId)!;
+            categoryToUpdate.colorId = requestParams.colorId;
           })
         );
       },
     }),
-    addGroup: builder.mutation<ClientModel['Group'], Requests['AddGroup']>({
-      query: (requestParams) => queryFn({ url: GROUPS_PATH, body: requestParams, method: 'POST' }),
+    addCategory: builder.mutation<ClientModel['Category'], Requests['AddCategory']>({
+      query: (requestParams) => queryFn({ url: CATEGORIES_PATH, body: requestParams, method: 'POST' }),
       onQueryStarted: (requestParams, { dispatch }) => {
         // dispatch(
-        //   tasksApi.util.updateQueryData('getGroups', undefined, (draft) => {
+        //   tasksApi.util.updateQueryData('getCategories', undefined, (draft) => {
         //     draft.unshift({ ...requestParams, todoId: 'temp id' }); // TODO: is this the best way?
         //   })
         // );
-        dispatch(toastActions.addToast({ prefix: 'group added', message: 'sdsds' }));
+        dispatch(toastActions.addToast({ prefix: 'category added', message: 'sdsds' }));
       },
     }),
-    removeGroup: builder.mutation<ClientModel['Group'], Requests['RemoveGroup']>({
-      query: (groupId) => queryFn({ url: getGroupPath(groupId), method: 'DELETE' }),
+    removeCategory: builder.mutation<ClientModel['Category'], Requests['RemoveCategory']>({
+      query: (categoryId) => queryFn({ url: getCategoryPath(categoryId), method: 'DELETE' }),
       onQueryStarted: (requestParams, { dispatch }) => {
         dispatch(
-          tasksApi.util.updateQueryData('getGroups', undefined, (draft) => {
-            return draft.filter((group) => group.groupId !== requestParams);
+          tasksApi.util.updateQueryData('getCategories', undefined, (draft) => {
+            return draft.filter((category) => category.categoryId !== requestParams);
           })
         );
       },
@@ -248,11 +248,11 @@ export const {
   useSaveTaskMutation,
   useRemoveTaskMutation,
 
-  // groups
-  useGetGroupsQuery,
-  useAddGroupMutation,
-  useUpdateGroupMutation,
-  useRemoveGroupMutation,
+  // categories
+  useGetCategoriesQuery,
+  useAddCategoryMutation,
+  useUpdateCategoryMutation,
+  useRemoveCategoryMutation,
 
   // settings
   useGetSettingsQuery,

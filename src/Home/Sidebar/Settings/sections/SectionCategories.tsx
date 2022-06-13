@@ -1,11 +1,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import {
-  useAddGroupMutation,
+  useAddCategoryMutation,
   useGetCurrentUserQuery,
-  useGetGroupsQuery,
-  useRemoveGroupMutation,
-  useUpdateGroupMutation,
+  useGetCategoriesQuery,
+  useRemoveCategoryMutation,
+  useUpdateCategoryMutation,
 } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { Colorpicker, Icon } from '~/shared/components';
@@ -19,19 +19,19 @@ type FormValues = {
 };
 
 export const SectionCategories = () => {
-  const { data: groups = [] } = useGetGroupsQuery();
+  const { data: categories = [] } = useGetCategoriesQuery();
   const { data: currentUser } = useGetCurrentUserQuery();
-  const [updateGroup] = useUpdateGroupMutation();
-  const [addGroup] = useAddGroupMutation();
-  const [removeGroup] = useRemoveGroupMutation();
+  const [updateCategory] = useUpdateCategoryMutation();
+  const [addCategory] = useAddCategoryMutation();
+  const [removeCategory] = useRemoveCategoryMutation();
   const { register, handleSubmit, formState } = useForm<FormValues>();
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    addGroup({ ...data, userId: currentUser!.userId });
+    addCategory({ ...data, userId: currentUser!.userId });
   };
 
-  const onColorSelect = (selectedColor: Color, groupId: ClientModel['Group']['groupId']) => {
-    updateGroup({ groupId, colorId: selectedColor.colorId });
+  const onColorSelect = (selectedColor: Color, categoryId: ClientModel['Category']['categoryId']) => {
+    updateCategory({ categoryId, colorId: selectedColor.colorId });
   };
 
   return (
@@ -46,15 +46,15 @@ export const SectionCategories = () => {
           {...register('name', { required: true })}
         /> */}
         <Categories>
-          {groups.map(({ groupId, name, colorId }) => (
-            <Category key={groupId} color={colors[colorId]}>
+          {categories.map(({ categoryId, name, colorId }) => (
+            <Category key={categoryId} color={colors[colorId]}>
               <Colorpicker
                 selectedColorValue={colors[colorId]}
                 label={name}
-                setSelectedColor={(selectedColor) => onColorSelect(selectedColor, groupId)}
+                setSelectedColor={(selectedColor) => onColorSelect(selectedColor, categoryId)}
               />
               <Actions>
-                <RemoveIcon theme="light" variant="delete" onClick={() => removeGroup(groupId)} />
+                <RemoveIcon theme="light" variant="delete" onClick={() => removeCategory(categoryId)} />
               </Actions>
             </Category>
           ))}
