@@ -28,20 +28,19 @@ const Todos = () => {
         const asyncStatusRemove = getAsyncStatus(removeTodoStatus, todoId);
         const asyncStatusUpdate = getAsyncStatus(updateTodoStatus, todoId);
         return (
-          <Todo key={todoId}>
+          <Todo key={todoId} onClick={() => updateTodo({ todoId, isDone: !isDone })}>
             <AsyncTextButtonStyled
               showErrorIcon={false}
               showSpinner={false}
               isDone={isDone}
               asyncStatuses={[asyncStatusUpdate]}
               type="button"
-              onClick={() => updateTodo({ todoId, isDone: !isDone })}
             >
               {todoName}
             </AsyncTextButtonStyled>
             <Actions>
               <AsyncSvgButton asyncStatuses={[asyncStatusRemove]}>
-                <Icon isError theme="light" variant="delete" onClick={() => onRemoveTodo(todoId)} />
+                <RemoveIcon theme="light" variant="delete" onClick={() => onRemoveTodo(todoId)} />
               </AsyncSvgButton>
             </Actions>
           </Todo>
@@ -65,21 +64,29 @@ export const Todo = styled.div`
 `;
 
 const AsyncTextButtonStyled = styled(AsyncTextButton)<{ isDone?: boolean }>`
-  ${(p) =>
-    p.isDone &&
-    css`
-      color: var(--rhythm);
-
-      &:hover {
-        color: var(--rhythm);
-      }
-    `};
+  ${Todo}:hover & {
+    color: var(--quick-silver);
+  }
+  color: ${(p) => (p.isDone ? 'var(--rhythm) !important' : 'var(--isabelline)')};
 `;
 
 export const Actions = styled.div`
   position: absolute;
   right: 0;
   display: flex;
+`;
+
+export const RemoveIcon = styled(Icon)`
+  display: none;
+  margin-left: var(--size-lg);
+
+  &:hover {
+    color: var(--sunset-orange);
+  }
+
+  ${Todo}:hover & {
+    display: block;
+  }
 `;
 
 export const TodosSpinner = styled(SpinnerLoader)``;
