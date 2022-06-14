@@ -33,5 +33,5 @@ export const AddNewTodo = ({ addNewTodo }: Props) => {
 };
 
 export const Form = styled.form`
-  margin-bottom: var(--size-md);
+  margin-bottom: var(--size-lg);
 `;

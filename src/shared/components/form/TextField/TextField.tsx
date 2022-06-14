@@ -55,6 +55,7 @@ const TextFieldUnmemoed = forwardRef(
           onChange={onChangeHandler}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
+          autoComplete="off"
           ref={ref}
         />
         <Placeholder theme={theme} hasValue={hasValue || isFocused}>

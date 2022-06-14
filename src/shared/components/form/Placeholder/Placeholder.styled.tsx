@@ -4,7 +4,7 @@ import { STYLE_PLACEHOLDER_COLOR_DARK, STYLE_PLACEHOLDER_COLOR_LIGHT } from '../
 export const Placeholder = styled.div<{ isError?: boolean; hasValue: boolean }>`
   position: absolute;
   top: 50%;
-  left: var(--size-sm);
+  left: 0;
   color: ${(p) => (p.theme === 'light' ? STYLE_PLACEHOLDER_COLOR_LIGHT : STYLE_PLACEHOLDER_COLOR_DARK)};
   ${(p) => p.isError && 'color: var(--sunset-orange)'};
   pointer-events: none;
@@ -14,7 +14,7 @@ export const Placeholder = styled.div<{ isError?: boolean; hasValue: boolean }>`
   ${(p) =>
     p.hasValue &&
     css`
-      top: var(--size-xsm);
+      top: 0;
       font-size: var(--font-size-xsm);
       transform: translateY(0);
     `};

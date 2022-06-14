@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { useAddTodoMutation, useGetTodosQuery, useRemoveTodoMutation, useUpdateTodoMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { AsyncSvgButton, AsyncTextButton, Icon, SpinnerLoader, TextError } from '~/shared/components';
