@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ClientModel } from '~/api/types';
 import { colors } from '~/shared/themes';
 import { Placeholder } from '../Placeholder/Placeholder.styled';
-import { IconStyled, Input, Wrap } from '../shared.styled';
+import { FieldIcon, Input, Wrap } from '../shared.styled';
 
 type Props = {
   theme: string;
@@ -31,7 +31,7 @@ export const Dropdown = ({ theme, isInForm = false, activeCategory, label, categ
           {label}
         </Placeholder>
         <Input as="div">{activeCategory?.name}</Input>
-        <IconStyled theme="light" variant="expand_more" />
+        <FieldIcon theme="light" variant="expand_more" />
       </Header>
       <List isOpen={isOpen}>
         {categories.map((category) => (

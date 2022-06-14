@@ -8,6 +8,8 @@ type Props = {
   addNewTodo(data: Omit<ClientModel['Todo'], 'todoId'>): void;
 };
 
+const Group = ({ className }: { className?: string }) => <div className={className}>group</div>;
+
 export const AddNewTodo = ({ addNewTodo }: Props) => {
   const {
     register,
@@ -26,6 +28,7 @@ export const AddNewTodo = ({ addNewTodo }: Props) => {
         theme="light"
         placeholder="add todo"
         errorMessage={errorMessage}
+        ChildComponent={<GroupStyled />}
         {...register('todoName', { required: true })}
       />
     </Form>
@@ -34,4 +37,20 @@ export const AddNewTodo = ({ addNewTodo }: Props) => {
 
 export const Form = styled.form`
   margin-bottom: var(--size-lg);
+`;
+
+// TODO: extract
+const GroupStyled = styled(Group)`
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 6px;
+  padding: 1px 5px 4px; // stupid fucking font
+  background: #4b5063;
+  color:  #9fa3b2;
+  border-radius: 2px;
+
+  ${Form}:hover & {
+    display: block;
+  }
 `;

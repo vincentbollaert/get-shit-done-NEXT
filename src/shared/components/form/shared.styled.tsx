@@ -52,7 +52,7 @@ export const Input = styled.input<{ isError?: boolean }>`
   }
 `;
 
-export const IconStyled = styled(Icon)`
+export const FieldIcon = styled(Icon)`
   position: absolute;
   right: var(--size-xsm);
   transform: translate(0, -50%);

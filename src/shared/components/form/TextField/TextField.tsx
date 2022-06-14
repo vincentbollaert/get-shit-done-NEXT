@@ -1,9 +1,8 @@
 import { ForwardedRef, forwardRef, memo, useState } from 'react';
 import { ChangeHandler } from 'react-hook-form';
 import { FieldError } from '../../error';
-import { IconVariant } from '../../Icon/Icon';
 import { Placeholder } from '../Placeholder/Placeholder.styled';
-import { IconStyled, Input, Wrap } from '../shared.styled';
+import { Input, Wrap } from '../shared.styled';
 
 type Props = {
   shouldAutoFocus?: boolean;
@@ -13,7 +12,7 @@ type Props = {
   type?: string;
   defaultValue?: string | number;
   placeholder: string;
-  iconVariant?: IconVariant;
+  ChildComponent?: React.ReactNode;
   errorMessage?: string;
   className?: string;
   onChange: ChangeHandler;
@@ -29,7 +28,7 @@ const TextFieldUnmemoed = forwardRef(
       type = 'text',
       defaultValue,
       placeholder,
-      iconVariant,
+      ChildComponent,
       errorMessage,
       className,
       onChange,
@@ -61,7 +60,7 @@ const TextFieldUnmemoed = forwardRef(
         <Placeholder theme={theme} hasValue={hasValue || isFocused}>
           {placeholder}
         </Placeholder>
-        {iconVariant && <IconStyled variant={iconVariant} />}
+        {ChildComponent && ChildComponent}
         <FieldError errorMessage={errorMessage} />
       </Wrap>
     );
