@@ -9,7 +9,7 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
 
   if (req.method === 'GET') {
     try {
-      const categories = await Category.find();
+      const categories = await Category.find({ userId: req.loggedInUser?.userId });
       res.status(200).json(categories);
     } catch (err) {
       res.status(500).send({ errorMessage: 'could not find categories' });

@@ -9,7 +9,7 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
 
   if (req.method === 'GET') {
     try {
-      const todos = await Todo.find();
+      const todos = await Todo.find({ userId: req.loggedInUser?.userId });
       res.status(200).json(todos);
     } catch (err) {
       res.status(500).send({ errorMessage: 'could not find todos' });
