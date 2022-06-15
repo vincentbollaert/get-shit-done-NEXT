@@ -4,7 +4,7 @@ import { ClientModel } from '~/api/types';
 import { AsyncSvgButton, AsyncTextButton, Icon, SpinnerLoader, TextError } from '~/shared/components';
 import { useUndoable } from '~/shared/hooks/useUndoable';
 import { getAsyncStatus } from '~/shared/utils';
-import { AddNewTodo } from '../AddNewTodo/AddNewTodo';
+import { AddNewTodo } from './AddNewTodo/AddNewTodo';
 
 const Todos = () => {
   const undoable = useUndoable();

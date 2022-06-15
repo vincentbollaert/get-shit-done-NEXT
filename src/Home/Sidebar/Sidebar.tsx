@@ -5,11 +5,12 @@ import { useSignoutMutation } from '~/api/requests';
 import { Icon, IconVariant } from '~/shared/components';
 import { useFullscreenToggle } from '~/shared/hooks/useFullscreenToggle';
 import { STYLE_SIDEBAR_WIDTH_UNIT } from '~/styles';
-import Settings from './Settings/Settings';
+import Settings from './tabs/Settings/Settings';
 import { TabHOC } from './TabHOC/TabHOC';
 // const Todos = lazy(() => import('./Todos/Todos'));
 // const Settings = lazy(() => import('./Settings/Settings'));
-import Todos from './Todos/Todos';
+import Todos from './tabs/Todos/Todos';
+import Categories from './tabs/Categories/Categories';
 
 type Props = {
   isOpen: boolean;
@@ -24,6 +25,11 @@ export const Sidebar = ({ isOpen, setIsOpen }: Props) => {
     {
       id: 'todos',
       Component: TabHOC(Todos),
+      iconVariant: 'list',
+    },
+    {
+      id: 'categories',
+      Component: TabHOC(Categories),
       iconVariant: 'list',
     },
     {
