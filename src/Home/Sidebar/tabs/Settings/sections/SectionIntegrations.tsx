@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Section, SectionHeader } from '../../shared.styled';
+import { Section, SectionHeader } from '../../../shared.styled';
 
 type FormValues = {
   defaultHoursFrom: number;

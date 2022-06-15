@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { Tag, TagsWrap } from '~/shared/components';
 import type { ClientModel } from '~/api/types';
 import { useUpdateSettingsMutation } from '~/api/requests';
-import { Section, SectionHeader } from '../../shared.styled';
+import { Section, SectionHeader } from '../../../shared.styled';
 
 export const SectionTheme = ({ colorTheme }: { colorTheme: ClientModel['Settings']['theme'] }) => {
   const [onUpdateSettings] = useUpdateSettingsMutation();

@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useUpdateSettingsMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { TextField } from '~/shared/components';
-import { Section, SectionHeader } from '../../shared.styled';
+import { Section, SectionHeader } from '../../../shared.styled';
 
 type FormValues = {
   defaultHoursFrom: number;

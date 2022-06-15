@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { useUpdateSettingsMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { Tag, TagsWrap } from '~/shared/components';
-import { Section, SectionHeader } from '../../shared.styled';
+import { Section, SectionHeader } from '../../../shared.styled';
 
 export const SectionDays = ({ daysToShow }: { daysToShow: ClientModel['Settings']['daysToShow'] }) => {
   const [onUpdateSettings] = useUpdateSettingsMutation();

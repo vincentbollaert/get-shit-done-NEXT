@@ -47,8 +47,8 @@ export const Toggle = styled.div`
 
 export const ColorCircle = styled.div<{ isOpen: boolean; color: string }>`
   position: relative;
-  width: var(--size-md);
-  height: var(--size-md);
+  width: 16px;
+  height: 16px;
 
   &::before,
   &::after {
