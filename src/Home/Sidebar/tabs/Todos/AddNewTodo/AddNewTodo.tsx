@@ -1,36 +1,33 @@
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { useGetCurrentUserQuery } from '~/api/requests';
+import { useAddTodoMutation, useGetCurrentUserQuery } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { TextField } from '~/shared/components';
 
-type Props = {
-  addNewTodo(data: Omit<ClientModel['Todo'], 'todoId'>): void;
-};
+type FormFields = Pick<ClientModel['Todo'], 'todoName'>;
 
 const Group = ({ className }: { className?: string }) => <div className={className}>group</div>;
 
-export const AddNewTodo = ({ addNewTodo }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+export const AddNewTodo = () => {
+  const [addTodo] = useAddTodoMutation();
+  const { register, handleSubmit, formState } = useForm<FormFields>();
   const { data: currentUser } = useGetCurrentUserQuery();
-  const onSubmit = (data: Omit<ClientModel['Todo'], 'todoId' | 'userId'>) =>
-    addNewTodo({ ...data, userId: currentUser!.userId });
-  const errorMessage = (errors.todo || {}).type;
+
+  const errorMessage = (formState.errors.todoName || {}).type;
+  const onSubmit: SubmitHandler<FormFields> = (data) => {
+    addTodo({ ...data, userId: currentUser!.userId });
+  };
 
   return (
-    // TODO: fix later
-    <Form onSubmit={handleSubmit(onSubmit as any)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         theme="light"
         placeholder="add todo"
         errorMessage={errorMessage}
-        ChildComponent={<GroupStyled />}
         {...register('todoName', { required: true })}
-      />
+      >
+        <GroupStyled />
+      </TextField>
     </Form>
   );
 };
@@ -47,7 +44,7 @@ const GroupStyled = styled(Group)`
   bottom: 6px;
   padding: 1px 5px 4px; // stupid fucking font
   background: #4b5063;
-  color:  #9fa3b2;
+  color: #9fa3b2;
   border-radius: 2px;
 
   ${Form}:hover & {

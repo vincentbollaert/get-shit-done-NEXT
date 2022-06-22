@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useAddTodoMutation, useGetTodosQuery, useRemoveTodoMutation, useUpdateTodoMutation } from '~/api/requests';
+import { useGetTodosQuery, useRemoveTodoMutation, useUpdateTodoMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { AsyncSvgButton, AsyncTextButton, Icon, SpinnerLoader, TextError } from '~/shared/components';
 import { useUndoable } from '~/shared/hooks/useUndoable';
@@ -11,7 +11,6 @@ const Todos = () => {
   const getTodosState = useGetTodosQuery();
   const [updateTodo, updateTodoStatus] = useUpdateTodoMutation();
   const [removeTodo, removeTodoStatus] = useRemoveTodoMutation();
-  const [addTodo] = useAddTodoMutation();
 
   const onRemoveTodo = (todoId: string) => {
     const promise = removeTodo(todoId);
@@ -20,7 +19,7 @@ const Todos = () => {
 
   return (
     <>
-      <AddNewTodo addNewTodo={(todo) => addTodo(todo)} />
+      <AddNewTodo />
       <TodosSpinner size={4} isLoading={getTodosState.isLoading} />
       <TextError errorMessage={getAsyncStatus(getTodosState)?.errorMessage} />
 
