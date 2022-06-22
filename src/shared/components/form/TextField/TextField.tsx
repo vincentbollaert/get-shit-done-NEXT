@@ -12,7 +12,7 @@ type Props = {
   type?: string;
   defaultValue?: string | number;
   placeholder: string;
-  ChildComponent?: React.ReactNode;
+  children?: React.ReactNode;
   errorMessage?: string;
   className?: string;
   onChange: ChangeHandler;
@@ -28,7 +28,7 @@ const TextFieldUnmemoed = forwardRef(
       type = 'text',
       defaultValue,
       placeholder,
-      ChildComponent,
+      children,
       errorMessage,
       className,
       onChange,
@@ -60,7 +60,7 @@ const TextFieldUnmemoed = forwardRef(
         <Placeholder theme={theme} hasValue={hasValue || isFocused}>
           {placeholder}
         </Placeholder>
-        {ChildComponent && ChildComponent}
+        {children && children}
         <FieldError errorMessage={errorMessage} />
       </Wrap>
     );
