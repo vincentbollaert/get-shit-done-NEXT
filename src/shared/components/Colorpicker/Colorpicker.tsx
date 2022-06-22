@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
-import { colors } from '~/shared/themes';
-import { Color } from '../../types';
+import { colors } from '~/shared/constants';
+import type { Color } from '../../constants';
 
 type Props = {
   selectedColorValue: string;
