@@ -7,7 +7,7 @@ import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { AsyncButton, AsyncSvgButton, Dropdown, Icon, ModalFooter, TextField } from '~/shared/components';
-import { colors } from '~/shared/themes';
+import { colors } from '~/shared/constants';
 import { TaskFormValues } from '../shared';
 
 export type ValueOf<T> = T[keyof T];
@@ -19,7 +19,9 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
   const [removeTask, removeTaskStatus] = useRemoveTaskMutation();
   const taskBeingEdited = useSelector((state: AppState) => state.calendar.taskBeingEdited)!;
   const dispatch = useAppDispatch();
-  const [selectedCategory, setSelectedCategory] = useState(categories.find((x) => x.name === taskBeingEdited.category)!);
+  const [selectedCategory, setSelectedCategory] = useState(
+    categories.find((x) => x.name === taskBeingEdited.category)!
+  );
   const { userId, taskId, time, name } = taskBeingEdited!;
   const accentColor = selectedCategory ? colors[selectedCategory.colorId] : undefined;
   const timestamp = taskBeingEdited.timestamp;

@@ -5,7 +5,7 @@ import { useGetCurrentUserQuery } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
-import { colors } from '~/shared/themes';
+import { colors } from '~/shared/constants';
 import { ellipsis, rgbAdjust } from '~/styles';
 import { determineTimeFromY, placeholderShadow, taskShadow } from '../shared';
 

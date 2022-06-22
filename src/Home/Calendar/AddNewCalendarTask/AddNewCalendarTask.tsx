@@ -6,7 +6,7 @@ import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { AsyncButton, Dropdown, ModalFooter, TextField } from '~/shared/components';
-import { colors } from '~/shared/themes';
+import { colors } from '~/shared/constants';
 import { TaskFormValues } from '../shared';
 
 export const AddNewCalendarTask = memo(function AddNewCalendarTask() {

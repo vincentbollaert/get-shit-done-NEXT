@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ClientModel } from '~/api/types';
-import { colors } from '~/shared/themes';
+import { colors } from '~/shared/constants';
 import { Placeholder } from '../Placeholder/Placeholder.styled';
 import { FieldIcon, Input, Wrap } from '../shared.styled';
 
