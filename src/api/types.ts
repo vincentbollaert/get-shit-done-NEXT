@@ -67,7 +67,7 @@ export type Requests = {
   UpdateCategory: Partial<ClientModel['Category']> & Pick<ClientModel['Category'], 'categoryId' | 'colorId'>;
   RemoveCategory: string; // categoryId
   UpdateSettings: Partial<ClientModel['Settings']>;
-  AddTodo: Models['Todo'];
+  AddTodo: Omit<Models['Todo'], 'isDone'>;
   UpdateTodo: Partial<ClientModel['Todo']> & Pick<ClientModel['Todo'], 'todoId'>;
   RemoveTodo: string; // todoId
   SignUp: Models['User'];
