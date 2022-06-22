@@ -1,8 +1,6 @@
-import { useCallback, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { useGetCurrentUserQuery } from '~/api/requests';
-import { useAppDispatch, useAppSelector } from '~/Application/Root';
-import { actions } from '~/reducers/app';
+import { useAppSelector } from '~/Application/Root';
 import { Modal, Toast } from '~/shared/components';
 import {
   STYLE_COLUMN_MARGIN,
@@ -17,18 +15,8 @@ import { Sidebar } from './Sidebar/Sidebar';
 import { SignInForm } from './SignInForm/SignInForm';
 
 const Home = () => {
-  const dispatch = useAppDispatch();
   const isSidebarOpen = useAppSelector((state) => state.app).isSidebarOpen;
-  const calendarRef = useRef(null);
   const { data: currentUser } = useGetCurrentUserQuery();
-
-  const onSidebarToggle = useCallback(
-    (openState: boolean) => {
-      if (openState === isSidebarOpen) return;
-      dispatch(actions.toggleSidebar());
-    },
-    [isSidebarOpen]
-  );
 
   if (!currentUser) {
     return (
@@ -43,13 +31,13 @@ const Home = () => {
       <PageWrap>
         <Wrap isSidebarOpen={isSidebarOpen}>
           <HourLabels />
-          <CalendarWrap ref={calendarRef}>
+          <CalendarWrap>
             <DayLabels />
             <Calendar />
           </CalendarWrap>
           <Toast />
         </Wrap>
-        <Sidebar isOpen={isSidebarOpen} setIsOpen={onSidebarToggle} />
+        <Sidebar />
       </PageWrap>
     );
   }

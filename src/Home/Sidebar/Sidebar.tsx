@@ -1,89 +1,85 @@
-import sub from 'date-fns/sub';
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { useSignoutMutation } from '~/api/requests';
-import { Icon, IconVariant } from '~/shared/components';
+import { Icon } from '~/shared/components';
 import { useFullscreenToggle } from '~/shared/hooks/useFullscreenToggle';
-import { STYLE_SIDEBAR_WIDTH_UNIT } from '~/styles';
 import Settings from './tabs/Settings/Settings';
-import { TabHOC } from './TabHOC/TabHOC';
+import { TabContentProps, TabContent } from './tabs/TabContent';
 // const Todos = lazy(() => import('./Todos/Todos'));
 // const Settings = lazy(() => import('./Settings/Settings'));
 import Todos from './tabs/Todos/Todos';
 import Categories from './tabs/Categories/Categories';
+import { actions } from '~/reducers/app';
+import { useAppDispatch } from '~/Application/Root';
+import type { IconProps } from '../../shared/components/Icon/Icon';
+import { Tabs, TabItemWrap } from '~/shared/components/Tabs/Tabs';
 
-type Props = {
-  isOpen: boolean;
-  setIsOpen: (openState: boolean) => void;
-};
-
-export const Sidebar = ({ isOpen, setIsOpen }: Props) => {
+export const Sidebar = () => {
+  const dispatch = useAppDispatch();
   const [isFullscreen, setIsFullscreen] = useFullscreenToggle(false);
   const [activeTabId, setActiveTab] = useState<string | null>(null);
   const [onSignout] = useSignoutMutation();
-  const tabs = [
-    {
-      id: 'todos',
-      Component: TabHOC(Todos),
-      iconVariant: 'list',
-    },
-    {
-      id: 'categories',
-      Component: TabHOC(Categories),
-      iconVariant: 'list',
-    },
-    {
-      id: 'settings',
-      Component: TabHOC(Settings),
-      iconVariant: 'settings',
-    },
-  ];
   const handleTabClick = (id: string) => {
     setActiveTab(id === activeTabId ? null : id);
-    setIsOpen(!activeTabId || activeTabId !== id);
+    (!activeTabId || id === activeTabId) && dispatch(actions.toggleSidebar());
   };
-  const handleMonthClick = () => {
-    const updatedDate = sub(new Date(), { months: 1 });
-    // TODO: add mutate to get tasks
-    // onGetTasks(updatedDate)
-  };
-
+  const { TabItems, ActiveTabContent } = Tabs<IconProps, TabContentProps>({
+    activeTabId: activeTabId,
+    onTabSelect: handleTabClick,
+    TabItemWrap: TabItemWrapStyled,
+    TabContentInnerWrap: TabContent,
+    tabs: [
+      {
+        id: 'todos',
+        TabItem: Toggle,
+        tabItemProps: { variant: 'list' },
+        TabContent: Todos,
+        tabContentProps: { title: 'Todos' },
+      },
+      {
+        id: 'categories',
+        TabItem: Toggle,
+        tabItemProps: { variant: 'list' },
+        TabContent: Categories,
+        tabContentProps: { title: 'Categories' },
+      },
+      {
+        id: 'settings',
+        TabItem: Toggle,
+        tabItemProps: { variant: 'settings' },
+        TabContent: Settings,
+        tabContentProps: { title: 'Settings' },
+      },
+    ],
+  });
   return (
     <Wrap>
       {/* <Suspense fallback={<div />}> */}
-        <InnerWrap>
-          <Toggles>
-            <Toggle isActive={isFullscreen} variant="fullscreen" onClick={setIsFullscreen} />
-            <Toggle isActive={isFullscreen} variant="chevron_left" onClick={handleMonthClick} />
-          </Toggles>
+      <InnerWrap>
+        <Toggles>
+          <Toggle isActive={isFullscreen} variant="fullscreen" onClick={setIsFullscreen} />
+          <Toggle isActive={isFullscreen} variant="chevron_left" />
+        </Toggles>
 
-          <Toggles>
-            {tabs.map(({ id, iconVariant }) => (
-              <Toggle
-                key={id}
-                isActive={id === activeTabId}
-                onClick={() => handleTabClick(id)}
-                variant={iconVariant as IconVariant}
-              />
-            ))}
-          </Toggles>
+        <Toggles>
+          <TabItems />
+        </Toggles>
 
-          <Toggles>
-            {/* TODO: find out how to pass nothing to mutation */}
-            <Toggle variant="logout" onClick={() => onSignout({})} />
-          </Toggles>
-        </InnerWrap>
+        <Toggles>
+          {/* TODO: find out how to pass nothing to mutation */}
+          <Toggle variant="logout" onClick={() => onSignout({})} />
+        </Toggles>
+      </InnerWrap>
 
-        <Content isOpen={isOpen}>
-          {tabs.map(({ id, Component }) => (
-            <Component key={id} isActive={id === activeTabId} title={id} />
-          ))}
-        </Content>
+      <ActiveTabContent />
       {/* </Suspense> */}
     </Wrap>
   );
 };
 
+const TabItemWrapStyled = styled(TabItemWrap)`
+  background-color: ${(p) => (p.isActive ? 'red' : 'blue')};
+`;
 const Wrap = styled.div`
   z-index: 2;
   position: relative;
@@ -121,25 +117,5 @@ const Toggle = styled(Icon)<{ isActive?: boolean }>`
     p.isActive &&
     css`
       color: var(--isabelline);
-    `};
-`;
-
-const Content = styled.div<{ isOpen: boolean }>`
-  position: absolute;
-  top: 0;
-  right: 100%;
-  bottom: 0;
-  flex-direction: column;
-  padding: var(--size-xlg);
-  width: ${STYLE_SIDEBAR_WIDTH_UNIT}rem;
-  color: var(--isabelline);
-  background-color: var(--charcoal);
-  box-shadow: inset -1px 0 0 0px var(--independence);
-  transform: translateX(100%);
-
-  ${(p) =>
-    p.isOpen &&
-    css`
-      transform: translateX(0);
     `};
 `;
