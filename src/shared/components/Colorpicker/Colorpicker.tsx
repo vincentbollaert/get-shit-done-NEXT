@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors } from '~/shared/constants';
+import { rgbAdjust } from '~/styles';
 import type { Color } from '../../constants';
+import { Icon } from '../Icon/Icon';
 
 type Props = {
   selectedColorValue?: string;
@@ -24,14 +26,26 @@ export const Colorpicker = ({ selectedColorValue, label, setSelectedColor, class
         {label && <Label>{label}</Label>}
       </Toggle>
       <ColorOptions isOpen={isOpen}>
-        {Object.entries(colors).map(([colorId, colorValue]) => (
-          <ColorOption
-            isActive={colorValue === selectedColorValue}
-            color={colorValue}
-            key={colorId}
-            onClick={() => handleClick({ colorId, colorValue })}
-          />
-        ))}
+        {Object.entries(colors).map(([colorId, colorValue]) => {
+          const colorAdjusted = rgbAdjust(colorValue, -80);
+
+          return (
+            <ColorOption
+              isActive={colorValue === selectedColorValue}
+              color={colorValue}
+              colorAdjusted={colorAdjusted}
+              key={colorId}
+              onClick={() => handleClick({ colorId, colorValue })}
+            >
+              <IconStyled
+                isActive={colorValue === selectedColorValue}
+                variant="invert_colors"
+                color={colorValue}
+                colorAdjusted={colorAdjusted}
+              />
+            </ColorOption>
+          );
+        })}
       </ColorOptions>
     </Wrap>
   );
@@ -87,7 +101,7 @@ export const Label = styled.div``;
 export const ColorOptions = styled.div<{ isOpen: boolean }>`
   z-index: 1;
   display: ${(p) => (p.isOpen ? 'flex' : 'none')};
-  width: 20.8rem;
+  width: 40.8rem;
   background-color: var(--charcoal);
   position: absolute;
   top: 0;
@@ -99,20 +113,42 @@ export const ColorOptions = styled.div<{ isOpen: boolean }>`
   box-shadow: 3px 3px 8px -5px var(--charcoal);
 `;
 
-export const ColorOption = styled.div<{ isActive: boolean; color: string }>`
+export const ColorOption = styled.div<{ isActive: boolean; color: string; colorAdjusted: string }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 4rem;
   height: 4rem;
   background-color: ${(p) => p.color};
+  border: 1px solid #fff
+    ${(p) =>
+      p.isActive &&
+      css`
+        z-index: 1;
+        border: 0;
+        box-shadow: 0 0 0 4px ${p.color}, 0px 0 0px 5px ${p.colorAdjusted};
+        transition: box-shadow 0.1s ease-out;
+      `};
+
+  &:hover {
+    z-index: 1;
+    border: 0;
+    box-shadow: 0 0 0 4px ${(p) => p.color}, 0px 0 0px 5px ${(p) => p.colorAdjusted};
+    transition: box-shadow 0.1s ease-out;
+  }
+`;
+
+const IconStyled = styled(Icon)<{ isActive: boolean; color: string; colorAdjusted: string }>`
+  display: none;
+  color: ${(p) => p.colorAdjusted};
+
+  ${ColorOption}:hover & {
+    display: block;
+  }
 
   ${(p) =>
     p.isActive &&
     css`
-      z-index: 1;
-      box-shadow: 0 0 0 1px var(--charcoal);
-    `};
-
-  &:hover {
-    z-index: 1;
-    box-shadow: 0 0 0 1px var(--charcoal);
-  }
+      display: block;
+    `}
 `;
