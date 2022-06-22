@@ -141,12 +141,11 @@ export const tasksApi = createApi({
     addCategory: builder.mutation<ClientModel['Category'], Requests['AddCategory']>({
       query: (requestParams) => queryFn({ url: CATEGORIES_PATH, body: requestParams, method: 'POST' }),
       onQueryStarted: (requestParams, { dispatch }) => {
-        // dispatch(
-        //   tasksApi.util.updateQueryData('getCategories', undefined, (draft) => {
-        //     draft.unshift({ ...requestParams, todoId: 'temp id' }); // TODO: is this the best way?
-        //   })
-        // );
-        dispatch(toastActions.addToast({ prefix: 'category added', message: 'sdsds' }));
+        dispatch(
+          tasksApi.util.updateQueryData('getCategories', undefined, (draft) => {
+            draft.push({ ...requestParams, categoryId: 'temp id' }); // TODO: is this the best way?
+          })
+        );
       },
     }),
     removeCategory: builder.mutation<ClientModel['Category'], Requests['RemoveCategory']>({
