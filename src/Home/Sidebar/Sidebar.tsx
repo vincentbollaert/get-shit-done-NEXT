@@ -78,7 +78,11 @@ export const Sidebar = () => {
 };
 
 const TabItemWrapStyled = styled(TabItemWrap)`
-  background-color: ${(p) => (p.isActive ? 'red' : 'blue')};
+  box-shadow: ${(p) => (p.isActive ? ' 0px 0px 0 1px var(--independence)' : 'none')};
+  background: ${(p) => (p.isActive ? '#3c404d' : 'inherit')};
+  * {
+    color: ${(p) => (p.isActive ? 'var(--isabelline)' : 'var(--sonic-silver)')};
+  }
 `;
 const Wrap = styled.div`
   z-index: 2;
@@ -103,10 +107,13 @@ const InnerWrap = styled.div`
 const Toggles = styled.div``;
 
 const Toggle = styled(Icon)<{ isActive?: boolean }>`
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
   font-size: 2.4rem;
-  padding: 1rem;
+  width: 5rem;
+  height: 5rem;
   cursor: pointer;
 
   &:hover {
