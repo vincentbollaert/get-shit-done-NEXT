@@ -12,12 +12,13 @@ type FormFields = Pick<ClientModel['Category'], 'name'>;
 export const AddNewCategory = () => {
   const [selectedColor, setSelectedColor] = useState<Color | null>(null);
   const [addNewCategory] = useAddCategoryMutation();
-  const { register, handleSubmit, formState } = useForm<FormFields>();
+  const { register, handleSubmit, formState, reset, setFocus } = useForm<FormFields>();
   const { data: currentUser } = useGetCurrentUserQuery();
 
   const errorMessage = (formState.errors.name || {}).type;
   const onSubmit: SubmitHandler<FormFields> = (data) => {
     addNewCategory({ ...data, colorId: selectedColor!.colorId, userId: currentUser!.userId });
+    reset();
   };
 
   return (
@@ -30,7 +31,10 @@ export const AddNewCategory = () => {
       >
         <ColorPickerStyled
           selectedColorValue={selectedColor?.colorValue}
-          setSelectedColor={(color) => setSelectedColor(color)}
+          setSelectedColor={(color) => {
+            setSelectedColor(color);
+            setFocus('name');
+          }}
         />
       </TextFieldStyled>
     </Form>
