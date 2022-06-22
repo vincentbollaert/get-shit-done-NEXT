@@ -16,7 +16,7 @@ export type IconVariant =
   | 'logout'
   | 'dark_mode'
   | 'light_mode';
-type Props = {
+export type IconProps = {
   isError?: boolean;
   theme?: string;
   variant: IconVariant;
@@ -25,7 +25,7 @@ type Props = {
   onClick?(event: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
 };
 
-export const Icon = ({ isError = false, theme = 'light', variant, size = 2, className, onClick }: Props) => {
+export const Icon = ({ isError = false, theme = 'light', variant, size = 2, className, onClick }: IconProps) => {
   return (
     <Wrap
       isError={isError}
