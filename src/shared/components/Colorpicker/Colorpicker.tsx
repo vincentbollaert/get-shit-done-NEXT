@@ -4,12 +4,13 @@ import { colors } from '~/shared/constants';
 import type { Color } from '../../constants';
 
 type Props = {
-  selectedColorValue: string;
-  label: string;
+  selectedColorValue?: string;
+  label?: string;
   setSelectedColor(color: Color): void;
+  className?: string;
 };
 
-export const Colorpicker = ({ selectedColorValue, label, setSelectedColor }: Props) => {
+export const Colorpicker = ({ selectedColorValue, label, setSelectedColor, className }: Props) => {
   const [isOpen, toggleIsOpen] = useState(false);
 
   function handleClick(color: Color) {
@@ -17,10 +18,10 @@ export const Colorpicker = ({ selectedColorValue, label, setSelectedColor }: Pro
     toggleIsOpen(false);
   }
   return (
-    <Wrap>
+    <Wrap className={className}>
       <Toggle onClick={() => toggleIsOpen(!isOpen)}>
         <ColorCircle isOpen={isOpen} color={selectedColorValue} />
-        <Label>{label}</Label>
+        {label && <Label>{label}</Label>}
       </Toggle>
       <ColorOptions isOpen={isOpen}>
         {Object.entries(colors).map(([colorId, colorValue]) => (
@@ -45,8 +46,7 @@ export const Toggle = styled.div`
   align-items: center;
 `;
 
-export const ColorCircle = styled.div<{ isOpen: boolean; color: string }>`
-  position: relative;
+export const ColorCircle = styled.div<{ isOpen: boolean; color?: string }>`
   width: 16px;
   height: 16px;
 
@@ -82,10 +82,7 @@ export const ColorCircle = styled.div<{ isOpen: boolean; color: string }>`
     `};
 `;
 
-export const Label = styled.div`
-  margin-left: var(--size-sm);
-  /* flex-grow: 1; */
-`;
+export const Label = styled.div``;
 
 export const ColorOptions = styled.div<{ isOpen: boolean }>`
   z-index: 1;

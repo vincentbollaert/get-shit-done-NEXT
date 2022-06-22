@@ -3,7 +3,8 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { useAddCategoryMutation, useGetCurrentUserQuery } from '~/api/requests';
 import { ClientModel } from '~/api/types';
-import { Colorpicker, TextField } from '~/shared/components';
+import { Colorpicker, Placeholder, TextField } from '~/shared/components';
+import { Input } from '~/shared/components/form/shared.styled';
 import { Color } from '~/shared/constants';
 
 type FormFields = Pick<ClientModel['Category'], 'name'>;
@@ -21,21 +22,35 @@ export const AddNewCategory = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
+      <TextFieldStyled
         theme="light"
         placeholder="add category"
         errorMessage={errorMessage}
         {...register('name', { required: true })}
       >
-        <Colorpicker
+        <ColorPickerStyled
           selectedColorValue={selectedColor?.colorValue}
           setSelectedColor={(color) => setSelectedColor(color)}
         />
-      </TextField>
+      </TextFieldStyled>
     </Form>
   );
 };
 
 export const Form = styled.form`
   margin-bottom: var(--size-lg);
+`;
+
+const TextFieldStyled = styled(TextField)`
+  ${Input} {
+    padding-left: 24px;
+  }
+  ${Placeholder} {
+    left: 24px;
+  }
+`;
+
+const ColorPickerStyled = styled(Colorpicker)`
+  position: absolute;
+  bottom: 7px;
 `;

@@ -5,6 +5,8 @@ import { Colorpicker, Icon } from '~/shared/components';
 import { colors } from '~/shared/constants';
 import type { Color } from '~/shared/constants';
 import { AddNewCategory } from './AddNewCategory/AddNewCategory';
+import { Actions, SectionItemStyles, RemoveIconStyles } from '../../shared.styled';
+import { ColorCircle } from '~/shared/components/Colorpicker/Colorpicker';
 
 const Categories = () => {
   const { data: categories = [] } = useGetCategoriesQuery();
@@ -20,7 +22,7 @@ const Categories = () => {
 
       {categories.map(({ categoryId, name, colorId }) => (
         <Category key={categoryId} color={colors[colorId]}>
-          <Colorpicker
+          <ColorpickerStyled
             selectedColorValue={colors[colorId]}
             label={name}
             setSelectedColor={(selectedColor) => onColorSelect(selectedColor, categoryId)}
@@ -42,34 +44,24 @@ export const Wrap = styled.div`
 `;
 
 export const Category = styled.div<{ color: string }>`
-  display: flex;
-  align-items: center;
-  padding-bottom: var(--size-xsm);
-  cursor: pointer;
-
-  &::first-child {
-    padding-top: var(--size-xsm);
-  }
+  ${SectionItemStyles};
+  padding-left: 24px;
+  color: ${(p) => p.color};
 
   &:hover {
-    font-weight: bold;
     color: ${(p) => p.color};
   }
 `;
 
-export const Actions = styled.div`
-  position: absolute;
-  right: 0;
-  display: flex;
+const ColorpickerStyled = styled(Colorpicker)`
+  ${ColorCircle} {
+    position: absolute;
+    left: 0;
+  }
 `;
 
 export const RemoveIcon = styled(Icon)`
-  display: none;
-  margin-left: var(--size-lg);
-
-  &:hover {
-    color: var(--sunset-orange);
-  }
+  ${RemoveIconStyles};
 
   ${Category}:hover & {
     display: block;

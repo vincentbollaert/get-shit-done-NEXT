@@ -4,6 +4,7 @@ import { ClientModel } from '~/api/types';
 import { AsyncSvgButton, AsyncTextButton, Icon, SpinnerLoader, TextError } from '~/shared/components';
 import { useUndoable } from '~/shared/hooks/useUndoable';
 import { getAsyncStatus } from '~/shared/utils';
+import { Actions, SectionItemStyles, RemoveIconStyles } from '../../shared.styled';
 import { AddNewTodo } from './AddNewTodo/AddNewTodo';
 
 const Todos = () => {
@@ -53,13 +54,7 @@ const Todos = () => {
 export default Todos;
 
 export const Todo = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: var(--size-xsm);
-  padding: var(--size-xsm) var(--size-lg) var(--size-xsm) 0;
-  cursor: pointer;
-  line-height: 1.5;
+  ${SectionItemStyles};
 `;
 
 const AsyncTextButtonStyled = styled(AsyncTextButton)<{ isDone?: boolean }>`
@@ -69,19 +64,8 @@ const AsyncTextButtonStyled = styled(AsyncTextButton)<{ isDone?: boolean }>`
   color: ${(p) => (p.isDone ? 'var(--rhythm) !important' : 'var(--isabelline)')};
 `;
 
-export const Actions = styled.div`
-  position: absolute;
-  right: 0;
-  display: flex;
-`;
-
 export const RemoveIcon = styled(Icon)`
-  display: none;
-  margin-left: var(--size-lg);
-
-  &:hover {
-    color: var(--sunset-orange);
-  }
+  ${RemoveIconStyles};
 
   ${Todo}:hover & {
     display: block;
