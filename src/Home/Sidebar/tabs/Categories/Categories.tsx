@@ -1,21 +1,14 @@
 import styled from 'styled-components';
-import {
-  useAddCategoryMutation,
-  useGetCategoriesQuery,
-  useGetCurrentUserQuery,
-  useRemoveCategoryMutation,
-  useUpdateCategoryMutation,
-} from '~/api/requests';
+import { useGetCategoriesQuery, useRemoveCategoryMutation, useUpdateCategoryMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { Colorpicker, Icon } from '~/shared/components';
-import { colors } from '~/shared/themes';
-import { Color } from '~/shared/types';
+import { colors } from '~/shared/constants';
+import type { Color } from '~/shared/constants';
+import { AddNewCategory } from './AddNewCategory/AddNewCategory';
 
 const Categories = () => {
   const { data: categories = [] } = useGetCategoriesQuery();
-  const { data: currentUser } = useGetCurrentUserQuery();
   const [updateCategory] = useUpdateCategoryMutation();
-  const [addCategory] = useAddCategoryMutation();
   const [removeCategory] = useRemoveCategoryMutation();
   const onColorSelect = (selectedColor: Color, categoryId: ClientModel['Category']['categoryId']) => {
     updateCategory({ categoryId, colorId: selectedColor.colorId });
@@ -23,6 +16,8 @@ const Categories = () => {
 
   return (
     <Wrap>
+      <AddNewCategory />
+
       {categories.map(({ categoryId, name, colorId }) => (
         <Category key={categoryId} color={colors[colorId]}>
           <Colorpicker
