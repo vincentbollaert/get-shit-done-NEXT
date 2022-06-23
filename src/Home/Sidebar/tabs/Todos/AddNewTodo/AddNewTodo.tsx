@@ -20,12 +20,7 @@ export const AddNewTodo = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <TextField
-        theme="light"
-        placeholder="add todo"
-        errorMessage={errorMessage}
-        {...register('todoName', { required: true })}
-      >
+      <TextField placeholder="add todo" errorMessage={errorMessage} {...register('todoName', { required: true })}>
         <GroupStyled />
       </TextField>
     </Form>

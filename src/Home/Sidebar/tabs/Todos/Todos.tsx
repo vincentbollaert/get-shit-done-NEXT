@@ -40,7 +40,7 @@ const Todos = () => {
             </AsyncTextButtonStyled>
             <Actions>
               <AsyncSvgButton asyncStatuses={[asyncStatusRemove]}>
-                <RemoveIcon theme="light" variant="delete" onClick={() => onRemoveTodo(todoId)} />
+                <RemoveIcon variant="delete" onClick={() => onRemoveTodo(todoId)} />
               </AsyncSvgButton>
             </Actions>
           </Todo>

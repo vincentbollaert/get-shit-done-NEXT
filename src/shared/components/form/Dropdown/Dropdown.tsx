@@ -6,7 +6,7 @@ import { Placeholder } from '../Placeholder/Placeholder.styled';
 import { FieldIcon, Input, Wrap } from '../shared.styled';
 
 type Props = {
-  theme: string;
+  theme?: string;
   isInForm?: boolean;
   activeCategory: ClientModel['Category'] | null;
   label: string;
@@ -15,7 +15,7 @@ type Props = {
 };
 
 // TODO: rename this into category dd
-export const Dropdown = ({ theme, isInForm = false, activeCategory, label, categories, onSelect }: Props) => {
+export const Dropdown = ({ theme = 'light', isInForm = false, activeCategory, label, categories, onSelect }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const accentColor = activeCategory?.colorId ? colors[activeCategory.colorId] : '000';
 
@@ -31,7 +31,7 @@ export const Dropdown = ({ theme, isInForm = false, activeCategory, label, categ
           {label}
         </Placeholder>
         <Input as="div">{activeCategory?.name}</Input>
-        <FieldIcon theme="light" variant="expand_more" />
+        <FieldIcon theme={theme} variant="expand_more" />
       </Header>
       <List isOpen={isOpen}>
         {categories.map((category) => (

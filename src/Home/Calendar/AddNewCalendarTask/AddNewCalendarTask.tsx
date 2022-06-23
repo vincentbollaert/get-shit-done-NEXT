@@ -54,15 +54,12 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
       <TextField
         shouldAutoFocus
         isInForm
-        defaultValue=""
-        theme="light"
         placeholder="name"
         errorMessage={errors.name?.type}
         {...register('name', { required: true, maxLength: 80 })}
       />
       <Dropdown
         isInForm
-        theme="light"
         label="select category"
         activeCategory={selectedCategory}
         categories={categories}
@@ -71,7 +68,6 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
       <TextField
         isInForm
         defaultValue={time[0]}
-        theme="light"
         placeholder="time from"
         errorMessage={errors.from?.type}
         {...register('from', { required: true })}
@@ -79,7 +75,6 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
       <TextField
         isInForm
         defaultValue={time[1]}
-        theme="light"
         placeholder="time to"
         errorMessage={errors.to?.type}
         {...register('to', { required: true })}

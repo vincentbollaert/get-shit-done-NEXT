@@ -23,10 +23,10 @@ const TextFieldUnmemoed = forwardRef(
     {
       shouldAutoFocus,
       isInForm = false,
-      theme,
+      theme = 'light',
       name,
       type = 'text',
-      defaultValue,
+      defaultValue = '',
       placeholder,
       children,
       errorMessage,

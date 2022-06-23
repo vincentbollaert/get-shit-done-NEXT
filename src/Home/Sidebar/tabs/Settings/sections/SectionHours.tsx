@@ -22,7 +22,6 @@ export const SectionHours = ({ hoursToShow }: { hoursToShow: ClientModel['Settin
       <SectionHeader>Hours</SectionHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
         <TextField
-          theme="light"
           isInForm
           type="number"
           defaultValue={hoursToShow[0]}
@@ -31,7 +30,6 @@ export const SectionHours = ({ hoursToShow }: { hoursToShow: ClientModel['Settin
           {...register('defaultHoursFrom', { required: true })}
         />
         <TextField
-          theme="light"
           isInForm
           type="number"
           defaultValue={hoursToShow[1]}

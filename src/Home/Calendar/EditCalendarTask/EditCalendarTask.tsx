@@ -78,7 +78,6 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
         shouldAutoFocus
         isInForm
         defaultValue={name}
-        theme="light"
         placeholder="name"
         errorMessage={errors.name?.type}
         {...register('name', { required: true })}
@@ -86,7 +85,6 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
 
       <Dropdown
         isInForm
-        theme="light"
         label="select category"
         activeCategory={selectedCategory}
         categories={categories}
@@ -95,7 +93,6 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
       <TextField
         isInForm
         defaultValue={time[0]}
-        theme="light"
         placeholder="time from"
         errorMessage={errors.from?.type}
         {...register('from', { required: true })}
@@ -103,7 +100,6 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
       <TextField
         isInForm
         defaultValue={time[1]}
-        theme="light"
         placeholder="time to"
         errorMessage={errors.to?.type}
         {...register('to', { required: true })}
@@ -119,7 +115,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
         </AsyncButton>
 
         <RemoveButton tooltipPosition="right" asyncStatuses={[removeTaskStatus]}>
-          <Icon isError theme="light" variant="delete" onClick={() => removeTask(taskBeingEdited)} />
+          <Icon isError variant="delete" onClick={() => removeTask(taskBeingEdited)} />
         </RemoveButton>
       </ModalFooter>
     </form>

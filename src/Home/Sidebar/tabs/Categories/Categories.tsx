@@ -28,7 +28,7 @@ const Categories = () => {
             setSelectedColor={(selectedColor) => onColorSelect(selectedColor, categoryId)}
           />
           <Actions>
-            <RemoveIcon theme="light" variant="delete" onClick={() => removeCategory(categoryId)} />
+            <RemoveIcon variant="delete" onClick={() => removeCategory(categoryId)} />
           </Actions>
         </Category>
       ))}

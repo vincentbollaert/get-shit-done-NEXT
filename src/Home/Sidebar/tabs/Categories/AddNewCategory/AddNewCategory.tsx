@@ -23,12 +23,7 @@ export const AddNewCategory = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <TextFieldStyled
-        theme="light"
-        placeholder="add category"
-        errorMessage={errorMessage}
-        {...register('name', { required: true })}
-      >
+      <TextFieldStyled placeholder="add category" errorMessage={errorMessage} {...register('name', { required: true })}>
         <ColorPickerStyled
           selectedColorValue={selectedColor?.colorValue}
           setSelectedColor={(color) => {
