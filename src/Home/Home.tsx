@@ -1,29 +1,25 @@
 import styled, { css } from 'styled-components';
 import { useGetCurrentUserQuery } from '~/api/requests';
 import { useAppSelector } from '~/Application/Root';
-import { Modal, Toast } from '~/shared/components';
+import { Toast } from '~/shared/components';
 import {
   STYLE_COLUMN_MARGIN,
   STYLE_DAYS_HEIGHT_UNIT,
   STYLE_HOURS_WIDTH_UNIT,
-  STYLE_SIDEBAR_WIDTH_UNIT
+  STYLE_SIDEBAR_WIDTH_UNIT,
 } from '~/styles';
 import { DayLabels } from './axis/DayLabels/DayLabels';
 import { HourLabels } from './axis/HourLabels/HourLabels';
 import { Calendar } from './Calendar/Calendar';
 import { Sidebar } from './Sidebar/Sidebar';
-import { SignInForm } from './SignInForm/SignInForm';
+import { UserModal } from './UserModal/UserModal';
 
 const Home = () => {
   const isSidebarOpen = useAppSelector((state) => state.app).isSidebarOpen;
   const { data: currentUser } = useGetCurrentUserQuery();
 
   if (!currentUser) {
-    return (
-      <Modal isVisible title="Sign in" width={17} onOverlayToggle={() => null}>
-        <SignInForm />
-      </Modal>
-    );
+    return <UserModal />;
   }
 
   if (currentUser) {

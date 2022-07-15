@@ -1,48 +1,43 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ClientModel } from '~/api/types';
-import { colors } from '~/shared/constants';
 import { Placeholder } from '../Placeholder/Placeholder.styled';
 import { FieldIcon, Input, Wrap } from '../shared.styled';
 
-type Props = {
-  theme?: string;
-  isInForm?: boolean;
-  activeCategory: ClientModel['Category'] | null;
-  label: string;
-  categories: ClientModel['Category'][];
-  onSelect(item: ClientModel['Category']): void;
+export type DropdownItem = {
+  id: string;
+  name: string;
 };
 
-// TODO: rename this into category dd
-export const Dropdown = ({ theme = 'light', isInForm = false, activeCategory, label, categories, onSelect }: Props) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const accentColor = activeCategory?.colorId ? colors[activeCategory.colorId] : '000';
+export type DropdownList = DropdownItem[];
 
-  function onItemSelect(selectItem: ClientModel['Category']) {
+export type DropdownProps = {
+  isInForm?: boolean;
+  activeItem?: DropdownItem;
+  label: string;
+  list: DropdownList;
+  onSelect: (item: DropdownItem) => void;
+};
+
+export const Dropdown = ({ isInForm = false, activeItem, label, list, onSelect }: DropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function onItemSelect(selectItem: DropdownItem) {
     onSelect(selectItem);
     setIsOpen(false);
   }
 
   return (
-    <Wrap theme={theme} isInForm={isInForm} tabIndex={0} onBlur={() => setIsOpen(false)}>
-      <Header color={accentColor} onClick={() => setIsOpen(!isOpen)}>
-        <Placeholder theme={theme} hasValue={!!activeCategory?.categoryId}>
-          {label}
-        </Placeholder>
-        <Input as="div">{activeCategory?.name}</Input>
-        <FieldIcon theme={theme} variant="expand_more" />
+    <Wrap isInForm={isInForm} tabIndex={0} onBlur={() => setIsOpen(false)}>
+      <Header onClick={() => setIsOpen(!isOpen)}>
+        <Placeholder hasValue={!!activeItem?.id}>{label}</Placeholder>
+        <Input as="div">{activeItem?.name}</Input>
+        <FieldIcon variant="expand_more" />
       </Header>
+
       <List isOpen={isOpen}>
-        {categories.map((category) => (
-          <Item
-            isActive={category.categoryId === activeCategory?.categoryId}
-            color={accentColor}
-            onClick={() => onItemSelect(category)}
-            key={category.categoryId}
-          >
-            {category.name}
-            <CategoryColor color={colors[category.colorId]} />
+        {list.map((item) => (
+          <Item isActive={item.id === activeItem?.id} onClick={() => onItemSelect(item)} key={item.id}>
+            {item.name}
           </Item>
         ))}
       </List>
@@ -50,9 +45,8 @@ export const Dropdown = ({ theme = 'light', isInForm = false, activeCategory, la
   );
 };
 
-export const Header = styled.div<{ color: string }>`
+export const Header = styled.div`
   width: 100%;
-  color: ${(p) => p.color};
 `;
 
 export const List = styled.div<{ isOpen: boolean }>`
@@ -69,24 +63,15 @@ export const List = styled.div<{ isOpen: boolean }>`
   box-shadow: 3px 3px 8px -5px #343742;
 `;
 
-export const Item = styled.div<{ isActive: boolean; color: string }>`
+export const Item = styled.div<{ isActive: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
   padding: var(--size-xsm);
-  color: ${(p) => (p.isActive ? p.color : 'var(--isabelline)')};
+  color: ${(p) => (p.isActive ? 'var(--isabelline)' : 'red')};
   cursor: pointer;
 
   &:hover {
-    color: ${(p) => (p.isActive ? p.color : 'var(--white)')};
+    color: 'var(--white)';
   }
-`;
-
-export const CategoryColor = styled.div<{ color: string }>`
-  width: var(--size-lg);
-  height: var(--size-lg);
-  background: ${(p) => p.color};
-  border-radius: 50%;
-  position: absolute;
-  right: 0;
 `;

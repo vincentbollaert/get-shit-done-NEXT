@@ -8,34 +8,36 @@ type Props = {
   title: string;
   width: number;
   children: React.ReactNode;
-  onOverlayToggle(event: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
+  onOverlayToggle?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 };
 
 // TODO: Use createPortal correctly
 export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Props) => {
-  const [isClientSide, setIsClientSide] = useState(false);
+  const [isRendered, setIsRendered] = useState(false);
 
   useEffect(() => {
-    setIsClientSide(true);
+    setIsRendered(true);
   }, []);
 
-  return !isClientSide || !isVisible
-    ? null
-    : ReactDOM.createPortal(
-        <Wrap>
-          <Overlay onClick={onOverlayToggle} />
-          <ModalWrap width={width} tabIndex={0}>
-            <InnerWrap>
-              <Header>
-                {title}
-                <IconStyled variant="close" onClick={onOverlayToggle} />
-              </Header>
-              <Content>{children}</Content>
-            </InnerWrap>
-          </ModalWrap>
-        </Wrap>,
-        document.querySelector('body')!
-      );
+  if (!isRendered || !isVisible) {
+    return null;
+  }
+
+  return ReactDOM.createPortal(
+    <Wrap>
+      <Overlay onClick={onOverlayToggle} />
+      <ModalWrap width={width} tabIndex={0}>
+        <InnerWrap>
+          <Header>
+            {title}
+            <IconStyled variant="close" onClick={onOverlayToggle} />
+          </Header>
+          <Content>{children}</Content>
+        </InnerWrap>
+      </ModalWrap>
+    </Wrap>,
+    document.querySelector('body')!
+  );
 };
 
 const Wrap = styled.div`

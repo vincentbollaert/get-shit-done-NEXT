@@ -29,6 +29,7 @@
     "react/jsx-props-no-spreading": "off",
     "react/require-default-props": "off",
     "react/display-name": "off",
+    "react/no-unescaped-entities": "off", // disables error if strings aren't escaped, like "we're"
     "@typescript-eslint/no-var-requires": "off", // should allow require
     "@typescript-eslint/explicit-module-boundary-types": "off", // disables explicit fn return type
     "import/no-named-default": "off",

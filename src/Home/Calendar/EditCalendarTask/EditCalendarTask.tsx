@@ -86,8 +86,8 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
       <Dropdown
         isInForm
         label="select category"
-        activeCategory={selectedCategory}
-        categories={categories}
+        activeItem={selectedCategory}
+        list={categories}
         onSelect={(category) => setSelectedCategory(category)}
       />
       <TextField

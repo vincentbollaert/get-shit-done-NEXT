@@ -3,7 +3,7 @@ import { AsyncStatus } from '~/shared/types';
 export type DumbButtonProps = {
   isDisabled?: boolean;
   accentColor?: string;
-  type: 'submit' | 'button' | 'reset';
+  type?: 'submit' | 'button' | 'reset';
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
