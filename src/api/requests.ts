@@ -56,7 +56,7 @@ export const tasksApi = createApi({
     // TODO: save current month and year and pass as params to getTasks
     // TODO: add proper error handling for all
     getTasks: builder.query<TasksByDay, void>({
-      query: (monthOfTasks) => queryFn({ url: `${TASKS_PATH}?month=Jul` }),
+      query: (monthOfTasks) => queryFn({ url: `${TASKS_PATH}?month=Feb` }),
       providesTags: ['Task'],
     }),
     addTask: builder.mutation<ClientModel['Task'], Requests['AddTask']>({
