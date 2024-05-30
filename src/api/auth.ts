@@ -2,8 +2,13 @@ import jwt from 'jsonwebtoken';
 import type { NextApiHandler, NextApiResponse } from 'next';
 import type { NextApiRequestWithUser, ClientModel } from '~/api/types';
 
-export const generateJWT = ({ userId, email }: ClientModel['User']) =>
-  jwt.sign({ userId, email }, process.env.JWT_KEY!);
+export const generateJWT = ({ userId, email }: ClientModel['User']) => {
+  if (!process.env.JWT_KEY) {
+    throw new Error('Please define the JWT_KEY environment variable inside .env.local');
+  }
+
+  return jwt.sign({ userId, email }, process.env.JWT_KEY!);
+};
 
 export const verifyIfLoggedIn =
   (handler: NextApiHandler) => async (req: NextApiRequestWithUser, res: NextApiResponse) => {
