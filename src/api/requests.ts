@@ -58,7 +58,7 @@ export const tasksApi = createApi({
     getTasks: builder.query<TasksByDay, void>({
       query: (monthOfTasks) => {
         const date = new Date();
-        const monthString = date.toLocaleString('default', { month: 'long' });
+        const monthString = date.toLocaleString('default', { month: 'short' });
 
         return queryFn({ url: `${TASKS_PATH}?month=${monthString}` });
       },
