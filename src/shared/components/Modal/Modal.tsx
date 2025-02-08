@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import { Icon } from '~/shared/components';
-import type { IconProps } from '~/shared/components/Icon/Icon';
+import { Icon } from '~/shared/components/Icon/Icon';
 
 type Props = {
   isVisible: boolean;
@@ -98,7 +97,6 @@ const Content = styled.div<ContentProps>`
   color: var(--sonic-silver);
 `;
 
-type IconStyledProps = IconProps;
 const IconStyled = styled(Icon)`
   position: absolute;
   right: var(--size-lg);
