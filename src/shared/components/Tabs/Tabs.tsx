@@ -60,15 +60,15 @@ export const Tabs = <I extends React.JSX.IntrinsicAttributes, C>({
 };
 
 export const TabItemWrap = ({ isActive, onClick, children, className }: TabItemWrapProps) => (
-  <TabItemWrapStyled isActive={isActive} onClick={onClick} className={className}>
+  <TabItemWrapStyled $isActive={isActive} onClick={onClick} className={className}>
     {children}
   </TabItemWrapStyled>
 );
-const TabItemWrapStyled = styled.div<React.HTMLAttributes<HTMLDivElement> & { isActive: boolean }>``;
+const TabItemWrapStyled = styled.div<React.HTMLAttributes<HTMLDivElement> & { $isActive: boolean }>``;
 
 export const TabContentWrap: React.FC<TabContentWrapProps> = ({ isActive, children }) => (
-  <TabContentWrapStyled isActive={isActive}>{children}</TabContentWrapStyled>
+  <TabContentWrapStyled $isActive={isActive}>{children}</TabContentWrapStyled>
 );
-export const TabContentWrapStyled = styled.div<React.HTMLAttributes<HTMLDivElement> & { isActive: boolean }>`
-  display: ${(p) => (p.isActive ? 'block' : 'none')};
+export const TabContentWrapStyled = styled.div<React.HTMLAttributes<HTMLDivElement> & { $isActive: boolean }>`
+  display: ${(p) => (p.$isActive ? 'block' : 'none')};
 `;
