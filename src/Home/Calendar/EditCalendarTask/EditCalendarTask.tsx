@@ -56,7 +56,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
     };
 
     dispatch(
-      tasksApi.util.updateQueryResult('getTasks', undefined, (draft) => {
+      tasksApi.util.updateQueryData('getTasks', undefined, (draft) => {
         const taskToUpdate = draft[timestamp].tasks.find((task) => task.taskId === taskId) as Record<
           keyof ClientModel['Task'],
           ValueOf<ClientModel['Task']>

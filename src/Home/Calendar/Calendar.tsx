@@ -1,5 +1,5 @@
 import React from 'react';
-import isToday from 'date-fns/isToday';
+import { isToday } from 'date-fns/isToday';
 import { useCallback, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -51,7 +51,7 @@ export const Calendar = () => {
 
     // TODO: create util out of this as its common
     dispatch(
-      tasksApi.util.updateQueryResult('getTasks', undefined, (draft) => {
+      tasksApi.util.updateQueryData('getTasks', undefined, (draft) => {
         const taskToUpdate = draft[taskBeingEditedClone!.timestamp].tasks.find(
           (task) => task.taskId === taskBeingEditedClone!.taskId
         ) as Record<keyof ClientModel['Task'], ValueOf<ClientModel['Task']>>;

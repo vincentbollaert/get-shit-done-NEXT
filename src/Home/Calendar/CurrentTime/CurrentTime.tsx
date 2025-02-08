@@ -1,7 +1,7 @@
-import add from 'date-fns/add';
-import differenceInMinutes from 'date-fns/differenceInMinutes';
-import format from 'date-fns/format';
-import startOfToday from 'date-fns/startOfToday';
+import { add } from 'date-fns/add';
+import { differenceInMinutes } from 'date-fns/differenceInMinutes';
+import { format } from 'date-fns/format';
+import { startOfToday } from 'date-fns/startOfToday';
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 

@@ -1,5 +1,5 @@
 import type { NextApiResponse } from 'next';
-import format from 'date-fns/format';
+import { format } from 'date-fns/format';
 import dbConnect from '~/api/utils/dbConnect';
 import Task from '~/api/models/tasksModel';
 import type { Models } from '~/api/types';
