@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import dbConnect from '~/api/utils/dbConnect';
-import User from '~/api/models/userModel';
 import { generateJWT } from '~/api/auth';
+import User from '~/api/models/userModel';
 import type { Models } from '~/api/types';
+import dbConnect from '~/api/utils/dbConnect';
 
 // TODO: add the form validation middleware too
 async function handler(req: NextApiRequest, res: NextApiResponse) {

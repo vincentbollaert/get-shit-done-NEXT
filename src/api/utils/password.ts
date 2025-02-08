@@ -1,4 +1,4 @@
-import { scrypt, randomBytes } from 'crypto';
+import { randomBytes, scrypt } from 'crypto';
 import { promisify } from 'util';
 
 // convert default cb implementation of scrypt to promise-based

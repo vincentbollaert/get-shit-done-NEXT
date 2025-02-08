@@ -5,9 +5,9 @@ import { useRemoveTaskMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { useAppDispatch } from '~/Application/Root';
 import { actions, TaskWithMeta } from '~/reducers/calendar';
+import { colors } from '~/shared/constants';
 import { useUndoable } from '~/shared/hooks/useUndoable';
 import { makeHoursAxis } from '~/shared/selectors';
-import { colors } from '~/shared/constants';
 import { ellipsis, rgbAdjust } from '~/styles';
 import { CN_COLUMN, CN_TASK_GAP, taskShadow, taskShadowBeingEdited } from '../shared';
 

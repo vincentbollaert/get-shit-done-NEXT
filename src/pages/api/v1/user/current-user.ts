@@ -1,7 +1,7 @@
 import type { NextApiResponse } from 'next';
-import dbConnect from '~/api/utils/dbConnect';
 import { verifyIfLoggedIn } from '~/api/auth';
 import { NextApiRequestWithUser } from '~/api/types';
+import dbConnect from '~/api/utils/dbConnect';
 
 async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   await dbConnect();

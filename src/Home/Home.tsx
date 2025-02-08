@@ -1,3 +1,4 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { useGetCurrentUserQuery } from '~/api/requests';
 import { useAppSelector } from '~/Application/Root';
@@ -13,7 +14,6 @@ import { HourLabels } from './axis/HourLabels/HourLabels';
 import { Calendar } from './Calendar/Calendar';
 import { Sidebar } from './Sidebar/Sidebar';
 import { SignInForm } from './SignInForm/SignInForm';
-import React from 'react';
 
 const Home = () => {
   const isSidebarOpen = useAppSelector((state) => state.app).isSidebarOpen;
@@ -46,7 +46,6 @@ const Home = () => {
   return null;
 };
 
- 
 export default Home;
 
 export const PageWrap = styled.div`

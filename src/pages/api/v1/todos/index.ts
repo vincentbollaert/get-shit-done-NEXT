@@ -1,8 +1,8 @@
 import type { NextApiResponse } from 'next';
-import dbConnect from '~/api/utils/dbConnect';
-import Todo from '~/api/models/todoModel';
 import { verifyIfLoggedIn } from '~/api/auth';
+import Todo from '~/api/models/todoModel';
 import type { NextApiRequestWithUser } from '~/api/types';
+import dbConnect from '~/api/utils/dbConnect';
 
 async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   await dbConnect();

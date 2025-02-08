@@ -1,6 +1,6 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { STYLE_PLACEHOLDER_COLOR_DARK, STYLE_PLACEHOLDER_COLOR_LIGHT } from '../shared.styled';
-import React from 'react';
 
 type PlaceholderProps = React.HTMLAttributes<HTMLDivElement> & {
   $isError?: boolean;

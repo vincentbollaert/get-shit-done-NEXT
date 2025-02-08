@@ -28,7 +28,7 @@ type Props = {
   title?: string;
   children: ReactNode;
 };
- 
+
 export default function Layout({ children, title = 'This is the default title' }: Props) {
   const dispatch = useAppDispatch();
   const { data } = useGetSettingsQuery();

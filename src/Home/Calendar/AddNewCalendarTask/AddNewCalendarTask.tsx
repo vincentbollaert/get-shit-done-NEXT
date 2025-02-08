@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
-import { useAddTaskMutation, useGetCurrentUserQuery, useGetCategoriesQuery } from '~/api/requests';
+import { useAddTaskMutation, useGetCategoriesQuery, useGetCurrentUserQuery } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';

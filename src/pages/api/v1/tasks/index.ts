@@ -1,10 +1,9 @@
-import type { NextApiResponse } from 'next';
 import { format } from 'date-fns/format';
-import dbConnect from '~/api/utils/dbConnect';
-import Task from '~/api/models/tasksModel';
-import type { Models } from '~/api/types';
+import type { NextApiResponse } from 'next';
 import { verifyIfLoggedIn } from '~/api/auth';
-import type { NextApiRequestWithUser } from '~/api/types';
+import Task from '~/api/models/tasksModel';
+import type { Models, NextApiRequestWithUser } from '~/api/types';
+import dbConnect from '~/api/utils/dbConnect';
 
 const tasksResponseMapping = (tasks: Models['Task'][]) =>
   tasks.reduce<Record<string, { tasks: Models['Task'][] }>>((acc, cur) => {

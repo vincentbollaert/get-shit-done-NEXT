@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import type { NextApiHandler, NextApiResponse } from 'next';
-import type { NextApiRequestWithUser, ClientModel } from '~/api/types';
+import type { ClientModel, NextApiRequestWithUser } from '~/api/types';
 
 export const generateJWT = ({ userId, email }: Pick<ClientModel['User'], 'userId' | 'email'>) => {
   if (!process.env.JWT_KEY) {

@@ -1,4 +1,3 @@
- 
 // https://webpack.js.org/guides/typescript/
 
 declare module '*.svg' {

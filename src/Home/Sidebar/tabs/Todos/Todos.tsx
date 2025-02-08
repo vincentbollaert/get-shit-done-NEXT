@@ -4,7 +4,7 @@ import { ClientModel } from '~/api/types';
 import { AsyncSvgButton, AsyncTextButton, Icon, SpinnerLoader, TextError } from '~/shared/components';
 import { useUndoable } from '~/shared/hooks/useUndoable';
 import { getAsyncStatus } from '~/shared/utils';
-import { Actions, SectionItemStyles, RemoveIconStyles } from '../../shared.styled';
+import { Actions, RemoveIconStyles, SectionItemStyles } from '../../shared.styled';
 import { AddNewTodo } from './AddNewTodo/AddNewTodo';
 
 const Todos = () => {
@@ -50,7 +50,6 @@ const Todos = () => {
   );
 };
 
- 
 export default Todos;
 
 export const Todo = styled.div<{ children: React.ReactNode; onClick: () => void }>`

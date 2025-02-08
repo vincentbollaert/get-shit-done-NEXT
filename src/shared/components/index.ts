@@ -8,6 +8,6 @@ export { Modal, ModalFooter } from './Modal';
 export { CN_LOADER, SpinnerLoader } from './Spinner/Spinner';
 export { Svg } from './Svg/Svg';
 export { SWUpdate } from './SWUpdate/SWUpdate';
+export { Tag, TagsWrap } from './Tag/Tag';
 export { Toast } from './Toast/Toast';
 export { Tooltip } from './Tooltip/Tooltip';
-export { Tag, TagsWrap } from './Tag/Tag';

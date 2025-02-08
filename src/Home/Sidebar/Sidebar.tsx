@@ -4,15 +4,15 @@ import { useSignoutMutation } from '~/api/requests';
 import { Icon } from '~/shared/components';
 import { useFullscreenToggle } from '~/shared/hooks/useFullscreenToggle';
 import Settings from './tabs/Settings/Settings';
-import { TabContentProps, TabContent } from './tabs/TabContent';
+import { TabContent, TabContentProps } from './tabs/TabContent';
 // const Todos = lazy(() => import('./Todos/Todos'));
 // const Settings = lazy(() => import('./Settings/Settings'));
-import Todos from './tabs/Todos/Todos';
-import Categories from './tabs/Categories/Categories';
-import { actions } from '~/reducers/app';
 import { useAppDispatch } from '~/Application/Root';
+import { actions } from '~/reducers/app';
+import { TabItemWrap, Tabs } from '~/shared/components/Tabs/Tabs';
 import type { IconProps } from '../../shared/components/Icon/Icon';
-import { Tabs, TabItemWrap } from '~/shared/components/Tabs/Tabs';
+import Categories from './tabs/Categories/Categories';
+import Todos from './tabs/Todos/Todos';
 
 export const Sidebar = () => {
   const dispatch = useAppDispatch();

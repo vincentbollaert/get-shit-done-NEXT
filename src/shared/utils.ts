@@ -1,11 +1,11 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
-import cloneDeep from 'lodash/cloneDeep';
 import { eachDayOfInterval } from 'date-fns/eachDayOfInterval';
 import { getDaysInMonth } from 'date-fns/getDaysInMonth';
 import { lastDayOfMonth } from 'date-fns/lastDayOfMonth';
 import { sub } from 'date-fns/sub';
-import { RTKQueryStatus, ClientModel, TasksByDay } from '~/api/types';
+import cloneDeep from 'lodash/cloneDeep';
+import { ClientModel, RTKQueryStatus, TasksByDay } from '~/api/types';
 import { AsyncStatus } from '~/shared/types';
 
 export const generateMonthDays = (date: Date = new Date()) =>

@@ -2,11 +2,11 @@ import styled from 'styled-components';
 import { useGetCategoriesQuery, useRemoveCategoryMutation, useUpdateCategoryMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
 import { Colorpicker, Icon } from '~/shared/components';
-import { colors } from '~/shared/constants';
-import type { Color } from '~/shared/constants';
-import { AddNewCategory } from './AddNewCategory/AddNewCategory';
-import { Actions, SectionItemStyles, RemoveIconStyles } from '../../shared.styled';
 import { ColorCircle } from '~/shared/components/Colorpicker/Colorpicker';
+import type { Color } from '~/shared/constants';
+import { colors } from '~/shared/constants';
+import { Actions, RemoveIconStyles, SectionItemStyles } from '../../shared.styled';
+import { AddNewCategory } from './AddNewCategory/AddNewCategory';
 
 const Categories = () => {
   const { data: categories = [] } = useGetCategoriesQuery();
@@ -36,7 +36,6 @@ const Categories = () => {
   );
 };
 
- 
 export default Categories;
 
 export const Wrap = styled.div`

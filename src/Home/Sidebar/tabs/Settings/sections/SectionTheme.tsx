@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import { Tag, TagsWrap } from '~/shared/components';
-import type { ClientModel } from '~/api/types';
 import { useUpdateSettingsMutation } from '~/api/requests';
+import type { ClientModel } from '~/api/types';
+import { Tag, TagsWrap } from '~/shared/components';
 import { Section, SectionHeader } from '../../../shared.styled';
 
 export const SectionTheme = ({ colorTheme }: { colorTheme: ClientModel['Settings']['theme'] }) => {

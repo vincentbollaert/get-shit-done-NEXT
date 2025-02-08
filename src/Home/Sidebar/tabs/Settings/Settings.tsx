@@ -1,10 +1,10 @@
-import { SectionTheme } from './sections/SectionTheme';
-import { SectionSize } from './sections/SectionSize';
-import { SectionHours } from './sections/SectionHours';
-import { SectionDays } from './sections/SectionDays';
-import { SectionMisc } from './sections/SectionMisc';
-import { SectionIntegrations } from './sections/SectionIntegrations';
 import { useGetSettingsQuery } from '~/api/requests';
+import { SectionDays } from './sections/SectionDays';
+import { SectionHours } from './sections/SectionHours';
+import { SectionIntegrations } from './sections/SectionIntegrations';
+import { SectionMisc } from './sections/SectionMisc';
+import { SectionSize } from './sections/SectionSize';
+import { SectionTheme } from './sections/SectionTheme';
 
 const Settings = () => {
   const { isLoading, data } = useGetSettingsQuery();
@@ -25,5 +25,5 @@ const Settings = () => {
     </div>
   );
 };
- 
+
 export default Settings;

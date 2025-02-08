@@ -1,8 +1,8 @@
-import dbConnect from '~/api/utils/dbConnect';
-import User from '~/api/models/settingsModel';
-import { verifyIfLoggedIn } from '~/api/auth';
-import type { NextApiRequestWithUser } from '~/api/types';
 import type { NextApiResponse } from 'next';
+import { verifyIfLoggedIn } from '~/api/auth';
+import User from '~/api/models/settingsModel';
+import type { NextApiRequestWithUser } from '~/api/types';
+import dbConnect from '~/api/utils/dbConnect';
 
 async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
   await dbConnect();

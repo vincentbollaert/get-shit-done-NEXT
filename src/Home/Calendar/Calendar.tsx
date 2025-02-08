@@ -1,19 +1,17 @@
-import React from 'react';
 import { isToday } from 'date-fns/isToday';
-import { useCallback, useMemo, useRef } from 'react';
+import React, { useCallback, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { tasksApi, useGetTasksQuery } from '~/api/requests';
-import { ClientModel } from '~/api/types';
+import { ClientModel, ValueOf } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
-import { mapTasksByDay } from '~/shared/utils';
 import { CN_LOADER, Modal, SpinnerLoader } from '~/shared/components';
 import { makeDaysAxis, makeHoursAxis } from '~/shared/selectors';
+import { mapTasksByDay } from '~/shared/utils';
 import { AddNewCalendarTask } from './AddNewCalendarTask/AddNewCalendarTask';
 import { CalendarColumn } from './Column/CalendarColumn';
 import { EditCalendarTask } from './EditCalendarTask/EditCalendarTask';
-import { ValueOf } from '~/api/types';
 
 const CalendarColumns = () => {
   const { data: allTasksByDay } = useGetTasksQuery();

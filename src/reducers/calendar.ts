@@ -1,9 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { format } from 'date-fns/format';
-import { eachWeekOfInterval } from 'date-fns/eachWeekOfInterval';
-import { subDays } from 'date-fns/subDays';
 import { addDays } from 'date-fns/addDays';
 import { eachDayOfInterval } from 'date-fns/eachDayOfInterval';
+import { eachWeekOfInterval } from 'date-fns/eachWeekOfInterval';
+import { format } from 'date-fns/format';
+import { subDays } from 'date-fns/subDays';
 import { ClientModel, Models } from '~/api/types';
 import { HOURS_IN_DAY } from '~/shared/constants';
 import { generateMonthDays, generateMonthDayStrings } from '~/shared/utils';
