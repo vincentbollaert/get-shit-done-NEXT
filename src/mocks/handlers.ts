@@ -55,7 +55,7 @@ const mockSettings: ClientModel['Settings'] & { settingsId: string } = {
 
 export const handlers = [
   // Auth endpoints
-  http.post<PathParams, Requests['SignIn']>('/api/v1/user/signin', async ({ request }) => {
+  http.post<PathParams, Requests['SignIn']>('/api/v1/user/signin', async () => {
     return Response.json(mockUser, { status: 200 });
   }),
 

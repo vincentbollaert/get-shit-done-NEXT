@@ -32,7 +32,9 @@ export const Toast = memo(function Toast() {
     }
 
     return () => {
-      timeoutIdRef.current && clearTimeout(timeoutIdRef.current);
+      if (timeoutIdRef.current) {
+        clearTimeout(timeoutIdRef.current);
+      }
       setTimeRemaining(5);
     };
   }, [message]);

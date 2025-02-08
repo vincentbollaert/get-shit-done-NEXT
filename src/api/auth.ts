@@ -14,8 +14,8 @@ export const verifyIfLoggedIn =
   (handler: NextApiHandler) => async (req: NextApiRequestWithUser, res: NextApiResponse) => {
     try {
       req.loggedInUser = await getLoggedInUser(req);
-    } catch (error) {
-      return res.status(500).json({ error: 'not authorised' });
+    } catch (err) {
+      return res.status(500).json({ error: 'not authorised ' + err });
     }
 
     return handler(req, res);

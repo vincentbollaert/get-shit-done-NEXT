@@ -12,15 +12,15 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
       const categories = await Category.find({ userId: req.loggedInUser?.userId });
       res.status(200).json(categories);
     } catch (err) {
-      res.status(500).send({ errorMessage: 'could not find categories' });
+      res.status(500).send({ errorMessage: 'could not find categories ' + err });
     }
   } else if (req.method === 'POST') {
     try {
       const category = await new Category(req.body);
       category.save();
       res.status(200).json(category);
-    } catch (error) {
-      res.status(500).json({ errorMessage: 'could not add category' });
+    } catch (err) {
+      res.status(500).json({ errorMessage: 'could not add category ' + err });
     }
   } else {
     res.status(404).json({ errorMessage: 'route not found' });

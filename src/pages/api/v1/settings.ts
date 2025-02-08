@@ -12,14 +12,14 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
       const settings = await Settings.findOne({ userId: req.loggedInUser?.userId });
       res.status(200).json(settings);
     } catch (err) {
-      res.status(500).send({ errorMessage: 'could not find settings' });
+      res.status(500).send({ errorMessage: 'could not find settings ' + err });
     }
   } else if (req.method === 'PATCH') {
     try {
       const settings = await Settings.findOneAndUpdate((req.loggedInUser?.userId, req.body));
       res.status(200).json(settings);
-    } catch (error) {
-      res.status(500).json({ errorMessage: 'could not update settings' });
+    } catch (err) {
+      res.status(500).json({ errorMessage: 'could not update settings ' + err });
     }
   } else {
     res.status(404).json({ errorMessage: 'route not found' });

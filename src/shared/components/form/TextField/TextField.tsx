@@ -33,7 +33,7 @@ const TextFieldUnmemoed = forwardRef(
       className,
       onChange,
     }: Props,
-    ref: ForwardedRef<any>,
+    ref: ForwardedRef<HTMLInputElement>,
   ) => {
     const [value, setValue] = useState(defaultValue);
     const [isFocused, setIsFocused] = useState(false);

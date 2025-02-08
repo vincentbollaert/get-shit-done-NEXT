@@ -1,12 +1,12 @@
 // https://webpack.js.org/guides/typescript/
 
 declare module '*.svg' {
-  const content: any;
+  const content: string;
   export default content;
 }
 
 declare module '*.css' {
-  const content: any;
+  const content: Record<string, string>;
   export default content;
 }
 
@@ -14,5 +14,5 @@ import 'styled-components';
 import type { ThemeValues } from './shared/themes';
 
 declare module 'styled-components' {
-  export interface DefaultTheme extends ThemeValues {}
+  export type DefaultTheme = ThemeValues;
 }

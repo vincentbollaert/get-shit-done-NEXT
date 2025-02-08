@@ -21,7 +21,9 @@ export const Sidebar = () => {
   const [onSignout] = useSignoutMutation();
   const handleTabClick = (id: string) => {
     setActiveTab(id === activeTabId ? null : id);
-    (!activeTabId || id === activeTabId) && dispatch(actions.toggleSidebar());
+    if (!activeTabId || id === activeTabId) {
+      dispatch(actions.toggleSidebar());
+    }
   };
   const { TabItems, ActiveTabContent } = Tabs<IconProps & React.JSX.IntrinsicAttributes, TabContentProps>({
     activeTabId: activeTabId,

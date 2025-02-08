@@ -9,7 +9,7 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
     try {
       res.status(200).json(req.loggedInUser);
     } catch (err) {
-      res.status(500).send({ errorMessage: 'no current user' });
+      res.status(500).send({ errorMessage: 'no current user ' + err });
     }
   } else {
     res.status(404).json({ errorMessage: 'route not found' });

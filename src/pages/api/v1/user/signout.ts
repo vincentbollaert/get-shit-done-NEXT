@@ -12,7 +12,7 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
       const foundUser = await User.findOne({ userId: req.loggedInUser?.userId });
       res.status(200).json(foundUser);
     } catch (err) {
-      res.status(500).send({ errorMessage: 'could not find user' });
+      res.status(500).send({ errorMessage: 'could not find user ' + err });
     }
   } else {
     res.status(404).json({ errorMessage: 'route not found' });

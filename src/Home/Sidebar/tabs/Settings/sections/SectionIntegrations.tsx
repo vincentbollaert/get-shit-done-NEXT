@@ -7,14 +7,9 @@ type FormValues = {
 };
 
 export const SectionIntegrations = () => {
-  const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { handleSubmit } = useForm<FormValues>();
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    const dataMapped = {
-      defaultHoursFrom: Number(data.defaultHoursFrom),
-      defaultHoursTo: Number(data.defaultHoursTo),
-    };
-  };
+  const onSubmit: SubmitHandler<FormValues> = () => {};
 
   return (
     <Section>

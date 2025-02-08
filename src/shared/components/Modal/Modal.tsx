@@ -24,7 +24,7 @@ export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Pr
     : ReactDOM.createPortal(
         <Wrap>
           <Overlay onClick={onOverlayToggle} />
-          <ModalWrap width={width} tabIndex={0}>
+          <ModalWrap $width={width} tabIndex={0}>
             <InnerWrap>
               <Header>
                 {title}
@@ -34,7 +34,7 @@ export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Pr
             </InnerWrap>
           </ModalWrap>
         </Wrap>,
-        document.querySelector('body')!,
+        document.querySelector('body')!
       );
 };
 
@@ -58,13 +58,13 @@ const Overlay = styled.div<OverlayProps>`
   /* background-color: rgba(255, 255, 255, 0.3); */
 `;
 type ModalWrapProps = React.HTMLAttributes<HTMLDivElement> & {
-  width: number;
+  $width: number;
 };
 
 const ModalWrap = styled.div<ModalWrapProps>`
   display: flex;
   position: fixed;
-  width: ${(p) => `${p.width}rem` || 'auto'};
+  width: ${(p) => (p.$width ? `${p.$width}rem` : 'auto')};
   flex-grow: 1;
   flex-direction: column;
   text-transform: none;

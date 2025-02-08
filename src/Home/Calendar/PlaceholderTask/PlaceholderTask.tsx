@@ -46,12 +46,14 @@ export const PlaceholderTask = ({
         timestamp,
         time: [rounded, rounded + 0.5],
         userId: currentUser!.userId,
-      }),
+      })
     );
   }
 
   useEffect(() => {
-    isPlaceholderBeingEdited && updatePlaceholder();
+    if (isPlaceholderBeingEdited) {
+      updatePlaceholder();
+    }
   }, [taskBeingPrepared?.time]);
 
   function updatePlaceholder() {

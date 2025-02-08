@@ -28,22 +28,22 @@ async function handler(req: NextApiRequestWithUser, res: NextApiResponse) {
 
       res.status(200).json(mappedTasks);
     } catch (err) {
-      res.status(500).send({ errorMessage: 'could not find tasks' });
+      res.status(500).send({ errorMessage: 'could not find tasks ' + err });
     }
   } else if (req.method === 'POST') {
     try {
       const task = await new Task(req.body);
       task.save();
       res.status(200).json(task);
-    } catch (error) {
-      res.status(500).json({ errorMessage: 'could not add task' });
+    } catch (err) {
+      res.status(500).json({ errorMessage: 'could not add task ' + err });
     }
   } else if (req.method === 'DELETE') {
     try {
       const task = await Task.deleteMany({});
       res.status(200).json(task);
-    } catch (error) {
-      res.status(500).json({ errorMessage: 'could not remove all tasks' });
+    } catch (err) {
+      res.status(500).json({ errorMessage: 'could not remove all tasks ' + err });
     }
   } else {
     res.status(404).json({ errorMessage: 'route not found' });
