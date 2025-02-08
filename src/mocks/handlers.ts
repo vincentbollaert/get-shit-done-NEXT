@@ -2,50 +2,42 @@ import { rest } from 'msw';
 import { ClientModel, Models } from '~/api/types';
 
 const mockUser: ClientModel['User'] = {
-  email: "test@example.com",
-  userId: "test-user-1"
+  email: 'test@example.com',
+  userId: 'test-user-1',
 };
 
 const mockTasks = {
-  "2025-02-07": {
+  'Sat Feb 08 2025 00:00:00 GMT+0100 (Central European Standard Time)': {
     tasks: [
       {
-        taskId: "task-1",
-        timestamp: "2025-02-07",
-        name: "Team Meeting",
-        category: "work",
-        time: [9, 10],
-        userId: "test-user-1"
+        taskId: 'task-1',
+        name: 'Task 1',
+        time: [5, 8],
+        // TODO: this timestamp should not be needed. in fact, overhaul these timestamps
+        timestamp: 'Sat Feb 08 2025 00:00:00 GMT+0100 (Central European Standard Time)',
+        category: 'Personal',
+        userId: 'test-user-1',
       },
-      {
-        taskId: "task-2",
-        timestamp: "2025-02-07",
-        name: "Lunch",
-        category: "personal",
-        time: [12, 13],
-        userId: "test-user-1"
-      }
-    ]
-  }
+    ],
+  },
 };
 
 const mockCategories: ClientModel['Category'][] = [
   {
-    categoryId: "work",
-    name: "Work",
-    colorId: "blue",
-    userId: "test-user-1"
+    categoryId: 'work',
+    name: 'Work',
+    colorId: 'plumWeb',
+    userId: 'test-user-1',
   },
   {
-    categoryId: "personal",
-    name: "Personal",
-    colorId: "green",
-    userId: "test-user-1"
-  }
+    categoryId: 'personal',
+    name: 'Personal',
+    colorId: 'middleBlueGreen',
+    userId: 'test-user-1',
+  },
 ];
 
-const mockSettings: ClientModel['Settings'] & { _id: string; settingsId: string } = {
-  _id: 'settings-1',
+const mockSettings: ClientModel['Settings'] & { settingsId: string } = {
   settingsId: 'settings-1',
   theme: 'light' as const,
   size: 'normal' as const,
@@ -58,7 +50,7 @@ const mockSettings: ClientModel['Settings'] & { _id: string; settingsId: string 
   hideCalendarInactive: false,
   hideCalendarStartup: true,
   shouldAutoLogout: true,
-  userId: "test-user-1"
+  userId: 'test-user-1',
 };
 
 export const handlers = [
@@ -73,7 +65,17 @@ export const handlers = [
 
   // Tasks endpoints
   rest.get('/api/v1/tasks', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockTasks));
+    const monthParam = req.url.searchParams.get('month');
+    
+    // Filter tasks for the requested month
+    const filteredTasks = Object.entries(mockTasks).reduce<Record<string, { tasks: Models['Task'][] }>>((acc, [date, data]) => {
+      if (date.includes(monthParam || '')) {
+        acc[date] = data;
+      }
+      return acc;
+    }, {});
+
+    return res(ctx.status(200), ctx.json(filteredTasks));
   }),
 
   rest.post<Models['Task']>('/api/v1/tasks', (req, res, ctx) => {
@@ -82,7 +84,7 @@ export const handlers = [
       ctx.json({
         ...req.body,
         taskId: `task-${Date.now()}`,
-        userId: mockUser.userId
+        userId: mockUser.userId,
       })
     );
   }),
@@ -102,5 +104,5 @@ export const handlers = [
     console.log('MSW intercepted settings patch request:', req.url);
     Object.assign(mockSettings, req.body);
     return res(ctx.status(200), ctx.json(mockSettings));
-  })
+  }),
 ];
