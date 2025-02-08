@@ -15,7 +15,7 @@ type Props = {
 export const SpinnerLoader = memo(function SpinnerLoader({ isAbsolute = true, size = 2, isLoading, className }: Props) {
   if (isLoading)
     return (
-      <Wrap isAbsolute={isAbsolute} className={className}>
+      <Wrap $isAbsolute={isAbsolute} className={className}>
         <LoaderSvg className={CN_LOADER} size={size} svg={loaderSvg} />
       </Wrap>
     );
@@ -23,12 +23,12 @@ export const SpinnerLoader = memo(function SpinnerLoader({ isAbsolute = true, si
 });
 
 type WrapProps = React.HTMLAttributes<HTMLDivElement> & {
-  isAbsolute: boolean
-}
+  $isAbsolute: boolean;
+};
 export const Wrap = styled.div<WrapProps>`
   display: flex;
   z-index: 1;
-  position: ${(p) => (p.isAbsolute ? 'absolute' : 'static')};
+  position: ${(p) => (p.$isAbsolute ? 'absolute' : 'static')};
   top: 0;
   right: 0;
   bottom: 0;

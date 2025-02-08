@@ -20,9 +20,9 @@ export const HourLabels = () => {
     <Wrap>
       {hoursAxis.map((hour) => (
         <HourLabel
-          isBeingFiltered={isBeingFiltered}
-          isFiltered={isFiltered}
-          isActive={filteredRange.includes(hour)}
+          $isBeingFiltered={isBeingFiltered}
+          $isFiltered={isFiltered}
+          $isActive={filteredRange.includes(hour)}
           key={hour}
           onMouseEnter={() => highlightFilteredRange(hour)}
           onClick={() => onFilter(hour)}
@@ -51,9 +51,9 @@ export const Wrap = styled.div<{ theme: { axisBg: string } }>`
 
 export const HourLabel = styled.div<React.HTMLProps<HTMLDivElement> & {
   theme: { axisBg: string; axisBorder: string };
-  isFiltered: boolean;
-  isActive: boolean;
-  isBeingFiltered: boolean;
+  $isFiltered: boolean;
+  $isActive: boolean;
+  $isBeingFiltered: boolean;
 }>`
   position: relative;
   display: flex;
@@ -65,12 +65,12 @@ export const HourLabel = styled.div<React.HTMLProps<HTMLDivElement> & {
   color: var(--pastel-gray);
 
   &:hover {
-    background-color: ${(p) => (p.isFiltered ? 'inherit' : 'var(--arsenic)')};
-    cursor: ${(p) => (p.isFiltered ? 'inherit' : 'pointer')};
+    background-color: ${(p) => (p.$isFiltered ? 'inherit' : 'var(--arsenic)')};
+    cursor: ${(p) => (p.$isFiltered ? 'inherit' : 'pointer')};
   }
 
   ${(p) =>
-    p.isActive &&
+    p.$isActive &&
     css`
       background-color: var(--arsenic);
       box-shadow: inset 4px 0 0 0px ${p.theme.axisBg}, inset -4px 0 0 0px ${p.theme.axisBg};

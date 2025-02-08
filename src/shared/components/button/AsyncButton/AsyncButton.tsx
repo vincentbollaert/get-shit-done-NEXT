@@ -22,7 +22,7 @@ export const AsyncButton = ({
     <Tooltip isVisible tooltipText={errorMessage}>
       <ButtonStyledWrap
         disabled={isDisabled}
-        isError={isError}
+        $isError={isError}
         accentColor={accentColor}
         type={type}
         className={className}
@@ -30,7 +30,7 @@ export const AsyncButton = ({
       >
         {showSpinner && <SpinnerLoader size={1.6} isLoading={isLoading} />}
         {showErrorIcon && isError && !isLoading && <Icon isError variant="error" />}
-        <AsyncButtonContent isShow={(!isError || !showErrorIcon) && !isLoading}>{children}</AsyncButtonContent>
+        <AsyncButtonContent $isShow={(!isError || !showErrorIcon) && !isLoading}>{children}</AsyncButtonContent>
       </ButtonStyledWrap>
     </Tooltip>
   );

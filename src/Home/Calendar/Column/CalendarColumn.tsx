@@ -52,9 +52,9 @@ export const CalendarColumn = memo(function CalendarColumn({ timestamp, isCurren
 
   return (
     <Wrap
-      isCurrentDay={isCurrentDay}
+      $isCurrentDay={isCurrentDay}
       className={CN_COLUMN}
-      isDayBeingEdited={tasksFiltered.find((x) => x.taskId === (taskBeingEdited || {}).taskId) !== undefined}
+      $isDayBeingEdited={tasksFiltered.find((x) => x.taskId === (taskBeingEdited || {}).taskId) !== undefined}
     >
       <HourMarkers isToday={isCurrentDay} hoursAxis={hoursAxis} placeholderHeight={placeholderHeight} />
       {isCurrentDay && <CurrentTime />}
@@ -94,8 +94,8 @@ export const CalendarColumn = memo(function CalendarColumn({ timestamp, isCurren
 
 type StyledWrap = {
   theme: { columnBorder: string };
-  isCurrentDay: boolean;
-  isDayBeingEdited: boolean;
+  $isCurrentDay: boolean;
+  $isDayBeingEdited: boolean;
   children: React.ReactNode;
   className?: string;
 };
@@ -108,13 +108,13 @@ export const Wrap = styled.div<StyledWrap>`
   width: 0;
 
   ${(p) =>
-    p.isCurrentDay &&
+    p.$isCurrentDay &&
     css`
       flex-grow: 2;
     `}
 
   ${(p) =>
-    p.isDayBeingEdited &&
+    p.$isDayBeingEdited &&
     css`
       background-color: ${p.theme.columnHoverBg};
     `};

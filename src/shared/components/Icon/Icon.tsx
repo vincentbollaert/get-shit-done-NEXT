@@ -29,9 +29,9 @@ export type IconProps = {
 export const Icon = ({ isError = false, themeVariant = 'light', variant, size = 2, className, onClick }: IconProps) => {
   return (
     <Wrap
-      isError={isError}
-      size={size}
-      themeVariant={themeVariant}
+      $isError={isError}
+      $size={size}
+      $themeVariant={themeVariant}
       className={clsx(className, 'material-icons-outlined')}
       onClick={onClick}
     >
@@ -41,23 +41,23 @@ export const Icon = ({ isError = false, themeVariant = 'light', variant, size = 
 };
 
 type WrapProps = React.HTMLAttributes<HTMLSpanElement> & {
-  size: number;
-  themeVariant: 'light' | 'dark';
-  isError: boolean;
+  $size: number;
+  $themeVariant: 'light' | 'dark';
+  $isError: boolean;
 };
 
 const Wrap = styled.span<WrapProps>`
-  font-size: ${(p) => p.size}rem;
-  color: ${(p) => (p.themeVariant === 'light' ? 'var(--sonic-silver)' : 'red')};
+  font-size: ${(p) => p.$size}rem;
+  color: ${(p) => (p.$themeVariant === 'light' ? 'var(--sonic-silver)' : 'red')};
   cursor: pointer;
 
   /* TODO: remove theme here and do it properly */
   &:hover {
-    fill: ${(p) => (p.themeVariant === 'light' ? 'var(--gainsboro)' : 'var(--jet)')};
+    fill: ${(p) => (p.$themeVariant === 'light' ? 'var(--gainsboro)' : 'var(--jet)')};
   }
 
   ${(p) =>
-    p.isError &&
+    p.$isError &&
     css`
       color: var(--sunset-orange) !important;
 

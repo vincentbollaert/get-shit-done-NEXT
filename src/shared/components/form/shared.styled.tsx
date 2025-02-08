@@ -14,15 +14,15 @@ export const STYLE_PLACEHOLDER_COLOR_DARK = 'rgba(0, 0, 0, 0.3)';
 export const STYLE_PLACEHOLDER_COLOR_LIGHT = 'rgba(255, 255, 255, 0.6)';
 export const HEIGHT = '3.2rem';
 
-type WrapProps = React.HTMLAttributes<HTMLDivElement> & { isInForm: boolean; themeVariant: 'light' | 'dark' };
+type WrapProps = React.HTMLAttributes<HTMLDivElement> & { $isInForm: boolean; $themeVariant: 'light' | 'dark' };
 export const Wrap = styled.div<WrapProps>`
   display: flex;
   position: relative;
-  color: ${(p) => (p.themeVariant === 'light' ? STYLE_COLOR_LIGHT : STYLE_COLOR_DARK)};
+  color: ${(p) => (p.$themeVariant === 'light' ? STYLE_COLOR_LIGHT : STYLE_COLOR_DARK)};
   outline: none;
 
   ${(p) =>
-    p.isInForm &&
+    p.$isInForm &&
     css`
       margin-top: var(--size-sm);
 
@@ -35,7 +35,7 @@ export const Wrap = styled.div<WrapProps>`
 type InputWrapProps = React.HTMLAttributes<HTMLInputElement> & {
   children?: React.ReactNode;
   as?: 'input' | 'div';
-  isError?: boolean;
+  $isError?: boolean;
   name?: string;
   type?: string;
   autoComplete?: string;
@@ -44,7 +44,7 @@ type InputWrapProps = React.HTMLAttributes<HTMLInputElement> & {
 export const Input = styled.input<InputWrapProps>`
   display: flex;
   align-items: center;
-  border-bottom: 1px solid ${(p) => (p.isError ? COLOR_UNDERLINE_ERROR : COLOR_UNDERLINE)};
+  border-bottom: 1px solid ${(p) => (p.$isError ? COLOR_UNDERLINE_ERROR : COLOR_UNDERLINE)};
   padding: 0;
   padding-top: var(--size-sm);
   width: 100%;
@@ -54,11 +54,11 @@ export const Input = styled.input<InputWrapProps>`
   font-size: var(--font-size-md);
 
   &:focus {
-    border-color: ${(p) => (p.isError ? COLOR_UNDERLINE_ERROR : COLOR_UNDERLINE_HOVER_LIGHT)};
+    border-color: ${(p) => (p.$isError ? COLOR_UNDERLINE_ERROR : COLOR_UNDERLINE_HOVER_LIGHT)};
   }
 
   &:hover {
-    border-color: ${(p) => (p.isError ? 'red' : COLOR_UNDERLINE_HOVER_LIGHT)};
+    border-color: ${(p) => (p.$isError ? 'red' : COLOR_UNDERLINE_HOVER_LIGHT)};
   }
 `;
 

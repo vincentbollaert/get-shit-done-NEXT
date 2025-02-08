@@ -32,7 +32,7 @@ const Todos = () => {
             <AsyncTextButtonStyled
               showErrorIcon={false}
               showSpinner={false}
-              isDone={isDone}
+              $isDone={isDone}
               asyncStatuses={[asyncStatusUpdate]}
               type="button"
             >
@@ -57,11 +57,11 @@ export const Todo = styled.div<{ children: React.ReactNode; onClick: () => void 
   ${SectionItemStyles};
 `;
 
-const AsyncTextButtonStyled = styled(AsyncTextButton)<{ isDone?: boolean }>`
+const AsyncTextButtonStyled = styled(AsyncTextButton)<{ $isDone?: boolean }>`
   ${Todo}:hover & {
     color: var(--quick-silver);
   }
-  color: ${(p) => (p.isDone ? 'var(--rhythm) !important' : 'var(--isabelline)')};
+  color: ${(p) => (p.$isDone ? 'var(--rhythm) !important' : 'var(--isabelline)')};
 `;
 
 export const RemoveIcon = styled(Icon)`

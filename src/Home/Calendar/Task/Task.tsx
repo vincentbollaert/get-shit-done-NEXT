@@ -33,30 +33,30 @@ export const Task = memo(function Task({ task, categories = [], isBeingEdited }:
 
   return (
     <>
-      {!!gapBefore && <CellGap className={CN_TASK_GAP} flex={gapBefore} />}
+      {!!gapBefore && <CellGap className={CN_TASK_GAP} $flex={gapBefore} />}
       {!!heightInFlex && (
         <Cell
-          flex={heightInFlex}
-          accentColor={accentColor}
-          isSmall={hoursAxis.length > 16 && heightInFlex <= 0.25}
-          isBeingEdited={isBeingEdited}
+          $flex={heightInFlex}
+          $accentColor={accentColor}
+          $isSmall={hoursAxis.length > 16 && heightInFlex <= 0.25}
+          $isBeingEdited={isBeingEdited}
           onClick={() => dispatch(actions.editTaskPrepare(task))}
           onAuxClick={() => onRemoveTask(task)}
         >
           {name}
         </Cell>
       )}
-      {!!gapAfter && <CellGap className={CN_TASK_GAP} flex={gapAfter} />}
+      {!!gapAfter && <CellGap className={CN_TASK_GAP} $flex={gapAfter} />}
     </>
   );
 });
 
 type CellProps = {
   theme: { bg: string };
-  isBeingEdited: boolean;
-  flex: number;
-  accentColor: string;
-  isSmall: boolean;
+  $isBeingEdited: boolean;
+  $flex: number;
+  $accentColor: string;
+  $isSmall: boolean;
   children: React.ReactNode;
   onClick?: () => void;
   onAuxClick?: () => void;
@@ -67,7 +67,7 @@ export const Cell = styled.div<CellProps>`
   z-index: 1;
   position: relative;
   display: flex;
-  flex-grow: ${(p) => p.flex};
+  flex-grow: ${(p) => p.$flex};
   justify-content: center;
   flex-shrink: 0;
   flex-basis: 0;
@@ -75,15 +75,15 @@ export const Cell = styled.div<CellProps>`
   align-items: center;
   border-radius: 1px;
   ${(p) => taskShadow(p.theme.bg)}
-  background-color: ${(p) => p.accentColor};
+  background-color: ${(p) => p.$accentColor};
   display: block;
   padding: 0 var(--size-sm);
   line-height: 1.5;
-  color: ${(p) => rgbAdjust(p.accentColor, -80)};
+  color: ${(p) => rgbAdjust(p.$accentColor, -80)};
   cursor: pointer;
 
   &:hover {
-    background-color: ${(p) => rgbAdjust(p.accentColor, -10)};
+    background-color: ${(p) => rgbAdjust(p.$accentColor, -10)};
   }
 
   .${CN_COLUMN}:hover & {
@@ -91,24 +91,24 @@ export const Cell = styled.div<CellProps>`
   }
 
   ${(p) =>
-    p.isBeingEdited &&
+    p.$isBeingEdited &&
     css`
-      background-color: ${rgbAdjust(p.accentColor, -10)};
+      background-color: ${rgbAdjust(p.$accentColor, -10)};
       ${taskShadowBeingEdited(p.theme.columnHoverBg)};
     `};
 
   ${(p) =>
-    p.isSmall &&
+    p.$isSmall &&
     css`
       line-height: 0.8;
       font-size: var(--font-size-sm);
     `};
 `;
 
-export const CellGap = styled.div<{ className: string; flex: number }>`
+export const CellGap = styled.div<{ className: string; $flex: number }>`
   z-index: 0;
   display: flex;
-  flex-grow: ${(p) => p.flex};
+  flex-grow: ${(p) => p.$flex};
   flex-shrink: 0;
   flex-basis: 0;
   border-radius: 1px;

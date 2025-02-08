@@ -31,11 +31,11 @@ export const DayLabels = () => {
         return (
           <DayLabel
             key={day}
-            isCurrentDay={isCurrentDay}
-            isFiltered={isFiltered}
-            isBeingFiltered={isBeingFiltered}
-            isActive={filteredRange.includes(day)}
-            isFocusedTimestamp={isFocusedTimestamp}
+            $isCurrentDay={isCurrentDay}
+            $isFiltered={isFiltered}
+            $isBeingFiltered={isBeingFiltered}
+            $isActive={filteredRange.includes(day)}
+            $isFocusedTimestamp={isFocusedTimestamp}
             onMouseEnter={() => highlightFilteredRange(day)}
             onClick={() => onFilter(day)}
           >
@@ -65,12 +65,12 @@ export const Wrap = styled.div<{ theme: { axisBg: string } }>`
 export const DayLabel = styled.div<
   React.HTMLProps<HTMLDivElement> & {
     theme: { axisBg: string; axisBorder: string };
-    isBeingFiltered: boolean;
-    isCurrentWeek?: boolean;
-    isCurrentDay: boolean;
-    isActive: boolean;
-    isFiltered: boolean;
-    isFocusedTimestamp: boolean;
+    $isBeingFiltered: boolean;
+    $isCurrentWeek?: boolean;
+    $isCurrentDay: boolean;
+    $isActive: boolean;
+    $isFiltered: boolean;
+    $isFocusedTimestamp: boolean;
   }
 >`
   display: flex;
@@ -83,7 +83,7 @@ export const DayLabel = styled.div<
   cursor: pointer;
 
   ${(p) =>
-    p.isBeingFiltered &&
+    p.$isBeingFiltered &&
     css`
       padding-top: 0;
       &::before {
@@ -92,13 +92,13 @@ export const DayLabel = styled.div<
     `};
 
   ${(p) =>
-    p.isCurrentWeek &&
+    p.$isCurrentWeek &&
     css`
       flex-grow: 2;
     `};
 
   ${(p) =>
-    p.isCurrentDay &&
+    p.$isCurrentDay &&
     css`
       flex-grow: 2;
       box-shadow: inset 1px 0 0 0 var(--arsenic), 1px 0 0 0 var(--arsenic);
@@ -107,7 +107,7 @@ export const DayLabel = styled.div<
     `};
 
   ${(p) =>
-    p.isFocusedTimestamp &&
+    p.$isFocusedTimestamp &&
     css`
       background-color: var(--white);
       color: ${p.theme.axisBg};
@@ -118,7 +118,7 @@ export const DayLabel = styled.div<
     background-color: var(--arsenic);
 
     ${(p) =>
-      p.isFiltered &&
+      p.$isFiltered &&
       css`
         background-color: inherit;
         color: inherit;
@@ -127,7 +127,7 @@ export const DayLabel = styled.div<
   }
 
   ${(p) =>
-    p.isActive &&
+    p.$isActive &&
     css`
       background-color: var(--arsenic);
       color: var(--isabelline);

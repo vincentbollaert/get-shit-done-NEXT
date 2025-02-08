@@ -19,10 +19,10 @@ export const AsyncTextButton = ({
   // TODO: define error structure
   return (
     <Tooltip isVisible tooltipText={errorMessage}>
-      <TextButtonWrap disabled={isDisabled} isError={isError} className={className} onClick={onClick}>
+      <TextButtonWrap disabled={isDisabled} $isError={isError} className={className} onClick={onClick}>
         {showSpinner && <SpinnerLoader size={1.6} isLoading={isLoading} />}
         {showErrorIcon && isError && !isLoading && <Icon variant="error" />}
-        <AsyncButtonContent isShow>{children}</AsyncButtonContent>
+        <AsyncButtonContent $isShow>{children}</AsyncButtonContent>
       </TextButtonWrap>
     </Tooltip>
   );

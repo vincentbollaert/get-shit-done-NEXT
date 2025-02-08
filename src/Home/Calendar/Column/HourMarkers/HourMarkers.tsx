@@ -19,12 +19,12 @@ const HourMarkersUnMemoed = ({ isToday, hoursAxis, placeholderHeight }: Props) =
   if (isToday) {
     return (
       <>
-        <Wrap isToday shadow={shadow} />
-        <Wrap isTomorrow shadow={shadow} />
+        <Wrap $isToday $shadow={shadow} />
+        <Wrap $isTomorrow $shadow={shadow} />
       </>
     );
   }
-  return <Wrap isToday={false} shadow={shadow} />;
+  return <Wrap $isToday={false} $shadow={shadow} />;
 };
 
 function areEqual(prevProps: Props, nextProps: Props) {
@@ -33,7 +33,7 @@ function areEqual(prevProps: Props, nextProps: Props) {
 
 export const HourMarkers = memo(HourMarkersUnMemoed, areEqual);
 
-export const Wrap = styled.div<{ isToday?: boolean; isTomorrow?: boolean; shadow: string[] }>`
+export const Wrap = styled.div<{ $isToday?: boolean; $isTomorrow?: boolean; $shadow: string[] }>`
   position: absolute;
   top: 1.2rem;
   left: 0;
@@ -41,7 +41,7 @@ export const Wrap = styled.div<{ isToday?: boolean; isTomorrow?: boolean; shadow
   width: 1px;
 
   ${(p) =>
-    p.isToday || p.isTomorrow
+    p.$isToday || p.$isTomorrow
       ? css`
           top: 0;
           bottom: 0;
@@ -50,11 +50,11 @@ export const Wrap = styled.div<{ isToday?: boolean; isTomorrow?: boolean; shadow
           box-shadow: inset 1px 0px 0px var(--arsenic);
         `
       : css`
-          box-shadow: ${p.shadow};
+          box-shadow: ${p.$shadow};
         `};
 
   ${(p) =>
-    p.isTomorrow &&
+    p.$isTomorrow &&
     css`
       left: auto;
       right: -1px;

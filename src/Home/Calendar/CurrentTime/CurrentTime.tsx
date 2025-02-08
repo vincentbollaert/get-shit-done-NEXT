@@ -23,21 +23,21 @@ export const CurrentTime = () => {
   }, []);
 
   return (
-    <Wrap top={(nowInMinutes / MINUTES_IN_DAY) * 100}>
+    <Wrap $top={(nowInMinutes / MINUTES_IN_DAY) * 100}>
       <Time>{format(currentTime, 'p')}</Time>
     </Wrap>
   );
 };
 
 type WrapProps = React.HTMLAttributes<HTMLDivElement> & {
-  top: number;
+  $top: number;
 };
 
 export const Wrap = styled.div<WrapProps>`
   z-index: 2;
   display: flex;
   position: absolute;
-  top: ${(p) => p.top}%;
+  top: ${(p) => p.$top}%;
   left: 100%;
   align-items: center;
   margin-left: var(--size-xsm);

@@ -19,10 +19,10 @@ export const Switch = ({ isChecked, isDisabled, id, label, onClick }: Props) => 
   };
 
   return (
-    <Wrap isDisabled={isDisabled} role="presentation" onClick={onClickHandler}>
-      <Track isChecked={isChecked}>
+    <Wrap $isDisabled={isDisabled} role="presentation" onClick={onClickHandler}>
+      <Track $isChecked={isChecked}>
         <TrackSwitch checked={isChecked} type="checkbox" id={id} readOnly />
-        <Thumb isChecked={isChecked} />
+        <Thumb $isChecked={isChecked} />
       </Track>
       {label && <Label>{label}</Label>}
     </Wrap>
@@ -31,14 +31,14 @@ export const Switch = ({ isChecked, isDisabled, id, label, onClick }: Props) => 
 
 const TRACK_HEIGHT = 'var(--size-lg)';
 
-type WrapProps = React.HTMLAttributes<HTMLDivElement> & { isDisabled?: boolean };
+type WrapProps = React.HTMLAttributes<HTMLDivElement> & { $isDisabled?: boolean };
 const Wrap = styled.div<WrapProps>`
   flex-basis: 0;
   display: flex;
   align-items: center;
 
   ${(p) =>
-    p.isDisabled &&
+    p.$isDisabled &&
     css`
       opacity: 0.5;
       * {
@@ -47,14 +47,14 @@ const Wrap = styled.div<WrapProps>`
     `}
 `;
 
-type TrackProps = React.HTMLAttributes<HTMLDivElement> & { isChecked: boolean };
+type TrackProps = React.HTMLAttributes<HTMLDivElement> & { $isChecked: boolean };
 const Track = styled.div<TrackProps>`
   position: relative;
   display: flex;
   width: 3.4rem;
   height: ${TRACK_HEIGHT};
   align-items: center;
-  background-color: ${(p) => (p.isChecked ? 'var(--cultured)' : 'var(--gray-x11)')};
+  background-color: ${(p) => (p.$isChecked ? 'var(--cultured)' : 'var(--gray-x11)')};
   border-radius: ${TRACK_HEIGHT};
   cursor: pointer;
 `;
@@ -64,7 +64,7 @@ const TrackSwitch = styled.input<TrackSwitchProps>`
   display: none;
 `;
 
-const Thumb = styled.div<{ isChecked: boolean }>`
+const Thumb = styled.div<{ $isChecked: boolean }>`
   position: absolute;
   border: 0.2rem solid var(--gray-x11);
   margin: 0;
@@ -76,7 +76,7 @@ const Thumb = styled.div<{ isChecked: boolean }>`
   transition: background-color 0.1s ease-out;
 
   ${(p) =>
-    p.isChecked &&
+    p.$isChecked &&
     css`
       right: 0;
       border-color: var(--cultured);

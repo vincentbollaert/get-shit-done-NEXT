@@ -8,9 +8,9 @@ import { actions } from '~/reducers/calendar';
 import { themes } from '~/shared/themes';
 import { reset } from '../styles';
 
-const GlobalStyle = createGlobalStyle<{ activeSizeTheme: ClientModel['Settings']['size'] }>`
+const GlobalStyle = createGlobalStyle<{ $activeSizeTheme: ClientModel['Settings']['size'] }>`
   html {
-    font-size: ${(p) => (p.activeSizeTheme === 'normal' ? '62.5%' : p.activeSizeTheme === 'breath' ? '50%' : '75%')};
+    font-size: ${(p) => (p.$activeSizeTheme === 'normal' ? '62.5%' : p.$activeSizeTheme === 'breath' ? '50%' : '75%')};
   }
   ${reset};
 `;
@@ -46,7 +46,7 @@ export default function Layout({ children, title = 'This is the default title' }
         <title>{title}</title>
         <meta charSet="UTF-8" name="viewport" content="width=device-width" />
       </Head>
-      <GlobalStyle activeSizeTheme={activeSizeTheme} />
+      <GlobalStyle $activeSizeTheme={activeSizeTheme} />
       <ThemeProvider theme={activeColorThemeValues}>
         <PageWrap>{children}</PageWrap>
       </ThemeProvider>

@@ -19,7 +19,7 @@ export const Tooltip = memo(function Tooltip({
   return !isVisible ? null : (
     <Wrap className={className}>
       {tooltipText && (
-        <TooltipText isError={false} tooltipPosition={tooltipPosition}>
+        <TooltipText $isError={false} tooltipPosition={tooltipPosition}>
           {tooltipText}
         </TooltipText>
       )}
@@ -37,7 +37,7 @@ export const Wrap = styled.div<React.HTMLAttributes<HTMLDivElement>>`
 `;
 
 type TooltipTextProps = React.HTMLAttributes<HTMLDivElement> & {
-  isError: boolean; tooltipPosition: 'left' | 'right'
+  $isError: boolean; tooltipPosition: 'left' | 'right'
 }
 export const TooltipText = styled.div<TooltipTextProps>`
   visibility: hidden;

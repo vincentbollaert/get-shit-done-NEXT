@@ -62,11 +62,11 @@ export const PlaceholderTask = ({
 
   return (
     <PlaceholderTaskWrap
-      isBeingPrepared={isPlaceholderBeingEdited}
+      $isBeingPrepared={isPlaceholderBeingEdited}
       top={isPlaceholderBeingEdited ? yFromTime : y}
       height={isPlaceholderBeingEdited ? heightFromTime : placeholderHeight}
       onClick={onPrepareNewTask}
-      accentColor={accentColor}
+      $accentColor={accentColor}
     >
       {taskBeingPrepared?.name}
       {!isPlaceholderBeingEdited && <TimeText>{timeFromY}</TimeText>}
@@ -76,39 +76,39 @@ export const PlaceholderTask = ({
 
 export const PlaceholderTaskWrap = styled.div<{
   theme: { bg: string; columnHoverBg: string; placeholderBorder: string };
-  isBeingPrepared: boolean;
+  $isBeingPrepared: boolean;
   top: number;
   height: number;
-  accentColor?: string;
+  $accentColor?: string;
   children?: React.ReactNode;
   onClick: () => void;
 }>`
-  display: ${(p) => (p.isBeingPrepared ? 'block' : 'none')};
+  display: ${(p) => (p.$isBeingPrepared ? 'block' : 'none')};
   position: absolute;
   top: ${(p) => p.top}px;
   right: var(--size-xsm);
   left: var(--size-xsm);
   padding: 0 var(--size-xsm);
   height: ${(p) => p.height}px;
-  color: ${(p) => (p.accentColor ? rgbAdjust(p.accentColor, -80) : '#444')};
-  background-color: ${(p) => p.accentColor || p.theme.bg};
+  color: ${(p) => (p.$accentColor ? rgbAdjust(p.$accentColor, -80) : '#444')};
+  background-color: ${(p) => p.$accentColor || p.theme.bg};
   border-radius: 1px;
 
   ${(p) =>
-    !p.isBeingPrepared &&
+    !p.$isBeingPrepared &&
     css`
       align-items: center;
       font-weight: 700;
     `};
 
   ${(p) =>
-    !p.accentColor &&
+    !p.$accentColor &&
     css`
       box-shadow: ${placeholderShadow(p.theme.columnHoverBg, p.theme.placeholderBorder)};
     `};
 
   ${(p) =>
-    p.accentColor &&
+    p.$accentColor &&
     css`
       ${ellipsis()};
       ${taskShadow(p.theme.columnHoverBg)};

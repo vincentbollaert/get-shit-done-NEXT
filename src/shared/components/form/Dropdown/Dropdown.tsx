@@ -25,24 +25,24 @@ export const Dropdown = ({ theme = 'light', isInForm = false, activeCategory, la
   }
 
   return (
-    <Wrap themeVariant={theme} isInForm={isInForm} tabIndex={0} onBlur={() => setIsOpen(false)}>
-      <Header color={accentColor} onClick={() => setIsOpen(!isOpen)}>
-        <Placeholder themeVariant={theme} hasValue={!!activeCategory?.categoryId}>
+    <Wrap $themeVariant={theme} $isInForm={isInForm} tabIndex={0} onBlur={() => setIsOpen(false)}>
+      <Header $color={accentColor} onClick={() => setIsOpen(!isOpen)}>
+        <Placeholder $themeVariant={theme} $hasValue={!!activeCategory?.categoryId}>
           {label}
         </Placeholder>
         <Input as="div">{activeCategory?.name}</Input>
         <FieldIcon themeVariant={theme} variant="expand_more" />
       </Header>
-      <List isOpen={isOpen}>
+      <List $isOpen={isOpen}>
         {categories.map((category) => (
           <Item
-            isActive={category.categoryId === activeCategory?.categoryId}
-            color={accentColor}
+            $isActive={category.categoryId === activeCategory?.categoryId}
+            $color={accentColor}
             onClick={() => onItemSelect(category)}
             key={category.categoryId}
           >
             {category.name}
-            <CategoryColor color={colors[category.colorId]} />
+            <CategoryColor $color={colors[category.colorId]} />
           </Item>
         ))}
       </List>
@@ -50,15 +50,15 @@ export const Dropdown = ({ theme = 'light', isInForm = false, activeCategory, la
   );
 };
 
-type HeaderProps = React.HTMLAttributes<HTMLDivElement> & { color: string };
+type HeaderProps = React.HTMLAttributes<HTMLDivElement> & { $color: string };
 export const Header = styled.div<HeaderProps>`
   width: 100%;
-  color: ${(p) => p.color};
+  color: ${(p) => p.$color};
 `;
 
-type ListProps = React.HTMLAttributes<HTMLDivElement> & { isOpen: boolean };
+type ListProps = React.HTMLAttributes<HTMLDivElement> & { $isOpen: boolean };
 export const List = styled.div<ListProps>`
-  display: ${(p) => (p.isOpen ? 'flex' : 'none')};
+  display: ${(p) => (p.$isOpen ? 'flex' : 'none')};
   position: absolute;
   flex-direction: column;
   background-color: #525769;
@@ -71,24 +71,24 @@ export const List = styled.div<ListProps>`
   box-shadow: 3px 3px 8px -5px #343742;
 `;
 
-type ItemProps = React.HTMLAttributes<HTMLDivElement> & { isActive: boolean; color: string };
+type ItemProps = React.HTMLAttributes<HTMLDivElement> & { $isActive: boolean; $color: string };
 export const Item = styled.div<ItemProps>`
   position: relative;
   display: flex;
   align-items: center;
   padding: var(--size-xsm);
-  color: ${(p) => (p.isActive ? p.color : 'var(--isabelline)')};
+  color: ${(p) => (p.$isActive ? p.$color : 'var(--isabelline)')};
   cursor: pointer;
 
   &:hover {
-    color: ${(p) => (p.isActive ? p.color : 'var(--white)')};
+    color: ${(p) => (p.$isActive ? p.$color : 'var(--white)')};
   }
 `;
 
-export const CategoryColor = styled.div<{ color: string }>`
+export const CategoryColor = styled.div<{ $color: string }>`
   width: var(--size-lg);
   height: var(--size-lg);
-  background: ${(p) => p.color};
+  background: ${(p) => p.$color};
   border-radius: 50%;
   position: absolute;
   right: 0;

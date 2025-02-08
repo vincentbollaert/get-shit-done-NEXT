@@ -44,20 +44,20 @@ const TextFieldUnmemoed = forwardRef(
     };
 
     return (
-      <Wrap isInForm={isInForm} themeVariant={theme} className={className}>
+      <Wrap $isInForm={isInForm} $themeVariant={theme} className={className}>
         <Input
           autoFocus={shouldAutoFocus}
           defaultValue={defaultValue}
           name={name}
           type={type}
-          isError={!!errorMessage}
+          $isError={!!errorMessage}
           onChange={onChangeHandler}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           autoComplete="off"
           ref={ref}
         />
-        <Placeholder themeVariant={theme} hasValue={hasValue || isFocused}>
+        <Placeholder $themeVariant={theme} $hasValue={hasValue || isFocused}>
           {placeholder}
         </Placeholder>
         {children && children}

@@ -30,7 +30,7 @@ const Home = () => {
   if (currentUser) {
     return (
       <PageWrap>
-        <Wrap isSidebarOpen={isSidebarOpen}>
+        <Wrap $isSidebarOpen={isSidebarOpen}>
           <HourLabels />
           <CalendarWrap>
             <DayLabels />
@@ -55,7 +55,7 @@ export const PageWrap = styled.div`
   position: relative;
   background-color: var(--charcoal);
 `;
-export const Wrap = styled.div<{ isSidebarOpen: boolean; children: React.ReactNode }>`
+export const Wrap = styled.div<{ $isSidebarOpen: boolean; children: React.ReactNode }>`
   display: flex;
   flex-grow: 1;
   position: relative;
@@ -65,7 +65,7 @@ export const Wrap = styled.div<{ isSidebarOpen: boolean; children: React.ReactNo
   background-color: var(--jet);
 
   ${(p) =>
-    p.isSidebarOpen &&
+    p.$isSidebarOpen &&
     css`
       margin-right: ${STYLE_SIDEBAR_WIDTH_UNIT}rem;
     `};

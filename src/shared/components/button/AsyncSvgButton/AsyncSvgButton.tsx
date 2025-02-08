@@ -15,10 +15,10 @@ export const AsyncSvgButton = ({ tooltipPosition, children, asyncStatuses, class
   const isLoading = !!asyncStatuses?.find((x) => x?.isLoading);
 
   return (
-    <SvgButtonWrap isError={isError} type="button" className={className}>
+    <SvgButtonWrap $isError={isError} type="button" className={className}>
       <SpinnerLoader size={1.6} isLoading={isLoading} />
       <Tooltip isVisible tooltipPosition={tooltipPosition} tooltipText={errorMessage}>
-        <AsyncButtonContent isShow={!isLoading}>{children}</AsyncButtonContent>
+        <AsyncButtonContent $isShow={!isLoading}>{children}</AsyncButtonContent>
       </Tooltip>
     </SvgButtonWrap>
   );

@@ -3,14 +3,14 @@ import styled, { css } from 'styled-components';
 import { rgbAdjust } from '~/styles';
 
 type SvgButtonWrapProps = React.HTMLAttributes<HTMLButtonElement> & {
-  isError?: boolean;
+  $isError?: boolean;
   type?: 'button' | 'submit' | 'reset';
 };
 export const SvgButtonWrap = styled.button<SvgButtonWrapProps>`
   position: relative;
   cursor: pointer;
   ${(p) =>
-    p.isError &&
+    p.$isError &&
     css`
       * {
         fill: red;
@@ -20,7 +20,7 @@ export const SvgButtonWrap = styled.button<SvgButtonWrapProps>`
 
 // TODO: disabled and type shouldn't have to be typed
 type ButtonStyledWrapProps = React.HTMLAttributes<HTMLButtonElement> & {
-  isError?: boolean;
+  $isError?: boolean;
   accentColor?: string;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
@@ -58,7 +58,7 @@ export const ButtonStyledWrap = styled.button<ButtonStyledWrapProps>`
     `};
 
   ${(p) =>
-    p.isError &&
+    p.$isError &&
     css`
       background-color: var(--sunset-orange);
       color: var(--charcoal);
@@ -75,7 +75,7 @@ export const ButtonStyledWrap = styled.button<ButtonStyledWrapProps>`
     color: var(--lavender);
   }
 `;
-type TextButtonWrapProps = React.HTMLAttributes<HTMLButtonElement> & { isError?: boolean; disabled?: boolean };
+type TextButtonWrapProps = React.HTMLAttributes<HTMLButtonElement> & { $isError?: boolean; disabled?: boolean };
 export const TextButtonWrap = styled.button<TextButtonWrapProps>`
   display: flex;
   position: relative;
@@ -86,7 +86,7 @@ export const TextButtonWrap = styled.button<TextButtonWrapProps>`
   }
 
   ${(p) =>
-    p.isError &&
+    p.$isError &&
     css`
       color: var(--sunset-orange) !important;
 
@@ -101,8 +101,8 @@ export const TextButtonWrap = styled.button<TextButtonWrapProps>`
   }
 `;
 
-type AsyncButtonContentProps = React.HTMLAttributes<HTMLDivElement> & { isShow: boolean };
+type AsyncButtonContentProps = React.HTMLAttributes<HTMLDivElement> & { $isShow: boolean };
 export const AsyncButtonContent = styled.div<AsyncButtonContentProps>`
-  opacity: ${(p) => (p.isShow ? 1 : 0)};
-  visibility: ${(p) => (p.isShow ? 'visible' : 'hidden')};
+  opacity: ${(p) => (p.$isShow ? 1 : 0)};
+  visibility: ${(p) => (p.$isShow ? 'visible' : 'hidden')};
 `;

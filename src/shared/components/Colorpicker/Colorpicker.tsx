@@ -25,23 +25,23 @@ export const Colorpicker = ({ selectedColorValue, label, setSelectedColor, class
         <ColorCircle isOpen={isOpen} color={selectedColorValue} />
         {label && <Label>{label}</Label>}
       </Toggle>
-      <ColorOptions isOpen={isOpen}>
+      <ColorOptions $isOpen={isOpen}>
         {Object.entries(colors).map(([colorId, colorValue]) => {
           const colorAdjusted = rgbAdjust(colorValue, -80);
 
           return (
             <ColorOption
-              isActive={colorValue === selectedColorValue}
-              color={colorValue}
-              colorAdjusted={colorAdjusted}
+              $isActive={colorValue === selectedColorValue}
+              $color={colorValue}
+              $colorAdjusted={colorAdjusted}
               key={colorId}
               onClick={() => handleClick({ colorId, colorValue })}
             >
               <IconStyled
-                isActive={colorValue === selectedColorValue}
+                $isActive={colorValue === selectedColorValue}
                 variant="invert_colors"
-                color={colorValue}
-                colorAdjusted={colorAdjusted}
+                $color={colorValue}
+                $colorAdjusted={colorAdjusted}
               />
             </ColorOption>
           );
@@ -105,11 +105,11 @@ export const ColorCircle = styled.div<ColorCircleProps>`
 export const Label = styled.div``;
 
 type ColorOptionsProps = React.HTMLAttributes<HTMLDivElement> & {
-  isOpen: boolean;
+  $isOpen: boolean;
 };
 export const ColorOptions = styled.div<ColorOptionsProps>`
   z-index: 1;
-  display: ${(p) => (p.isOpen ? 'flex' : 'none')};
+  display: ${(p) => (p.$isOpen ? 'flex' : 'none')};
   width: 40.8rem;
   background-color: var(--charcoal);
   position: absolute;
@@ -123,9 +123,9 @@ export const ColorOptions = styled.div<ColorOptionsProps>`
 `;
 
 type ColorOptionProps = React.HTMLAttributes<HTMLDivElement> & {
-  isActive: boolean;
-  color: string;
-  colorAdjusted: string;
+  $isActive: boolean;
+  $color: string;
+  $colorAdjusted: string;
 };
 export const ColorOption = styled.div<ColorOptionProps>`
   display: flex;
@@ -133,40 +133,40 @@ export const ColorOption = styled.div<ColorOptionProps>`
   justify-content: center;
   width: 4rem;
   height: 4rem;
-  background-color: ${(p) => p.color};
+  background-color: ${(p) => p.$color};
   border: 1px solid #fff
     ${(p) =>
-      p.isActive &&
+      p.$isActive &&
       css`
         z-index: 1;
         border: 0;
-        box-shadow: 0 0 0 4px ${p.color}, 0px 0 0px 5px ${p.colorAdjusted};
+        box-shadow: 0 0 0 4px ${p.$color}, 0px 0 0px 5px ${p.$colorAdjusted};
         transition: box-shadow 0.1s ease-out;
       `};
 
   &:hover {
     z-index: 1;
     border: 0;
-    box-shadow: 0 0 0 4px ${(p) => p.color}, 0px 0 0px 5px ${(p) => p.colorAdjusted};
+    box-shadow: 0 0 0 4px ${(p) => p.$color}, 0px 0 0px 5px ${(p) => p.$colorAdjusted};
     transition: box-shadow 0.1s ease-out;
   }
 `;
 
 type IconStyledProps = IconProps & {
-  isActive: boolean;
-  color: string;
-  colorAdjusted: string;
+  $isActive: boolean;
+  $color: string;
+  $colorAdjusted: string;
 };
 const IconStyled = styled(Icon)<IconStyledProps>`
   display: none;
-  color: ${(p) => p.colorAdjusted};
+  color: ${(p) => p.$colorAdjusted};
 
   ${ColorOption}:hover & {
     display: block;
   }
 
   ${(p) =>
-    p.isActive &&
+    p.$isActive &&
     css`
       display: block;
     `}
