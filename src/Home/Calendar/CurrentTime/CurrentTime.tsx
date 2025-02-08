@@ -29,7 +29,11 @@ export const CurrentTime = () => {
   );
 };
 
-export const Wrap = styled.div<{ theme: { currentTimeBg: string; currentTimeBorder: string }; top: number }>`
+export const Wrap = styled.div<{
+  theme: { currentTimeBg: string; currentTimeBorder: string };
+  top: number;
+  children: React.ReactNode;
+}>`
   z-index: 2;
   display: flex;
   position: absolute;

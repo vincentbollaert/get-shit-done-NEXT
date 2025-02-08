@@ -3,14 +3,12 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { tasksApi, useGetCategoriesQuery, useRemoveTaskMutation, useSaveTaskMutation } from '~/api/requests';
-import { ClientModel } from '~/api/types';
+import { ClientModel, ValueOf } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { AsyncButton, AsyncSvgButton, Dropdown, Icon, ModalFooter, TextField } from '~/shared/components';
 import { colors } from '~/shared/constants';
 import { TaskFormValues } from '../shared';
-
-export type ValueOf<T> = T[keyof T];
 
 // TODO: timestamp should come from taskBeingEdited
 export const EditCalendarTask = memo(function EditCalendarTask() {

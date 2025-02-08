@@ -96,6 +96,8 @@ type StyledWrap = {
   theme: { columnBorder: string };
   isCurrentDay: boolean;
   isDayBeingEdited: boolean;
+  children: React.ReactNode;
+  className?: string;
 };
 
 export const Wrap = styled.div<StyledWrap>`
@@ -129,7 +131,16 @@ export const HourSlotsWrap = styled.div`
   margin: ${STYLE_COLUMN_MARGIN}rem 0;
 `;
 
-export const HourSlots = styled.div`
+interface HourSlotsProps {
+  ref: React.RefObject<HTMLDivElement | null>;
+  onMouseMove: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  className: string;
+  children: React.ReactNode;
+}
+
+export const HourSlots = styled.div<HourSlotsProps>`
   position: relative;
   flex-grow: 1;
   display: flex;

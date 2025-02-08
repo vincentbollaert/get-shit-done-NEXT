@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import React from 'react';
 import styled, { css } from 'styled-components';
 
 export type IconVariant =
@@ -39,7 +40,7 @@ export const Icon = ({ isError = false, theme = 'light', variant, size = 2, clas
   );
 };
 
-const Wrap = styled.span<{ size: number; theme: string; isError: boolean }>`
+const Wrap = styled.span<React.HTMLAttributes<HTMLSpanElement> & { size: number; theme: string; isError: boolean }>`
   font-size: ${(p) => p.size}rem;
   color: ${(p) => (p.theme === 'light' ? 'var(--sonic-silver)' : 'red')};
   cursor: pointer;

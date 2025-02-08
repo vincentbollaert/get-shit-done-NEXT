@@ -1,3 +1,4 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { AppState } from '~/Application/Root';
@@ -48,7 +49,7 @@ export const Wrap = styled.div<{ theme: { axisBg: string } }>`
   background-color: ${(p) => p.theme.axisBg};
 `;
 
-export const HourLabel = styled.div<{
+export const HourLabel = styled.div<React.HTMLProps<HTMLDivElement> & {
   theme: { axisBg: string; axisBorder: string };
   isFiltered: boolean;
   isActive: boolean;

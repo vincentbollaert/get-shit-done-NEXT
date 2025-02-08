@@ -13,6 +13,7 @@ import { HourLabels } from './axis/HourLabels/HourLabels';
 import { Calendar } from './Calendar/Calendar';
 import { Sidebar } from './Sidebar/Sidebar';
 import { SignInForm } from './SignInForm/SignInForm';
+import React from 'react';
 
 const Home = () => {
   const isSidebarOpen = useAppSelector((state) => state.app).isSidebarOpen;
@@ -54,7 +55,7 @@ export const PageWrap = styled.div`
   position: relative;
   background-color: var(--charcoal);
 `;
-export const Wrap = styled.div<{ isSidebarOpen: boolean }>`
+export const Wrap = styled.div<{ isSidebarOpen: boolean; children: React.ReactNode }>`
   display: flex;
   flex-grow: 1;
   position: relative;

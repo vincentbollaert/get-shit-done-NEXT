@@ -43,7 +43,7 @@ export const Wrap = styled.div`
   position: relative;
 `;
 
-export const Category = styled.div<{ color: string }>`
+export const Category = styled.div<{ key: string; color: string; children: React.ReactNode }>`
   ${SectionItemStyles};
   padding-left: 24px;
   color: ${(p) => p.color};

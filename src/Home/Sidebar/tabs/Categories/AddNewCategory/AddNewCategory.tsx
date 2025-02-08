@@ -36,7 +36,12 @@ export const AddNewCategory = () => {
   );
 };
 
-export const Form = styled.form`
+interface FormProps {
+  children: React.ReactNode;
+  onSubmit: (e?: React.BaseSyntheticEvent) => void;
+}
+
+export const Form = styled.form<FormProps>`
   margin-bottom: var(--size-lg);
 `;
 

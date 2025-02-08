@@ -1,3 +1,4 @@
+import React from 'react';
 import isToday from 'date-fns/isToday';
 import { useCallback, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
@@ -11,7 +12,8 @@ import { makeDaysAxis, makeHoursAxis } from '~/shared/selectors';
 import { mapTasksByDay } from '~/shared/utils';
 import { AddNewCalendarTask } from './AddNewCalendarTask/AddNewCalendarTask';
 import { CalendarColumn } from './Column/CalendarColumn';
-import { EditCalendarTask, ValueOf } from './EditCalendarTask/EditCalendarTask';
+import { EditCalendarTask } from './EditCalendarTask/EditCalendarTask';
+import { ValueOf } from '~/api/types';
 
 const CalendarColumns = () => {
   const { data: allTasksByDay } = useGetTasksQuery();
@@ -34,7 +36,7 @@ const CalendarColumns = () => {
 };
 
 export const Calendar = () => {
-  const wrapRef = useRef(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
   const { isLoading } = useGetTasksQuery();
   const taskBeingEdited = useSelector((state: AppState) => state.calendar.taskBeingEdited);
@@ -77,7 +79,7 @@ export const Calendar = () => {
   );
 };
 
-export const Wrap = styled.div`
+export const Wrap = styled.div<{ ref: React.RefObject<HTMLDivElement | null>; children: React.ReactNode }>`
   position: relative;
   display: flex;
   flex-grow: 1;

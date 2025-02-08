@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { colors } from '~/shared/constants';
 import { rgbAdjust } from '~/styles';
@@ -51,11 +51,11 @@ export const Colorpicker = ({ selectedColorValue, label, setSelectedColor, class
   );
 };
 
-export const Wrap = styled.div`
+export const Wrap = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   flex-grow: 1;
 `;
 
-export const Toggle = styled.div`
+export const Toggle = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   display: flex;
   align-items: center;
 `;
@@ -98,7 +98,7 @@ export const ColorCircle = styled.div<{ isOpen: boolean; color?: string }>`
 
 export const Label = styled.div``;
 
-export const ColorOptions = styled.div<{ isOpen: boolean }>`
+export const ColorOptions = styled.div<{ isOpen: boolean; children: React.ReactNode }>`
   z-index: 1;
   display: ${(p) => (p.isOpen ? 'flex' : 'none')};
   width: 40.8rem;
@@ -113,7 +113,9 @@ export const ColorOptions = styled.div<{ isOpen: boolean }>`
   box-shadow: 3px 3px 8px -5px var(--charcoal);
 `;
 
-export const ColorOption = styled.div<{ isActive: boolean; color: string; colorAdjusted: string }>`
+export const ColorOption = styled.div<
+  React.HTMLAttributes<HTMLDivElement> & { isActive: boolean; color: string; colorAdjusted: string }
+>`
   display: flex;
   align-items: center;
   justify-content: center;

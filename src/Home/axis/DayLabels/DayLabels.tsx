@@ -1,6 +1,7 @@
 import format from 'date-fns/format';
 import getDaysInMonth from 'date-fns/getDaysInMonth';
 import isToday from 'date-fns/isToday';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { AppState } from '~/Application/Root';
@@ -61,7 +62,7 @@ export const Wrap = styled.div<{ theme: { axisBg: string } }>`
 `;
 
 // TODO: Go over this, there must be a better way
-export const DayLabel = styled.div<{
+export const DayLabel = styled.div<React.HTMLProps<HTMLDivElement> & {  
   theme: { axisBg: string; axisBorder: string };
   isBeingFiltered: boolean;
   isCurrentWeek?: boolean;

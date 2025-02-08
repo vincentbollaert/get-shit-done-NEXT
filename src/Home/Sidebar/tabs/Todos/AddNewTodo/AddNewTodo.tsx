@@ -27,7 +27,12 @@ export const AddNewTodo = () => {
   );
 };
 
-export const Form = styled.form`
+interface FormProps {
+  children: React.ReactNode;
+  onSubmit: React.FormEventHandler<HTMLFormElement>;
+}
+
+export const Form = styled.form<FormProps>`
   margin-bottom: var(--size-lg);
 `;
 

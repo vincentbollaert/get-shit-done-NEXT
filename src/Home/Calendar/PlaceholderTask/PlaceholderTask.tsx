@@ -80,6 +80,8 @@ export const PlaceholderTaskWrap = styled.div<{
   top: number;
   height: number;
   accentColor?: string;
+  children?: React.ReactNode;
+  onClick: () => void;
 }>`
   display: ${(p) => (p.isBeingPrepared ? 'block' : 'none')};
   position: absolute;

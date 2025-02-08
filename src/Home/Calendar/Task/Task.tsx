@@ -57,6 +57,9 @@ type CellProps = {
   flex: number;
   accentColor: string;
   isSmall: boolean;
+  children: React.ReactNode;
+  onClick?: () => void;
+  onAuxClick?: () => void;
 };
 
 export const Cell = styled.div<CellProps>`
@@ -102,7 +105,7 @@ export const Cell = styled.div<CellProps>`
     `};
 `;
 
-export const CellGap = styled.div<{ flex: number }>`
+export const CellGap = styled.div<{ className: string; flex: number }>`
   z-index: 0;
   display: flex;
   flex-grow: ${(p) => p.flex};
