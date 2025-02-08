@@ -37,8 +37,9 @@ export const Wrap = styled.div<React.HTMLAttributes<HTMLDivElement>>`
 `;
 
 type TooltipTextProps = React.HTMLAttributes<HTMLDivElement> & {
-  $isError: boolean; tooltipPosition: 'left' | 'right'
-}
+  $isError: boolean;
+  tooltipPosition: 'left' | 'right';
+};
 export const TooltipText = styled.div<TooltipTextProps>`
   visibility: hidden;
   position: absolute;
@@ -64,7 +65,9 @@ export const TooltipText = styled.div<TooltipTextProps>`
 
   ${Wrap}:hover & {
     visibility: visible;
-    transition: margin 0.2s ease-out, visibility 0.4s ease-out;
+    transition:
+      margin 0.2s ease-out,
+      visibility 0.4s ease-out;
   }
 
   ${(p) =>

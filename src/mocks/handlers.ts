@@ -76,7 +76,7 @@ export const handlers = [
         }
         return acc;
       },
-      {}
+      {},
     );
 
     return Response.json(filteredTasks, { status: 200 });
@@ -90,7 +90,7 @@ export const handlers = [
         taskId: `task-${Date.now()}`,
         userId: mockUser.userId,
       },
-      { status: 200 }
+      { status: 200 },
     );
   }),
 

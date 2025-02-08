@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 export function useMswInit() {
   const [status, setStatus] = useState<'initializing' | 'ready'>(() =>
-    process.env.NODE_ENV === 'development' ? 'initializing' : 'ready'
+    process.env.NODE_ENV === 'development' ? 'initializing' : 'ready',
   );
 
   useEffect(() => {

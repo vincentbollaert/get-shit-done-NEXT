@@ -73,7 +73,7 @@ export const tasksApi = createApi({
             affectedDay.tasks.push({ ...payload, taskId: 'unsaved task' });
             affectedDay.tasks.sort(taskSort);
             draft[payload.timestamp] = affectedDay;
-          })
+          }),
         );
         dispatch({ type: actions.removePreparedTask.toString() });
         try {
@@ -81,7 +81,7 @@ export const tasksApi = createApi({
           dispatch(
             tasksApi.util.updateQueryData('getTasks', undefined, (draft) => {
               findTask(draft[payload.timestamp].tasks, 'unsaved task')!.taskId = response.data.taskId;
-            })
+            }),
           );
         } catch {
           postResult.undo();
@@ -103,7 +103,7 @@ export const tasksApi = createApi({
               const key = x as keyof ClientModel['Task'];
               task[key] = requestParams[key];
             }
-          })
+          }),
         );
         dispatch({ type: actions.removeEditedTask.toString() });
       },
@@ -115,7 +115,7 @@ export const tasksApi = createApi({
           tasksApi.util.updateQueryData('getTasks', undefined, (draft) => {
             const { taskId, timestamp } = requestParams;
             draft[timestamp].tasks = draft[timestamp].tasks.filter((task) => task.taskId !== taskId);
-          })
+          }),
         );
         dispatch({ type: actions.removeEditedTask.toString() });
       },
@@ -138,7 +138,7 @@ export const tasksApi = createApi({
           tasksApi.util.updateQueryData('getCategories', undefined, (draft) => {
             const categoryToUpdate = draft.find((category) => category.categoryId === requestParams.categoryId)!;
             categoryToUpdate.colorId = requestParams.colorId;
-          })
+          }),
         );
       },
     }),
@@ -148,7 +148,7 @@ export const tasksApi = createApi({
         dispatch(
           tasksApi.util.updateQueryData('getCategories', undefined, (draft) => {
             draft.push({ ...requestParams, categoryId: 'temp id' }); // TODO: is this the best way?
-          })
+          }),
         );
       },
     }),
@@ -158,7 +158,7 @@ export const tasksApi = createApi({
         dispatch(
           tasksApi.util.updateQueryData('getCategories', undefined, (draft) => {
             return draft.filter((category) => category.categoryId !== requestParams);
-          })
+          }),
         );
       },
     }),
@@ -178,7 +178,7 @@ export const tasksApi = createApi({
               const draftRecord: Record<keyof Requests['UpdateSettings'], ValueOf<Requests['UpdateSettings']>> = draft;
               draftRecord[key as keyof Requests['UpdateSettings']] = value;
             });
-          })
+          }),
         );
       },
     }),
@@ -200,7 +200,7 @@ export const tasksApi = createApi({
           tasksApi.util.updateQueryData('getTodos', undefined, (draft) => {
             const todoToUpdate = draft.find((todo) => todo.todoId === requestParams.todoId)!;
             todoToUpdate.isDone = !!requestParams.isDone;
-          })
+          }),
         );
       },
     }),
@@ -219,7 +219,7 @@ export const tasksApi = createApi({
         dispatch(
           tasksApi.util.updateQueryData('getTodos', undefined, (draft) => {
             return draft.filter((todo) => todo.todoId !== requestParams);
-          })
+          }),
         );
         dispatch(toastActions.addToast({ prefix: 'todo removed', message: 'remove this todo' }));
       },
@@ -230,7 +230,7 @@ export const tasksApi = createApi({
         dispatch(
           tasksApi.util.updateQueryData('getTodos', undefined, (draft) => {
             draft.unshift({ ...requestParams, todoId: 'temp id' }); // TODO: is this the best way?
-          })
+          }),
         );
         dispatch(toastActions.addToast({ prefix: 'todo added', message: 'sdsds' }));
       },

@@ -24,7 +24,7 @@ const TodoSchema = new mongoose.Schema(
         delete ret._id;
       },
     },
-  }
+  },
 );
 
 const Todo = mongoose.models.Todo || mongoose.model('Todo', TodoSchema);

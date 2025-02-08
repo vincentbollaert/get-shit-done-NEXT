@@ -45,7 +45,7 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
         time: [Number(from), Number(to)],
         category: selectedCategory!.name,
         userId: currentUser!.userId,
-      })
+      }),
     );
   }, [name, from, to, selectedCategory?.name]);
 

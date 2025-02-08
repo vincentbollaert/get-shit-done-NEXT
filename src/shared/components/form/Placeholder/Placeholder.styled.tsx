@@ -15,7 +15,10 @@ export const Placeholder = styled.div<PlaceholderProps>`
   ${(p) => p.$isError && 'color: var(--sunset-orange)'};
   pointer-events: none;
   transform: translateY(-50%);
-  transition: top 0.1s ease-out, transform 0.1s ease-out, font-size 0.1s ease-out;
+  transition:
+    top 0.1s ease-out,
+    transform 0.1s ease-out,
+    font-size 0.1s ease-out;
 
   ${(p) =>
     p.$hasValue &&

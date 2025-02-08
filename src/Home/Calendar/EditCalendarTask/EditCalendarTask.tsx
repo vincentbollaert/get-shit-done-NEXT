@@ -18,7 +18,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
   const taskBeingEdited = useSelector((state: AppState) => state.calendar.taskBeingEdited)!;
   const dispatch = useAppDispatch();
   const [selectedCategory, setSelectedCategory] = useState(
-    categories.find((x) => x.name === taskBeingEdited.category)!
+    categories.find((x) => x.name === taskBeingEdited.category)!,
   );
   const { userId, taskId, time, name } = taskBeingEdited!;
   const accentColor = selectedCategory ? colors[selectedCategory.colorId] : undefined;
@@ -65,7 +65,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
           const key = x as keyof ClientModel['Task'];
           taskToUpdate[key] = formfieldsMapped[key];
         }
-      })
+      }),
     );
     dispatch(actions.updateEditedTask(formfieldsMapped));
   }, [watchedFields.name, watchedFields.from, selectedCategory.name, watchedFields.to]);

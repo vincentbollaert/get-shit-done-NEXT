@@ -24,7 +24,7 @@ const CategorySchema = new mongoose.Schema(
         delete ret._id;
       },
     },
-  }
+  },
 );
 
 const Category = mongoose.models.Category || mongoose.model('Category', CategorySchema);

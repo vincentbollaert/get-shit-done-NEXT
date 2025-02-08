@@ -101,7 +101,9 @@ export const DayLabel = styled.div<
     p.$isCurrentDay &&
     css`
       flex-grow: 2;
-      box-shadow: inset 1px 0 0 0 var(--arsenic), 1px 0 0 0 var(--arsenic);
+      box-shadow:
+        inset 1px 0 0 0 var(--arsenic),
+        1px 0 0 0 var(--arsenic);
       background-color: var(--white);
       color: ${p.theme.axisBg};
     `};

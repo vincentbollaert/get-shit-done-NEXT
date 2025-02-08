@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema(
         delete ret.password;
       },
     },
-  }
+  },
 );
 
 // use regular fn because this points to document you are accessing

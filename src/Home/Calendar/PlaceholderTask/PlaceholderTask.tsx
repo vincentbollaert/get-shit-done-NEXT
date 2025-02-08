@@ -46,7 +46,7 @@ export const PlaceholderTask = ({
         timestamp,
         time: [rounded, rounded + 0.5],
         userId: currentUser!.userId,
-      })
+      }),
     );
   }
 

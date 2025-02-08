@@ -34,7 +34,7 @@ export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Pr
             </InnerWrap>
           </ModalWrap>
         </Wrap>,
-        document.querySelector('body')!
+        document.querySelector('body')!,
       );
 };
 

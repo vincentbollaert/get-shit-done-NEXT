@@ -53,12 +53,12 @@ export const { reducer, actions } = createSlice({
       } else if (period === '3weeks') {
         const weeks = eachWeekOfInterval({ start: subDays(today, 7), end: addDays(today, 7) });
         state.daysAxis = eachDayOfInterval({ start: weeks[0], end: weeks[weeks.length - 1] }).map((date) =>
-          date.toString()
+          date.toString(),
         );
       } else if (period === '1week') {
         const weeks = eachWeekOfInterval({ start: subDays(today, 7), end: today });
         state.daysAxis = eachDayOfInterval({ start: weeks[0], end: weeks[weeks.length - 1] }).map((date) =>
-          date.toString()
+          date.toString(),
         );
       }
     },

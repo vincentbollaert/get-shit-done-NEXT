@@ -6,7 +6,7 @@ import {
   STYLE_COLUMN_MARGIN,
   STYLE_DAYS_HEIGHT_UNIT,
   STYLE_HOURS_WIDTH_UNIT,
-  STYLE_SIDEBAR_WIDTH_UNIT
+  STYLE_SIDEBAR_WIDTH_UNIT,
 } from '~/styles';
 import { DayLabels } from './axis/DayLabels/DayLabels';
 import { HourLabels } from './axis/HourLabels/HourLabels';

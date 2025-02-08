@@ -33,7 +33,7 @@ const TextFieldUnmemoed = forwardRef(
       className,
       onChange,
     }: Props,
-    ref: ForwardedRef<any>
+    ref: ForwardedRef<any>,
   ) => {
     const [value, setValue] = useState(defaultValue);
     const [isFocused, setIsFocused] = useState(false);
@@ -64,7 +64,7 @@ const TextFieldUnmemoed = forwardRef(
         <FieldError errorMessage={errorMessage} />
       </Wrap>
     );
-  }
+  },
 );
 
 TextFieldUnmemoed.displayName = 'Field';

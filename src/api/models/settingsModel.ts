@@ -59,7 +59,7 @@ const SettingsSchema = new mongoose.Schema(
         delete ret._id;
       },
     },
-  }
+  },
 );
 
 const Settings = mongoose.models.Settings || mongoose.model('Settings', SettingsSchema);

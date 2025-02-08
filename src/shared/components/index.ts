@@ -1,7 +1,7 @@
-export { AsyncButton, AsyncSvgButton, AsyncTextButton, DumbButton} from './button';
+export { AsyncButton, AsyncSvgButton, AsyncTextButton, DumbButton } from './button';
 export { Colorpicker } from './Colorpicker/Colorpicker';
 export { FieldError, TextError } from './error';
-export { Dropdown, Placeholder, Switch, TextField} from './form';
+export { Dropdown, Placeholder, Switch, TextField } from './form';
 export { Icon } from './Icon/Icon';
 export type { IconVariant } from './Icon/Icon';
 export { Modal, ModalFooter } from './Modal';

@@ -28,7 +28,7 @@ const TaskSchema = new mongoose.Schema(
         delete ret._id;
       },
     },
-  }
+  },
 );
 
 const Task = mongoose.models.Task || mongoose.model('Task', TaskSchema);

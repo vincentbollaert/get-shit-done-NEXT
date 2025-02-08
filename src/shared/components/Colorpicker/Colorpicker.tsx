@@ -140,14 +140,18 @@ export const ColorOption = styled.div<ColorOptionProps>`
       css`
         z-index: 1;
         border: 0;
-        box-shadow: 0 0 0 4px ${p.$color}, 0px 0 0px 5px ${p.$colorAdjusted};
+        box-shadow:
+          0 0 0 4px ${p.$color},
+          0px 0 0px 5px ${p.$colorAdjusted};
         transition: box-shadow 0.1s ease-out;
       `};
 
   &:hover {
     z-index: 1;
     border: 0;
-    box-shadow: 0 0 0 4px ${(p) => p.$color}, 0px 0 0px 5px ${(p) => p.$colorAdjusted};
+    box-shadow:
+      0 0 0 4px ${(p) => p.$color},
+      0px 0 0px 5px ${(p) => p.$colorAdjusted};
     transition: box-shadow 0.1s ease-out;
   }
 `;

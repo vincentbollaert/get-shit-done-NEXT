@@ -49,12 +49,14 @@ export const Wrap = styled.div<{ theme: { axisBg: string } }>`
   background-color: ${(p) => p.theme.axisBg};
 `;
 
-export const HourLabel = styled.div<React.HTMLProps<HTMLDivElement> & {
-  theme: { axisBg: string; axisBorder: string };
-  $isFiltered: boolean;
-  $isActive: boolean;
-  $isBeingFiltered: boolean;
-}>`
+export const HourLabel = styled.div<
+  React.HTMLProps<HTMLDivElement> & {
+    theme: { axisBg: string; axisBorder: string };
+    $isFiltered: boolean;
+    $isActive: boolean;
+    $isBeingFiltered: boolean;
+  }
+>`
   position: relative;
   display: flex;
   justify-content: center;
@@ -73,6 +75,8 @@ export const HourLabel = styled.div<React.HTMLProps<HTMLDivElement> & {
     p.$isActive &&
     css`
       background-color: var(--arsenic);
-      box-shadow: inset 4px 0 0 0px ${p.theme.axisBg}, inset -4px 0 0 0px ${p.theme.axisBg};
+      box-shadow:
+        inset 4px 0 0 0px ${p.theme.axisBg},
+        inset -4px 0 0 0px ${p.theme.axisBg};
     `};
 `;

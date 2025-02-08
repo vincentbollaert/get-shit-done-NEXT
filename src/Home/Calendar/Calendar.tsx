@@ -53,13 +53,13 @@ export const Calendar = () => {
     dispatch(
       tasksApi.util.updateQueryData('getTasks', undefined, (draft) => {
         const taskToUpdate = draft[taskBeingEditedClone!.timestamp].tasks.find(
-          (task) => task.taskId === taskBeingEditedClone!.taskId
+          (task) => task.taskId === taskBeingEditedClone!.taskId,
         ) as Record<keyof ClientModel['Task'], ValueOf<ClientModel['Task']>>;
         for (const task in taskToUpdate) {
           const key = task as keyof ClientModel['Task'];
           taskToUpdate[key] = taskBeingEditedClone![key];
         }
-      })
+      }),
     );
   }, [taskBeingEditedClone]);
 

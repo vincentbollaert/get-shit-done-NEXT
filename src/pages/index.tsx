@@ -3,7 +3,6 @@ import Head from 'next/head';
 import Home from '../Home/Home';
 
 const IndexPage: NextPage = () => {
-
   return (
     <>
       <Head>
