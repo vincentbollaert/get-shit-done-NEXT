@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 export const CN_ERROR_FIELD = 'error-field';
@@ -11,7 +12,8 @@ export const FieldError = ({ errorMessage, className }: Props) => {
   return !errorMessage ? null : <Wrap className={`${className} ${CN_ERROR_FIELD}`}>{errorMessage}</Wrap>;
 };
 
-export const Wrap = styled.div<{ isInfoVariant?: boolean }>`
+type WrapProps = React.HTMLAttributes<HTMLDivElement> & { isInfoVariant?: boolean };
+export const Wrap = styled.div<WrapProps>`
   position: absolute;
   right: var(--size-xsm);
   bottom: var(--size-xsm);

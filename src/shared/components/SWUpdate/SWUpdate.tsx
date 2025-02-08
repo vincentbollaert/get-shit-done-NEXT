@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import styled from 'styled-components';
 
 // TODO: This component no longer works
@@ -30,7 +30,7 @@ export const Wrap = styled.div`
   cursor: pointer;
 `;
 
-export const InnerWrap = styled.div`
+export const InnerWrap = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   padding: var(--size-xlg);
   padding-right: 10rem;
   width: 100%;
@@ -53,7 +53,7 @@ export const Message = styled.div`
   overflow: hidden;
 `;
 
-export const Undo = styled.div`
+export const Undo = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   position: absolute;
   right: var(--size-lg);
   padding: var(--size-sm) var(--size-md);

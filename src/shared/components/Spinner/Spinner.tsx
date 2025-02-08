@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 import styled from 'styled-components';
 import loaderSvg from '~/public/svg/loader.svg';
 import { Svg } from '../Svg/Svg';
@@ -22,7 +22,10 @@ export const SpinnerLoader = memo(function SpinnerLoader({ isAbsolute = true, si
   return null;
 });
 
-export const Wrap = styled.div<{ isAbsolute: boolean }>`
+type WrapProps = React.HTMLAttributes<HTMLDivElement> & {
+  isAbsolute: boolean
+}
+export const Wrap = styled.div<WrapProps>`
   display: flex;
   z-index: 1;
   position: ${(p) => (p.isAbsolute ? 'absolute' : 'static')};

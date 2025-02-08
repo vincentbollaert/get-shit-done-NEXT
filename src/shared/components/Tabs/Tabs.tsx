@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 type TabItemWrapProps = TabContentWrapProps & {
@@ -18,9 +19,15 @@ type TabsProps<I, C> = {
     tabContentProps: C;
   }[];
 };
-type TabContentWrapProps = { isActive: boolean };
+type TabContentWrapProps = { isActive: boolean; children: React.ReactNode };
 
-export const Tabs = <I, C>({ TabItemWrap, TabContentInnerWrap, tabs, activeTabId, onTabSelect }: TabsProps<I, C>) => {
+export const Tabs = <I extends React.JSX.IntrinsicAttributes, C>({
+  TabItemWrap,
+  TabContentInnerWrap,
+  tabs,
+  activeTabId,
+  onTabSelect,
+}: TabsProps<I, C>) => {
   const TabItems = () => (
     <div>
       {tabs.map(({ id, TabItem, tabItemProps }) => (
@@ -57,11 +64,11 @@ export const TabItemWrap = ({ isActive, onClick, children, className }: TabItemW
     {children}
   </TabItemWrapStyled>
 );
-const TabItemWrapStyled = styled.div<{ isActive: boolean }>``;
+const TabItemWrapStyled = styled.div<React.HTMLAttributes<HTMLDivElement> & { isActive: boolean }>``;
 
 export const TabContentWrap: React.FC<TabContentWrapProps> = ({ isActive, children }) => (
   <TabContentWrapStyled isActive={isActive}>{children}</TabContentWrapStyled>
 );
-export const TabContentWrapStyled = styled.div<{ isActive: boolean }>`
+export const TabContentWrapStyled = styled.div<React.HTMLAttributes<HTMLDivElement> & { isActive: boolean }>`
   display: ${(p) => (p.isActive ? 'block' : 'none')};
 `;

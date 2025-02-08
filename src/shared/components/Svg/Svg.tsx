@@ -12,7 +12,10 @@ export const Svg = ({ svg, size = 1.6, className, onClick }: Props) => (
   <Wrap size={size} className={className} onClick={onClick} dangerouslySetInnerHTML={{ __html: svg }} />
 );
 
-const Wrap = styled.span<{ size: number }>`
+type WrapProps = React.HTMLAttributes<HTMLSpanElement> & {
+  size: number;
+};
+const Wrap = styled.span<WrapProps>`
   display: flex;
   flex-shrink: 0;
   width: ${(props) => props.size}rem;

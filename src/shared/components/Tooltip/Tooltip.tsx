@@ -1,4 +1,4 @@
-import { memo, ReactElement } from 'react';
+import React, { memo, ReactElement } from 'react';
 import styled, { css } from 'styled-components';
 
 interface Props {
@@ -28,7 +28,7 @@ export const Tooltip = memo(function Tooltip({
   );
 });
 
-export const Wrap = styled.div`
+export const Wrap = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   display: flex;
   /* position: absolute; */
   /* right: 0; */
@@ -36,7 +36,10 @@ export const Wrap = styled.div`
   cursor: pointer;
 `;
 
-export const TooltipText = styled.div<{ isError: boolean; tooltipPosition: 'left' | 'right' }>`
+type TooltipTextProps = React.HTMLAttributes<HTMLDivElement> & {
+  isError: boolean; tooltipPosition: 'left' | 'right'
+}
+export const TooltipText = styled.div<TooltipTextProps>`
   visibility: hidden;
   position: absolute;
   padding: 1rem var(--size-lg);

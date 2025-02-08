@@ -14,10 +14,11 @@ export const STYLE_PLACEHOLDER_COLOR_DARK = 'rgba(0, 0, 0, 0.3)';
 export const STYLE_PLACEHOLDER_COLOR_LIGHT = 'rgba(255, 255, 255, 0.6)';
 export const HEIGHT = '3.2rem';
 
-export const Wrap = styled.div<{ isInForm: boolean }>`
+type WrapProps = React.HTMLAttributes<HTMLDivElement> & { isInForm: boolean; themeVariant: 'light' | 'dark' };
+export const Wrap = styled.div<WrapProps>`
   display: flex;
   position: relative;
-  color: ${(p) => (p.theme === 'light' ? STYLE_COLOR_LIGHT : STYLE_COLOR_DARK)};
+  color: ${(p) => (p.themeVariant === 'light' ? STYLE_COLOR_LIGHT : STYLE_COLOR_DARK)};
   outline: none;
 
   ${(p) =>
@@ -31,7 +32,16 @@ export const Wrap = styled.div<{ isInForm: boolean }>`
     `};
 `;
 
-export const Input = styled.input<{ isError?: boolean }>`
+type InputWrapProps = React.HTMLAttributes<HTMLInputElement> & {
+  children?: React.ReactNode;
+  as?: 'input' | 'div';
+  isError?: boolean;
+  name?: string;
+  type?: string;
+  autoComplete?: string;
+  ref?: React.ForwardedRef<HTMLInputElement | null>;
+};
+export const Input = styled.input<InputWrapProps>`
   display: flex;
   align-items: center;
   border-bottom: 1px solid ${(p) => (p.isError ? COLOR_UNDERLINE_ERROR : COLOR_UNDERLINE)};
@@ -44,7 +54,7 @@ export const Input = styled.input<{ isError?: boolean }>`
   font-size: var(--font-size-md);
 
   &:focus {
-    border-color: ${(p) => p.isError ? COLOR_UNDERLINE_ERROR : COLOR_UNDERLINE_HOVER_LIGHT};
+    border-color: ${(p) => (p.isError ? COLOR_UNDERLINE_ERROR : COLOR_UNDERLINE_HOVER_LIGHT)};
   }
 
   &:hover {
@@ -62,5 +72,5 @@ export const FieldIcon = styled(Icon)`
 
   ${Wrap}:hover & {
     color: var(--gainsboro);
-  } ;
+  }
 `;

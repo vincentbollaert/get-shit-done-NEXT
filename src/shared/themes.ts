@@ -1,6 +1,6 @@
 import type { ClientModel } from '~/api/types';
 
-type ThemeValues = {
+export type ThemeValues = {
   bg: string;
   columnBorder: string;
   columnHoverBg: string;

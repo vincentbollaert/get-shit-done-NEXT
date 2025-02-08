@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import { Icon } from '~/shared/components';
+import type { IconProps } from '~/shared/components/Icon/Icon';
 
 type Props = {
   isVisible: boolean;
   title: string;
   width: number;
   children: React.ReactNode;
-  onOverlayToggle(event: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
+  onOverlayToggle(event: React.MouseEvent<HTMLDivElement, MouseEvent>): void;
 };
 
 // TODO: Use createPortal correctly
@@ -38,7 +39,8 @@ export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Pr
       );
 };
 
-const Wrap = styled.div`
+type WrapProps = React.HTMLAttributes<HTMLDivElement>;
+const Wrap = styled.div<WrapProps>`
   z-index: 1;
   position: fixed;
   top: 0;
@@ -50,12 +52,17 @@ const Wrap = styled.div`
   align-items: center;
   transition: background-color var(--transition);
 `;
-const Overlay = styled.div`
+type OverlayProps = React.HTMLAttributes<HTMLDivElement>;
+const Overlay = styled.div<OverlayProps>`
   width: 100%;
   height: 100%;
   /* background-color: rgba(255, 255, 255, 0.3); */
 `;
-const ModalWrap = styled.div<{ width: number }>`
+type ModalWrapProps = React.HTMLAttributes<HTMLDivElement> & {
+  width: number;
+};
+
+const ModalWrap = styled.div<ModalWrapProps>`
   display: flex;
   position: fixed;
   width: ${(p) => `${p.width}rem` || 'auto'};
@@ -67,11 +74,13 @@ const ModalWrap = styled.div<{ width: number }>`
   box-shadow: 3px 3px 8px -5px var(--charcoal);
 `;
 
-const InnerWrap = styled.div`
+type InnerWrapProps = React.HTMLAttributes<HTMLDivElement>;
+const InnerWrap = styled.div<InnerWrapProps>`
   position: relative;
 `;
 
-const Header = styled.header`
+type HeaderProps = React.HTMLAttributes<HTMLElement>;
+const Header = styled.header<HeaderProps>`
   display: flex;
   align-items: center;
   padding: var(--size-xlg);
@@ -83,11 +92,13 @@ const Header = styled.header`
   user-select: none;
 `;
 
-const Content = styled.div`
+type ContentProps = React.HTMLAttributes<HTMLDivElement>;
+const Content = styled.div<ContentProps>`
   padding: var(--size-xlg);
   color: var(--sonic-silver);
 `;
 
+type IconStyledProps = IconProps;
 const IconStyled = styled(Icon)`
   position: absolute;
   right: var(--size-lg);

@@ -29,11 +29,11 @@ export const CurrentTime = () => {
   );
 };
 
-export const Wrap = styled.div<{
-  theme: { currentTimeBg: string; currentTimeBorder: string };
+type WrapProps = React.HTMLAttributes<HTMLDivElement> & {
   top: number;
-  children: React.ReactNode;
-}>`
+};
+
+export const Wrap = styled.div<WrapProps>`
   z-index: 2;
   display: flex;
   position: absolute;
@@ -44,9 +44,9 @@ export const Wrap = styled.div<{
   white-space: nowrap;
 `;
 
-export const Time = styled.span<{
-  theme: { currentTimeBg: string; currentTimeColor: string; currentTimeBorder: string };
-}>`
+type TimeProps = React.HTMLAttributes<HTMLSpanElement>;
+
+export const Time = styled.span<TimeProps>`
   position: absolute;
   padding: 0 0.6rem;
   border-radius: 1px;

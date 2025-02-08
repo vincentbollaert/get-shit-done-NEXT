@@ -1,7 +1,12 @@
+import React from 'react';
 import styled, { css } from 'styled-components';
 import { rgbAdjust } from '~/styles';
 
-export const SvgButtonWrap = styled.button<{ isError?: boolean }>`
+type SvgButtonWrapProps = React.HTMLAttributes<HTMLButtonElement> & {
+  isError?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+};
+export const SvgButtonWrap = styled.button<SvgButtonWrapProps>`
   position: relative;
   cursor: pointer;
   ${(p) =>
@@ -13,7 +18,14 @@ export const SvgButtonWrap = styled.button<{ isError?: boolean }>`
     `};
 `;
 
-export const ButtonStyledWrap = styled.button<{ isError?: boolean; accentColor?: string }>`
+// TODO: disabled and type shouldn't have to be typed
+type ButtonStyledWrapProps = React.HTMLAttributes<HTMLButtonElement> & {
+  isError?: boolean;
+  accentColor?: string;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+};
+export const ButtonStyledWrap = styled.button<ButtonStyledWrapProps>`
   display: flex;
   position: relative;
   justify-content: center;
@@ -63,7 +75,8 @@ export const ButtonStyledWrap = styled.button<{ isError?: boolean; accentColor?:
     color: var(--lavender);
   }
 `;
-export const TextButtonWrap = styled.button<{ isError?: boolean }>`
+type TextButtonWrapProps = React.HTMLAttributes<HTMLButtonElement> & { isError?: boolean; disabled?: boolean };
+export const TextButtonWrap = styled.button<TextButtonWrapProps>`
   display: flex;
   position: relative;
   cursor: pointer;
@@ -88,7 +101,8 @@ export const TextButtonWrap = styled.button<{ isError?: boolean }>`
   }
 `;
 
-export const AsyncButtonContent = styled.div<{ isShow: boolean }>`
+type AsyncButtonContentProps = React.HTMLAttributes<HTMLDivElement> & { isShow: boolean };
+export const AsyncButtonContent = styled.div<AsyncButtonContentProps>`
   opacity: ${(p) => (p.isShow ? 1 : 0)};
   visibility: ${(p) => (p.isShow ? 'visible' : 'hidden')};
 `;

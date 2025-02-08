@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ClientModel } from '~/api/types';
 import { colors } from '~/shared/constants';
@@ -6,7 +6,7 @@ import { Placeholder } from '../Placeholder/Placeholder.styled';
 import { FieldIcon, Input, Wrap } from '../shared.styled';
 
 type Props = {
-  theme?: string;
+  theme?: 'light' | 'dark';
   isInForm?: boolean;
   activeCategory: ClientModel['Category'] | null;
   label: string;
@@ -25,13 +25,13 @@ export const Dropdown = ({ theme = 'light', isInForm = false, activeCategory, la
   }
 
   return (
-    <Wrap theme={theme} isInForm={isInForm} tabIndex={0} onBlur={() => setIsOpen(false)}>
+    <Wrap themeVariant={theme} isInForm={isInForm} tabIndex={0} onBlur={() => setIsOpen(false)}>
       <Header color={accentColor} onClick={() => setIsOpen(!isOpen)}>
-        <Placeholder theme={theme} hasValue={!!activeCategory?.categoryId}>
+        <Placeholder themeVariant={theme} hasValue={!!activeCategory?.categoryId}>
           {label}
         </Placeholder>
         <Input as="div">{activeCategory?.name}</Input>
-        <FieldIcon theme={theme} variant="expand_more" />
+        <FieldIcon themeVariant={theme} variant="expand_more" />
       </Header>
       <List isOpen={isOpen}>
         {categories.map((category) => (
@@ -50,12 +50,14 @@ export const Dropdown = ({ theme = 'light', isInForm = false, activeCategory, la
   );
 };
 
-export const Header = styled.div<{ color: string }>`
+type HeaderProps = React.HTMLAttributes<HTMLDivElement> & { color: string };
+export const Header = styled.div<HeaderProps>`
   width: 100%;
   color: ${(p) => p.color};
 `;
 
-export const List = styled.div<{ isOpen: boolean }>`
+type ListProps = React.HTMLAttributes<HTMLDivElement> & { isOpen: boolean };
+export const List = styled.div<ListProps>`
   display: ${(p) => (p.isOpen ? 'flex' : 'none')};
   position: absolute;
   flex-direction: column;
@@ -69,7 +71,8 @@ export const List = styled.div<{ isOpen: boolean }>`
   box-shadow: 3px 3px 8px -5px #343742;
 `;
 
-export const Item = styled.div<{ isActive: boolean; color: string }>`
+type ItemProps = React.HTMLAttributes<HTMLDivElement> & { isActive: boolean; color: string };
+export const Item = styled.div<ItemProps>`
   position: relative;
   display: flex;
   align-items: center;

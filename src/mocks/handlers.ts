@@ -1,12 +1,12 @@
-import { rest } from 'msw';
-import { ClientModel, Models } from '~/api/types';
+import { PathParams, http } from 'msw';
+import { ClientModel, Models, Requests, TasksByDay } from '~/api/types';
 
 const mockUser: ClientModel['User'] = {
   email: 'test@example.com',
   userId: 'test-user-1',
 };
 
-const mockTasks = {
+const mockTasks: TasksByDay = {
   'Sat Feb 08 2025 00:00:00 GMT+0100 (Central European Standard Time)': {
     tasks: [
       {
@@ -55,54 +55,60 @@ const mockSettings: ClientModel['Settings'] & { settingsId: string } = {
 
 export const handlers = [
   // Auth endpoints
-  rest.post<Models['User']>('/api/v1/user/signin', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockUser));
+  http.post<PathParams, Requests['SignIn']>('/api/v1/user/signin', async ({ request }) => {
+    return Response.json(mockUser, { status: 200 });
   }),
 
-  rest.get('/api/v1/user/current-user', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockUser));
+  http.get('/api/v1/user/current-user', async () => {
+    return Response.json(mockUser, { status: 200 });
   }),
 
   // Tasks endpoints
-  rest.get('/api/v1/tasks', (req, res, ctx) => {
-    const monthParam = req.url.searchParams.get('month');
-    
-    // Filter tasks for the requested month
-    const filteredTasks = Object.entries(mockTasks).reduce<Record<string, { tasks: Models['Task'][] }>>((acc, [date, data]) => {
-      if (date.includes(monthParam || '')) {
-        acc[date] = data;
-      }
-      return acc;
-    }, {});
+  http.get('/api/v1/tasks', async ({ request }) => {
+    const url = new URL(request.url);
+    const monthParam = url.searchParams.get('month');
 
-    return res(ctx.status(200), ctx.json(filteredTasks));
+    // Filter tasks for the requested month
+    const filteredTasks = Object.entries(mockTasks).reduce<Record<string, { tasks: Models['Task'][] }>>(
+      (acc, [date, data]) => {
+        if (date.includes(monthParam || '')) {
+          acc[date] = data;
+        }
+        return acc;
+      },
+      {}
+    );
+
+    return Response.json(filteredTasks, { status: 200 });
   }),
 
-  rest.post<Models['Task']>('/api/v1/tasks', (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        ...req.body,
+  http.post<PathParams, Requests['AddTask']>('/api/v1/tasks', async ({ request }) => {
+    const body = await request.json();
+    return Response.json(
+      {
+        ...body,
         taskId: `task-${Date.now()}`,
         userId: mockUser.userId,
-      })
+      },
+      { status: 200 }
     );
   }),
 
   // Categories endpoints
-  rest.get('/api/v1/categories', (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(mockCategories));
+  http.get('/api/v1/categories', async () => {
+    return Response.json(mockCategories, { status: 200 });
   }),
 
   // Settings endpoints
-  rest.get('/api/v1/settings', (req, res, ctx) => {
-    console.log('MSW intercepted settings request:', req.url);
-    return res(ctx.status(200), ctx.json(mockSettings));
+  http.get('/api/v1/settings', async ({ request }) => {
+    console.log('MSW intercepted settings request:', request.url);
+    return Response.json(mockSettings, { status: 200 });
   }),
 
-  rest.patch('/api/v1/settings', (req, res, ctx) => {
-    console.log('MSW intercepted settings patch request:', req.url);
-    Object.assign(mockSettings, req.body);
-    return res(ctx.status(200), ctx.json(mockSettings));
+  http.patch('/api/v1/settings', async ({ request }) => {
+    console.log('MSW intercepted settings patch request:', request.url);
+    const body = await request.json();
+    Object.assign(mockSettings, body);
+    return Response.json(mockSettings, { status: 200 });
   }),
 ];

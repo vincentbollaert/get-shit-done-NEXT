@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { STYLE_SIDEBAR_WIDTH_UNIT } from '~/styles';
 
 export type TabContentProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   title: string;
 };
 

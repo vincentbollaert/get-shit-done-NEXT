@@ -5,7 +5,7 @@ import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/toast';
 
 export const Toast = memo(function Toast() {
-  const timeoutIdRef = useRef<undefined | number>();
+  const timeoutIdRef = useRef<null | number>(null);
   const timeRemainingRef = useRef<null | number>(null);
   const [timeRemaining, setTimeRemaining] = useState(5);
   const { message, messagePrefix } = useSelector((state: AppState) => state.toast.toast);
@@ -32,7 +32,7 @@ export const Toast = memo(function Toast() {
     }
 
     return () => {
-      clearTimeout(timeoutIdRef.current);
+      timeoutIdRef.current && clearTimeout(timeoutIdRef.current);
       setTimeRemaining(5);
     };
   }, [message]);
@@ -63,7 +63,7 @@ export const Wrap = styled.div`
   cursor: pointer;
 `;
 
-export const InnerWrap = styled.div`
+export const InnerWrap = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   padding: var(--size-xlg);
   padding-right: 10rem;
   width: 100%;
@@ -94,7 +94,7 @@ export const Message = styled.div`
   overflow: hidden;
 `;
 
-export const Undo = styled.div`
+export const Undo = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   position: absolute;
   right: var(--size-lg);
   padding: var(--size-sm) var(--size-lg);

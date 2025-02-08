@@ -7,7 +7,7 @@ import { Input, Wrap } from '../shared.styled';
 type Props = {
   shouldAutoFocus?: boolean;
   isInForm?: boolean;
-  theme?: string;
+  theme?: 'light' | 'dark';
   name: string;
   type?: string;
   defaultValue?: string | number;
@@ -44,7 +44,7 @@ const TextFieldUnmemoed = forwardRef(
     };
 
     return (
-      <Wrap isInForm={isInForm} theme={theme} className={className}>
+      <Wrap isInForm={isInForm} themeVariant={theme} className={className}>
         <Input
           autoFocus={shouldAutoFocus}
           defaultValue={defaultValue}
@@ -57,7 +57,7 @@ const TextFieldUnmemoed = forwardRef(
           autoComplete="off"
           ref={ref}
         />
-        <Placeholder theme={theme} hasValue={hasValue || isFocused}>
+        <Placeholder themeVariant={theme} hasValue={hasValue || isFocused}>
           {placeholder}
         </Placeholder>
         {children && children}

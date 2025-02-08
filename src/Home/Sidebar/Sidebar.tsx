@@ -23,7 +23,7 @@ export const Sidebar = () => {
     setActiveTab(id === activeTabId ? null : id);
     (!activeTabId || id === activeTabId) && dispatch(actions.toggleSidebar());
   };
-  const { TabItems, ActiveTabContent } = Tabs<IconProps, TabContentProps>({
+  const { TabItems, ActiveTabContent } = Tabs<IconProps & React.JSX.IntrinsicAttributes, TabContentProps>({
     activeTabId: activeTabId,
     onTabSelect: handleTabClick,
     TabItemWrap: TabItemWrapStyled,
@@ -106,7 +106,7 @@ const InnerWrap = styled.div`
 
 const Toggles = styled.div``;
 
-const Toggle = styled(Icon)<{ isActive?: boolean }>`
+const Toggle = styled(Icon)<IconProps & { isActive?: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;

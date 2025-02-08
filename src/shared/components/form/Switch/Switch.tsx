@@ -1,3 +1,4 @@
+import React, { HTMLAttributes } from 'react';
 import styled, { css } from 'styled-components';
 
 type Props = {
@@ -29,7 +30,9 @@ export const Switch = ({ isChecked, isDisabled, id, label, onClick }: Props) => 
 };
 
 const TRACK_HEIGHT = 'var(--size-lg)';
-const Wrap = styled.div<{ isDisabled?: boolean }>`
+
+type WrapProps = React.HTMLAttributes<HTMLDivElement> & { isDisabled?: boolean };
+const Wrap = styled.div<WrapProps>`
   flex-basis: 0;
   display: flex;
   align-items: center;
@@ -44,7 +47,8 @@ const Wrap = styled.div<{ isDisabled?: boolean }>`
     `}
 `;
 
-const Track = styled.div<{ isChecked: boolean }>`
+type TrackProps = React.HTMLAttributes<HTMLDivElement> & { isChecked: boolean };
+const Track = styled.div<TrackProps>`
   position: relative;
   display: flex;
   width: 3.4rem;
@@ -55,7 +59,8 @@ const Track = styled.div<{ isChecked: boolean }>`
   cursor: pointer;
 `;
 
-const TrackSwitch = styled.input`
+type TrackSwitchProps = React.HTMLAttributes<HTMLInputElement> & { checked: boolean; type: string; readOnly: boolean };
+const TrackSwitch = styled.input<TrackSwitchProps>`
   display: none;
 `;
 

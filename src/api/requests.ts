@@ -1,9 +1,8 @@
 import { createApi, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { ValueOf } from '../Home/Calendar/EditCalendarTask/EditCalendarTask';
 import { actions } from '../reducers/calendar';
 import { actions as toastActions } from '../reducers/toast';
 import { taskSort } from '../shared/utils';
-import { ClientModel, Requests, TasksByDay } from './types';
+import { ClientModel, Requests, TasksByDay, ValueOf } from './types';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 const URL = IS_DEV ? '/api/v1' : '/api/v1';

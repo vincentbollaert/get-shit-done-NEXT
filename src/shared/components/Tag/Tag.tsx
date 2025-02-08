@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 export const Tag = ({ label, className, onClick }: { label: string; className?: string; onClick?: () => void }) => (
@@ -6,11 +7,11 @@ export const Tag = ({ label, className, onClick }: { label: string; className?: 
   </TagWrap>
 );
 
-export const TagsWrap = styled.div`
+export const TagsWrap = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   display: flex;
 `;
 
-const TagWrap = styled.div`
+const TagWrap = styled.div<React.HTMLAttributes<HTMLDivElement>>`
   display: inline-flex;
   flex-grow: 1;
   margin-right: 1px;
