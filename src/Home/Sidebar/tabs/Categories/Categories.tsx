@@ -36,7 +36,7 @@ const Categories = () => {
   );
 };
 
-// eslint-disable-next-line import/no-default-export
+ 
 export default Categories;
 
 export const Wrap = styled.div`

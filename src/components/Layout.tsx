@@ -28,7 +28,7 @@ type Props = {
   title?: string;
   children: ReactNode;
 };
-// eslint-disable-next-line import/no-default-export
+ 
 export default function Layout({ children, title = 'This is the default title' }: Props) {
   const dispatch = useAppDispatch();
   const { data } = useGetSettingsQuery();

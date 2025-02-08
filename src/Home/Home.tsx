@@ -46,7 +46,7 @@ const Home = () => {
   return null;
 };
 
-// eslint-disable-next-line import/no-default-export
+ 
 export default Home;
 
 export const PageWrap = styled.div`

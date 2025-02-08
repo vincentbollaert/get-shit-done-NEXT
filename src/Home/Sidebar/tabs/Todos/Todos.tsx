@@ -50,7 +50,7 @@ const Todos = () => {
   );
 };
 
-// eslint-disable-next-line import/no-default-export
+ 
 export default Todos;
 
 export const Todo = styled.div<{ children: React.ReactNode; onClick: () => void }>`
