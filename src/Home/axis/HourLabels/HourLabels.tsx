@@ -17,7 +17,7 @@ export const HourLabels = () => {
   const [filteredRange, highlightFilteredRange] = useSetCustomRangeLabels({ isBeingFiltered, isFiltered, from });
 
   return (
-    <Wrap>
+    <Wrap data-testid="hour-labels">
       {hoursAxis.map((hour) => (
         <HourLabel
           $isBeingFiltered={isBeingFiltered}

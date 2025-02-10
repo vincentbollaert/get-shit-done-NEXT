@@ -18,19 +18,20 @@ import { SignInForm } from './SignInForm/SignInForm';
 const Home = () => {
   const isSidebarOpen = useAppSelector((state) => state.app).isSidebarOpen;
   const { data: currentUser } = useGetCurrentUserQuery();
+  console.log('currentUser', currentUser)
 
-  if (!currentUser) {
+  // if (!currentUser) {
     return (
       <Modal isVisible title="Sign in" width={17} onOverlayToggle={() => null}>
         <SignInForm />
       </Modal>
     );
-  }
+  // }
 
   if (currentUser) {
     return (
       <PageWrap>
-        <Wrap $isSidebarOpen={isSidebarOpen}>
+        <Wrap data-testid="home-wrap" $isSidebarOpen={isSidebarOpen}>
           <HourLabels />
           <CalendarWrap>
             <DayLabels />

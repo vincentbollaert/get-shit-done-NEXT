@@ -59,8 +59,8 @@ export const Sidebar = () => {
       {/* <Suspense fallback={<div />}> */}
       <InnerWrap>
         <Toggles>
-          <Toggle isActive={isFullscreen} variant="fullscreen" onClick={setIsFullscreen} />
-          <Toggle isActive={isFullscreen} variant="chevron_left" />
+          <Toggle isActive={isFullscreen} variant="fullscreen" onClick={setIsFullscreen} ariaLabel="toggle fullscreen" />
+          <Toggle isActive={isFullscreen} variant="chevron_left" ariaLabel="toggle sidebar" />
         </Toggles>
 
         <Toggles>
@@ -69,7 +69,7 @@ export const Sidebar = () => {
 
         <Toggles>
           {/* TODO: find out how to pass nothing to mutation */}
-          <Toggle variant="logout" onClick={() => onSignout({})} />
+          <Toggle variant="logout" onClick={() => onSignout({})} ariaLabel="sign out" />
         </Toggles>
       </InnerWrap>
 
@@ -86,7 +86,7 @@ const TabItemWrapStyled = styled(TabItemWrap)`
     color: ${(p) => (p.isActive ? 'var(--isabelline)' : 'var(--sonic-silver)')};
   }
 `;
-const Wrap = styled.div`
+const Wrap = styled.aside.attrs({ role: 'complementary' })`
   z-index: 2;
   position: relative;
   display: flex;

@@ -76,7 +76,7 @@ export const Calendar = () => {
   );
 };
 
-export const Wrap = styled.div<{ ref: React.RefObject<HTMLDivElement | null>; children: React.ReactNode }>`
+export const Wrap = styled.main<{ ref: React.RefObject<HTMLDivElement | null>; children: React.ReactNode }>`
   position: relative;
   display: flex;
   flex-grow: 1;

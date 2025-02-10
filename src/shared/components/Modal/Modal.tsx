@@ -26,11 +26,11 @@ export const Modal = ({ isVisible, title, width, children, onOverlayToggle }: Pr
           <Overlay onClick={onOverlayToggle} />
           <ModalWrap $width={width} tabIndex={0}>
             <InnerWrap>
-              <Header>
+              <Header data-testid="modal-header">
                 {title}
-                <IconStyled variant="close" onClick={onOverlayToggle} />
+                <IconStyled variant="close" onClick={onOverlayToggle} ariaLabel="close modal" />
               </Header>
-              <Content>{children}</Content>
+              <Content data-testid="modal-content">{children}</Content>
             </InnerWrap>
           </ModalWrap>
         </Wrap>,

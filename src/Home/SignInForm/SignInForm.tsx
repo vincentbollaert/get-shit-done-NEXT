@@ -24,12 +24,15 @@ export const SignInForm = memo(function SignInForm() {
         shouldAutoFocus
         isInForm
         placeholder="email"
+        ariaLabel="email"
         errorMessage={errors.email?.type}
         {...register('email', { required: true })}
       />
       <TextField
         isInForm
         placeholder="password"
+        ariaLabel="password"
+        type="password"
         errorMessage={errors.password?.type}
         {...register('password', { required: true })}
       />

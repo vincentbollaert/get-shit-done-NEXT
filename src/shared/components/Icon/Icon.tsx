@@ -24,9 +24,10 @@ export type IconProps = {
   size?: number;
   className?: string;
   onClick?(event: React.MouseEvent<HTMLSpanElement, MouseEvent>): void;
+  ariaLabel?: string;
 };
 
-export const Icon = ({ isError = false, themeVariant = 'light', variant, size = 2, className, onClick }: IconProps) => {
+export const Icon = ({ isError = false, themeVariant = 'light', variant, size = 2, className, onClick, ariaLabel }: IconProps) => {
   return (
     <Wrap
       $isError={isError}
@@ -34,6 +35,7 @@ export const Icon = ({ isError = false, themeVariant = 'light', variant, size = 
       $themeVariant={themeVariant}
       className={clsx(className, 'material-icons-outlined')}
       onClick={onClick}
+      aria-label={ariaLabel}
     >
       {variant}
     </Wrap>

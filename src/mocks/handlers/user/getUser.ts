@@ -12,6 +12,12 @@ const getUser = () =>
     return Response.json(mockUser, { status: 200 });
   });
 
+const getUserEmpty = () =>
+  http.get(computeTestingUrl('/api/v1/user/current-user'), async () => {
+    return Response.json(undefined, { status: 200 });
+  });
+
 export const getUserHandlers = {
   defaultHandler: getUser(),
+  empty: getUserEmpty(),
 };

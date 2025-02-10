@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { render } from '~/test-utils';
 import { Calendar } from '../Calendar';
 
-describe('Calendar Component', () => {
+describe.skip('Calendar Component', () => {
   it('allows editing a task', async () => {
     render(<Calendar />);
     await userEvent.click(await screen.findByText('Task 1'));

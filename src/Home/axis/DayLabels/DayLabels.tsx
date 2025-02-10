@@ -20,7 +20,7 @@ export const DayLabels = () => {
   const [filteredRange, highlightFilteredRange] = useSetCustomRangeLabels({ isBeingFiltered, isFiltered, from });
 
   return (
-    <Wrap>
+    <Wrap data-testid="day-labels">
       {daysAxis.map((timestamp) => {
         const date = new Date(timestamp);
         const day = Number(format(date, 'd'));
