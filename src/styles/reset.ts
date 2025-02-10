@@ -1,7 +1,3 @@
-// https://gist.github.com/vincentbollaert/e90def9b351d8d97c90ef7cfd887685e
-
-import '@fontsource/barlow-semi-condensed';
-import '@fontsource/material-icons-outlined';
 import { FONT_SIZE, UNIT_SIZE } from './variables';
 
 export const reset = `
