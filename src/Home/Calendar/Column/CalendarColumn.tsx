@@ -66,6 +66,7 @@ export const CalendarColumn = memo(function CalendarColumn({ timestamp, isCurren
           onMouseEnter={() => setPlaceholderShow(true)}
           onMouseLeave={() => setPlaceholderShow(false)}
           className={CN_HOUR_SLOTS}
+          data-testid="hour-slots"
         >
           {tasksFiltered.map((task) => (
             <Task

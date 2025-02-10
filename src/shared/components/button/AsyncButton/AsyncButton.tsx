@@ -11,6 +11,7 @@ export const AsyncButton = ({
   children,
   asyncStatuses,
   className,
+  ariaLabel,
   onClick,
 }: AsyncButtonProps) => {
   const isError = !!asyncStatuses?.find((x) => x?.isError);
@@ -26,6 +27,7 @@ export const AsyncButton = ({
         accentColor={accentColor}
         type={type}
         className={className}
+        aria-label={ariaLabel}
         onClick={onClick}
       >
         {showSpinner && <SpinnerLoader size={1.6} isLoading={isLoading} />}

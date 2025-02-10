@@ -7,6 +7,7 @@ export type DumbButtonProps = {
   children: React.ReactNode;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   className?: string;
+  ariaLabel?: string;
 };
 
 export type AsyncButtonProps = DumbButtonProps & {

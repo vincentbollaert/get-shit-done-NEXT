@@ -56,6 +56,7 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
         isInForm
         placeholder="name"
         errorMessage={errors.name?.type}
+        ariaLabel='name'
         {...register('name', { required: true, maxLength: 80 })}
       />
       <Dropdown
@@ -70,6 +71,7 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
         defaultValue={time[0]}
         placeholder="time from"
         errorMessage={errors.from?.type}
+        ariaLabel='time-from'
         {...register('from', { required: true })}
       />
       <TextField
@@ -77,6 +79,7 @@ export const AddNewCalendarTask = memo(function AddNewCalendarTask() {
         defaultValue={time[1]}
         placeholder="time to"
         errorMessage={errors.to?.type}
+        ariaLabel='time-to'
         {...register('to', { required: true })}
       />
       <ModalFooter>

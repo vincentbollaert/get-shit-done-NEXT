@@ -18,7 +18,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
   const taskBeingEdited = useSelector((state: AppState) => state.calendar.taskBeingEdited)!;
   const dispatch = useAppDispatch();
   const [selectedCategory, setSelectedCategory] = useState(
-    categories.find((x) => x.name === taskBeingEdited.category)!,
+    categories.find((x) => x.name === taskBeingEdited.category)!
   );
   const { userId, taskId, time, name } = taskBeingEdited!;
   const accentColor = selectedCategory ? colors[selectedCategory.colorId] : undefined;
@@ -65,7 +65,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
           const key = x as keyof ClientModel['Task'];
           taskToUpdate[key] = formfieldsMapped[key];
         }
-      }),
+      })
     );
     dispatch(actions.updateEditedTask(formfieldsMapped));
   }, [watchedFields.name, watchedFields.from, selectedCategory.name, watchedFields.to]);
@@ -78,6 +78,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
         defaultValue={name}
         placeholder="name"
         errorMessage={errors.name?.type}
+        ariaLabel="name"
         {...register('name', { required: true })}
       />
 
@@ -93,6 +94,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
         defaultValue={time[0]}
         placeholder="time from"
         errorMessage={errors.from?.type}
+        ariaLabel="time-from"
         {...register('from', { required: true })}
       />
       <TextField
@@ -100,6 +102,7 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
         defaultValue={time[1]}
         placeholder="time to"
         errorMessage={errors.to?.type}
+        ariaLabel="time-to"
         {...register('to', { required: true })}
       />
       <ModalFooter>
@@ -108,11 +111,12 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
           accentColor={accentColor}
           type="submit"
           asyncStatuses={[asyncStatusUpdate]}
+          ariaLabel="save-task"
         >
           Save task
         </AsyncButton>
 
-        <RemoveButton tooltipPosition="right" asyncStatuses={[removeTaskStatus]}>
+        <RemoveButton tooltipPosition="right" asyncStatuses={[removeTaskStatus]} ariaLabel="remove-task">
           <Icon isError variant="delete" onClick={() => removeTask(taskBeingEdited)} />
         </RemoveButton>
       </ModalFooter>

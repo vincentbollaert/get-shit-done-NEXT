@@ -15,6 +15,7 @@ type Props = {
   children?: React.ReactNode;
   errorMessage?: string;
   className?: string;
+  ariaLabel?: string;
   onChange: ChangeHandler;
 };
 
@@ -31,9 +32,10 @@ const TextFieldUnmemoed = forwardRef(
       children,
       errorMessage,
       className,
+      ariaLabel,
       onChange,
     }: Props,
-    ref: ForwardedRef<HTMLInputElement>,
+    ref: ForwardedRef<HTMLInputElement>
   ) => {
     const [value, setValue] = useState(defaultValue);
     const [isFocused, setIsFocused] = useState(false);
@@ -56,6 +58,7 @@ const TextFieldUnmemoed = forwardRef(
           onBlur={() => setIsFocused(false)}
           autoComplete="off"
           ref={ref}
+          aria-label={ariaLabel}
         />
         <Placeholder $themeVariant={theme} $hasValue={hasValue || isFocused}>
           {placeholder}
@@ -64,7 +67,7 @@ const TextFieldUnmemoed = forwardRef(
         <FieldError errorMessage={errorMessage} />
       </Wrap>
     );
-  },
+  }
 );
 
 TextFieldUnmemoed.displayName = 'Field';

@@ -69,6 +69,7 @@ export const PlaceholderTask = ({
       height={isPlaceholderBeingEdited ? heightFromTime : placeholderHeight}
       onClick={onPrepareNewTask}
       $accentColor={accentColor}
+      data-testid="placeholder-task"
     >
       {taskBeingPrepared?.name}
       {!isPlaceholderBeingEdited && <TimeText>{timeFromY}</TimeText>}
