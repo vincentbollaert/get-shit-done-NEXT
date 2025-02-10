@@ -1,5 +1,5 @@
 /* eslint-env node */
-module.exports = (phase, { defaultConfig }) => {
+export default (phase, { defaultConfig }) => {
   const config = {
     ...defaultConfig,
     compiler: {

@@ -7,6 +7,11 @@
       "jsx": true
     }
   },
+  "env": {
+    "jest": true,
+    "browser": true,
+    "node": true
+  },
   "settings": {
     "import/resolver": {
       "alias": {
@@ -15,12 +20,13 @@
       }
     }
   },
-  "plugins": ["html", "react", "@typescript-eslint", "import"],
+  "plugins": ["html", "react", "@typescript-eslint", "import", "jest"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:jest/recommended"
   ],
   "rules": {
     "react/prop-types": "off",
