@@ -7,7 +7,6 @@ import { useAppDispatch } from '~/Application/Root';
 import { actions, TaskWithMeta } from '~/reducers/calendar';
 import { colors } from '~/shared/constants';
 import { useUndoable } from '~/shared/hooks/useUndoable';
-import { makeHoursAxis } from '~/shared/selectors';
 import { ellipsis, rgbAdjust } from '~/styles';
 import { CN_COLUMN, CN_TASK_GAP, taskShadow, taskShadowBeingEdited } from '../shared';
 
@@ -22,7 +21,7 @@ export const Task = memo(function Task({ task, categories = [], isBeingEdited }:
   const dispatch = useAppDispatch();
 
   const { category, name, gapBefore, gapAfter, heightInFlex } = task;
-  const hoursAxis = useSelector(makeHoursAxis);
+  const hoursAxis = useSelector((state: AppState) => state.calendar.hoursAxis);
   const { colorId } = categories.find((x) => x.name === category) || {};
   const accentColor = colorId ? colors[colorId] : '000';
 

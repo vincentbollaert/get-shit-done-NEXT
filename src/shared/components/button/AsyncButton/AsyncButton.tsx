@@ -24,7 +24,7 @@ export const AsyncButton = ({
       <ButtonStyledWrap
         disabled={isDisabled}
         $isError={isError}
-        accentColor={accentColor}
+        $accentColor={accentColor}
         type={type}
         className={className}
         aria-label={ariaLabel}

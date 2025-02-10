@@ -21,7 +21,7 @@ export const SvgButtonWrap = styled.button<SvgButtonWrapProps>`
 // TODO: disabled and type shouldn't have to be typed
 type ButtonStyledWrapProps = React.HTMLAttributes<HTMLButtonElement> & {
   $isError?: boolean;
-  accentColor?: string;
+  $accentColor?: string;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
 };
@@ -46,14 +46,14 @@ export const ButtonStyledWrap = styled.button<ButtonStyledWrapProps>`
   }
 
   ${(p) =>
-    p.accentColor &&
+    p.$accentColor &&
     css`
-      background-color: ${p.accentColor};
-      color: ${rgbAdjust(p.accentColor, -100)};
+      background-color: ${p.$accentColor};
+      color: ${rgbAdjust(p.$accentColor, -100)};
 
       &:hover {
-        background-color: ${rgbAdjust(p.accentColor, -20)};
-        color: ${rgbAdjust(p.accentColor, -120)};
+        background-color: ${rgbAdjust(p.$accentColor, -20)};
+        color: ${rgbAdjust(p.$accentColor, -120)};
       }
     `};
 

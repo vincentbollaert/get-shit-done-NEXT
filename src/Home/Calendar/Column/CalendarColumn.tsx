@@ -4,7 +4,6 @@ import styled, { css } from 'styled-components';
 import { useGetCategoriesQuery } from '~/api/requests';
 import { AppState } from '~/Application/Root';
 import { TaskWithMeta } from '~/reducers/calendar';
-import { makeHoursAxis } from '~/shared/selectors';
 import { determinePlaceholderHeight } from '~/shared/utils';
 import { STYLE_COLUMN_MARGIN } from '~/styles';
 import { CurrentTime } from '../CurrentTime/CurrentTime';
@@ -21,7 +20,7 @@ type Props = {
 
 export const CalendarColumn = memo(function CalendarColumn({ timestamp, isCurrentDay, tasksFiltered = [] }: Props) {
   const { data: categories = [] } = useGetCategoriesQuery();
-  const hoursAxis = useSelector(makeHoursAxis);
+  const hoursAxis = useSelector((state: AppState) => state.calendar.hoursAxis);
   const taskBeingEdited = useSelector((state: AppState) => state.calendar.taskBeingEdited);
   const taskBeingPrepared = useSelector((state: AppState) => state.calendar.taskBeingPrepared);
   // console.log('COMP: CalendarColumn')

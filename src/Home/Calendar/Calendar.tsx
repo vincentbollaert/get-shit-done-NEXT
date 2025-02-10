@@ -7,7 +7,6 @@ import { ClientModel, ValueOf } from '~/api/types';
 import { AppState, useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { CN_LOADER, Modal, SpinnerLoader } from '~/shared/components';
-import { makeDaysAxis, makeHoursAxis } from '~/shared/selectors';
 import { mapTasksByDay } from '~/shared/utils';
 import { AddNewCalendarTask } from './AddNewCalendarTask/AddNewCalendarTask';
 import { CalendarColumn } from './Column/CalendarColumn';
@@ -15,8 +14,8 @@ import { EditCalendarTask } from './EditCalendarTask/EditCalendarTask';
 
 const CalendarColumns = () => {
   const { data: allTasksByDay } = useGetTasksQuery();
-  const daysAxis = useSelector(makeDaysAxis);
-  const hoursAxis = useSelector(makeHoursAxis);
+  const daysAxis = useSelector((state: AppState) => state.calendar.daysAxis);
+  const hoursAxis = useSelector((state: AppState) => state.calendar.hoursAxis);
   const allTasksByDayMapped = useMemo(() => mapTasksByDay(hoursAxis, allTasksByDay), [hoursAxis, allTasksByDay]);
 
   return (
@@ -51,13 +50,13 @@ export const Calendar = () => {
     dispatch(
       tasksApi.util.updateQueryData('getTasks', undefined, (draft) => {
         const taskToUpdate = draft[taskBeingEditedClone!.timestamp].tasks.find(
-          (task) => task.taskId === taskBeingEditedClone!.taskId,
+          (task) => task.taskId === taskBeingEditedClone!.taskId
         ) as Record<keyof ClientModel['Task'], ValueOf<ClientModel['Task']>>;
         for (const task in taskToUpdate) {
           const key = task as keyof ClientModel['Task'];
           taskToUpdate[key] = taskBeingEditedClone![key];
         }
-      }),
+      })
     );
   }, [taskBeingEditedClone]);
 
