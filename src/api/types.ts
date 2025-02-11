@@ -1,44 +1,15 @@
 import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import type { NextApiRequest } from 'next';
+import { components, paths } from './types/schema';
 
 export type ValueOf<T> = T[keyof T];
 
-export type Models = {
-  Category: {
-    name: string;
-    colorId: string;
-    userId: string;
-  };
-  Settings: {
-    theme: 'light' | 'dark' | 'high contrast';
-    size: 'compact' | 'normal' | 'breath';
-    daysToShow: '1week' | '3weeks' | '1month';
-    hoursToShow: number[];
-    isHomepage: boolean;
-    showGridLines: boolean;
-    showHourMarkers: boolean;
-    shouldScrollColumns: boolean;
-    hideCalendarInactive: boolean;
-    hideCalendarStartup: boolean;
-    shouldAutoLogout: boolean;
-    userId: string;
-  };
-  Task: {
-    timestamp: string;
-    name: string;
-    category: string;
-    time: number[];
-    userId: string;
-  };
+export type Models = components['schemas'] & {
   Todo: {
     todoName: string;
     isDone?: boolean;
     userId: string;
-  };
-  User: {
-    email: string;
-    password: string;
   };
 };
 
@@ -52,6 +23,7 @@ export type TasksByDay = {
 
 // type TaskUnsaved = Models['Task'] & { taskId?: string };
 
+// SIMPLER
 export type ClientModel = {
   Task: Models['Task'] & { taskId: string };
   Category: Models['Category'] & { categoryId: string };
@@ -60,20 +32,32 @@ export type ClientModel = {
   Settings: Models['Settings'];
 };
 
+// COMPLEX
+// export type ClientModel = Record<
+//   keyof Models,
+//   {
+//     Task: Models['Task'] & { taskId: string };
+//     Category: Models['Category'] & { categoryId: string };
+//     Todo: Models['Todo'] & { todoId: string };
+//     User: Omit<Models['User'], 'password'> & { userId: string };
+//     Settings: Models['Settings'];
+//   }[keyof Models]
+// >;
+
 export type Requests = {
-  GetTasks: string; // monthOfTasks
-  AddTask: Models['Task'];
-  SaveTask: Partial<ClientModel['Task']> & Pick<ClientModel['Task'], 'taskId' | 'timestamp'>;
-  RemoveTask: Partial<ClientModel['Task']> & Pick<ClientModel['Task'], 'taskId' | 'timestamp'>;
-  AddCategory: Models['Category'];
-  UpdateCategory: Partial<ClientModel['Category']> & Pick<ClientModel['Category'], 'categoryId' | 'colorId'>;
+  GetTasks: paths['/tasks']['get']['parameters']['query']['month'];
+  AddTask: paths['/tasks']['post']['requestBody']['content']['application/json'];
+  SaveTask: paths['/tasks/{taskId}']['patch']['requestBody']['content']['application/json'];
+  RemoveTask: paths['/tasks/{taskId}']['delete']['parameters']['path']['taskId'];
+  AddCategory: paths['/categories']['post']['requestBody']['content']['application/json'];
+  UpdateCategory: paths['/categories/{categoryId}']['patch']['requestBody']['content']['application/json'];
   RemoveCategory: string; // categoryId
-  UpdateSettings: Partial<ClientModel['Settings']>;
+  UpdateSettings: paths['/settings']['patch']['requestBody']['content']['application/json'];
   AddTodo: Omit<Models['Todo'], 'isDone'>;
   UpdateTodo: Partial<ClientModel['Todo']> & Pick<ClientModel['Todo'], 'todoId'>;
   RemoveTodo: string; // todoId
   SignUp: Models['User'];
-  SignIn: Models['User'];
+  SignIn: paths['/user']['post']['requestBody']['content']['application/json'];
   SignOut: unknown;
 };
 

@@ -10,7 +10,6 @@ import { reset } from '../styles';
 
 import { Barlow_Semi_Condensed } from 'next/font/google';
 
-// If loading a variable font, you don't need to specify the font weight
 const barlowFont = Barlow_Semi_Condensed({
   subsets: ['latin'],
   display: 'swap',
