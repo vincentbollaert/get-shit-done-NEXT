@@ -11,7 +11,7 @@ const mockTasks: TasksByDay = {
         time: [5, 8],
         // TODO: this timestamp should not be needed. in fact, overhaul these timestamps
         timestamp: 'Sat Feb 08 2025 00:00:00 GMT+0100 (Central European Standard Time)',
-        category: 'Personal',
+        category: 'Work',
         userId: 'test-user-1',
       },
     ],

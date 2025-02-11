@@ -1,36 +1,29 @@
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { render, within } from '~/test-utils';
+import { render } from '~/test-utils';
 import { setIsLoggedIn } from '../../mocks/handlers/user/getUser';
 import Home from '../Home';
 
-describe('Home Component', () => {
+const flows = {
+  signIn: async () => {
+    await userEvent.type(await screen.findByRole('textbox', { name: 'email' }), 'test@example.com');
+    await userEvent.type(screen.getByLabelText('password'), 'password');
+    await userEvent.click(screen.getByRole('button', { name: 'Sign in' }));
+  },
+};
+
+describe('<Home />', () => {
   describe('Authentication', () => {
-    beforeEach(() => {
+    it('renders app after signing in', async () => {
       setIsLoggedIn(false);
-    });
-
-    it('shows sign in form when user is not authenticated', async () => {
       render(<Home />);
 
-      expect(within(screen.getByTestId('modal-header')).getByText('Sign in')).toBeInTheDocument();
-      expect(screen.getByRole('textbox', { name: 'email' })).toBeInTheDocument();
-      expect(screen.getByLabelText('password')).toBeInTheDocument();
-      expect(screen.getByRole('button', { name: 'Sign in' })).toBeInTheDocument();
-    });
+      await flows.signIn();
 
-    it('shows main layout after signing in', async () => {
-      render(<Home />);
-
-      const emailField = await screen.findByRole('textbox', { name: 'email' });
-      userEvent.click(emailField);
-      await userEvent.type(emailField, 'test@example.com');
-      await userEvent.type(screen.getByLabelText('password'), 'password');
-      await userEvent.click(screen.getByRole('button', { name: 'Sign in' }));
-
-      await expect(screen.findByText('Task 1')).resolves.toBeInTheDocument();
-      await expect(screen.findByRole('complementary')).resolves.toBeInTheDocument(); // Sidebar
-      expect(screen.getByRole('main')).toBeInTheDocument(); // Calendar
+      await expect(screen.findByRole('complementary')).resolves.toBeInTheDocument();
+      expect(screen.getByText('Task 1')).toBeInTheDocument();
+      expect(screen.getByTestId('hour-labels')).toBeInTheDocument();
+      expect(screen.getByTestId('day-labels')).toBeInTheDocument();
     });
   });
 
