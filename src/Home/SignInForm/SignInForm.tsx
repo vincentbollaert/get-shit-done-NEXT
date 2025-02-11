@@ -14,7 +14,6 @@ export const SignInForm = memo(function SignInForm() {
   const { errors } = formState;
   const onSubmit: SubmitHandler<FormFields> = async (formData) => {
     const response = await signin(formData).unwrap();
-    console.log(response);
   };
   const isDisabled = !!Object.entries(errors).length;
 
