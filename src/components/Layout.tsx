@@ -8,6 +8,15 @@ import { actions } from '~/reducers/calendar';
 import { themes } from '~/shared/themes';
 import { reset } from '../styles';
 
+import { Barlow_Semi_Condensed } from 'next/font/google';
+
+// If loading a variable font, you don't need to specify the font weight
+const barlowFont = Barlow_Semi_Condensed({
+  subsets: ['latin'],
+  display: 'swap',
+  weight: '400',
+});
+
 const GlobalStyle = createGlobalStyle<{ $activeSizeTheme: ClientModel['Settings']['size'] }>`
   html {
     font-size: ${(p) => (p.$activeSizeTheme === 'normal' ? '62.5%' : p.$activeSizeTheme === 'breath' ? '50%' : '75%')};
@@ -48,7 +57,7 @@ export default function Layout({ children, title = 'This is the default title' }
       </Head>
       <GlobalStyle $activeSizeTheme={activeSizeTheme} />
       <ThemeProvider theme={activeColorThemeValues}>
-        <PageWrap>{children}</PageWrap>
+        <PageWrap className={barlowFont.className}>{children}</PageWrap>
       </ThemeProvider>
     </>
   );

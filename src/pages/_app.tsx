@@ -6,7 +6,6 @@ import { useMswInit } from '~/shared/hooks/useMswInit';
 import '../styles/critical.scss';
 import '../styles/utility-classes.scss';
 
-// Import Material Icons font
 import Head from 'next/head';
 
 export default function ApplicationRoot({ Component, pageProps }: AppProps) {
