@@ -1,12 +1,11 @@
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
-import { useRemoveTaskMutation } from '~/api/requests';
 import { ClientModel } from '~/api/types';
-import { useAppDispatch } from '~/Application/Root';
-import { actions, TaskWithMeta } from '~/reducers/calendar';
+import { AppState } from '~/Application/Root';
+import { TaskWithMeta } from '~/reducers/calendar';
 import { colors } from '~/shared/constants';
-import { useUndoable } from '~/shared/hooks/useUndoable';
+import { useTaskManagement } from '~/shared/hooks/useTaskManagement';
 import { ellipsis, rgbAdjust } from '~/styles';
 import { CN_COLUMN, CN_TASK_GAP, taskShadow, taskShadowBeingEdited } from '../shared';
 
@@ -16,19 +15,11 @@ type Props = {
   categories: ClientModel['Category'][];
 };
 export const Task = memo(function Task({ task, categories = [], isBeingEdited }: Props) {
-  const undoable = useUndoable();
-  const [removeTask] = useRemoveTaskMutation();
-  const dispatch = useAppDispatch();
-
+  const { handleTaskEdit, handleTaskRemove } = useTaskManagement();
   const { category, name, gapBefore, gapAfter, heightInFlex } = task;
   const hoursAxis = useSelector((state: AppState) => state.calendar.hoursAxis);
   const { colorId } = categories.find((x) => x.name === category) || {};
   const accentColor = colorId ? colors[colorId] : '000';
-
-  const onRemoveTask = (task: TaskWithMeta) => {
-    const promise = removeTask(task);
-    undoable({ promise, tags: ['Task'] });
-  };
 
   return (
     <>
@@ -39,8 +30,8 @@ export const Task = memo(function Task({ task, categories = [], isBeingEdited }:
           $accentColor={accentColor}
           $isSmall={hoursAxis.length > 16 && heightInFlex <= 0.25}
           $isBeingEdited={isBeingEdited}
-          onClick={() => dispatch(actions.editTaskPrepare(task))}
-          onAuxClick={() => onRemoveTask(task)}
+          onClick={() => handleTaskEdit(task)}
+          onAuxClick={() => handleTaskRemove(task)}
         >
           {name}
         </Cell>

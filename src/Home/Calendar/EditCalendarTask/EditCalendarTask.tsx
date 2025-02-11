@@ -1,32 +1,30 @@
 import { memo, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { tasksApi, useGetCategoriesQuery, useRemoveTaskMutation, useSaveTaskMutation } from '~/api/requests';
+import { tasksApi, useGetCategoriesQuery } from '~/api/requests';
 import { ClientModel, ValueOf } from '~/api/types';
-import { AppState, useAppDispatch } from '~/Application/Root';
+import { useAppDispatch } from '~/Application/Root';
 import { actions } from '~/reducers/calendar';
 import { AsyncButton, AsyncSvgButton, Dropdown, Icon, ModalFooter, TextField } from '~/shared/components';
 import { colors } from '~/shared/constants';
+import { useTaskManagement } from '~/shared/hooks/useTaskManagement';
 import { TaskFormValues } from '../shared';
 
 // TODO: timestamp should come from taskBeingEdited
 export const EditCalendarTask = memo(function EditCalendarTask() {
   const { data: categories = [] } = useGetCategoriesQuery();
-  const [updateTask, asyncStatusUpdate] = useSaveTaskMutation();
-  const [removeTask, removeTaskStatus] = useRemoveTaskMutation();
-  const taskBeingEdited = useSelector((state: AppState) => state.calendar.taskBeingEdited)!;
+  const { taskBeingEdited, handleTaskUpdate, handleTaskRemove, asyncStatuses } = useTaskManagement();
   const dispatch = useAppDispatch();
+
   const [selectedCategory, setSelectedCategory] = useState(
-    categories.find((x) => x.name === taskBeingEdited.category)!
+    categories.find((x) => x.name === taskBeingEdited!.category)!
   );
-  const { userId, taskId, time, name } = taskBeingEdited!;
+  const { userId, taskId, time, name, timestamp } = taskBeingEdited!;
   const accentColor = selectedCategory ? colors[selectedCategory.colorId] : undefined;
-  const timestamp = taskBeingEdited.timestamp;
 
   const onSubmit: SubmitHandler<TaskFormValues> = (data) => {
     const { name, from, to } = data;
-    return updateTask({
+    return handleTaskUpdate({
       taskId,
       name,
       category: selectedCategory.name,
@@ -110,14 +108,18 @@ export const EditCalendarTask = memo(function EditCalendarTask() {
           isDisabled={hasValidationErrors}
           accentColor={accentColor}
           type="submit"
-          asyncStatuses={[asyncStatusUpdate]}
+          asyncStatuses={[asyncStatuses.update]}
           ariaLabel="save-task"
         >
           Save task
         </AsyncButton>
 
-        <RemoveButton tooltipPosition="right" asyncStatuses={[removeTaskStatus]} ariaLabel="remove-task">
-          <Icon isError variant="delete" onClick={() => removeTask(taskBeingEdited)} />
+        <RemoveButton tooltipPosition="right" asyncStatuses={[asyncStatuses.remove]} ariaLabel="remove-task">
+          <Icon 
+            isError 
+            variant="delete" 
+            onClick={() => handleTaskRemove({ taskId, timestamp })} 
+          />
         </RemoveButton>
       </ModalFooter>
     </form>
